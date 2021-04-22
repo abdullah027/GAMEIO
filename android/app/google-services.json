@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "454585843091",
+    "project_id": "gameio-f85eb",
+    "storage_bucket": "gameio-f85eb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:454585843091:android:6dbb81c433524b95ee7c66",
+        "android_client_info": {
+          "package_name": "com.neon.gameio"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "454585843091-sicjtv8iscaena2jnnvvummqqjc44uvc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDjYTVt3KD8wwiQnCIeyvgReZHO7rYzlO4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "454585843091-sicjtv8iscaena2jnnvvummqqjc44uvc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
