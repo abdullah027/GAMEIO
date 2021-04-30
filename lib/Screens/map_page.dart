@@ -14,9 +14,17 @@ class _MapPageState extends State<MapPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        actions: <Widget>[
+          TextButton.icon(
+              onPressed:(){},
+              icon: Icon(Icons.logout,color: Colors.white,),
+              label: Text(''),
+          ),
+
+        ],
         title: Center(
           child: Container(
-            padding: EdgeInsets.only(right: 35),
+            alignment: Alignment.center,
             child: Text(
               'Gameio',
               style: TextStyle(
@@ -32,12 +40,15 @@ class _MapPageState extends State<MapPage> {
           SizedBox(
             height: 100,
           ),
-          Container(
-            height: 300,
-            width: double.infinity,
-            child: GoogleMap(
-              initialCameraPosition: _initialPosition,
-              mapType: MapType.normal,
+          Expanded(
+            flex: 0,
+            child: Container(
+              height: 300,
+              width: double.infinity,
+              child: GoogleMap(
+                initialCameraPosition: _initialPosition,
+                mapType: MapType.normal,
+              ),
             ),
           ),
         ],

@@ -1,4 +1,4 @@
-package com.neon.gameio
+package com.fyp.gameio
 
 import io.flutter.embedding.android.FlutterActivity
 

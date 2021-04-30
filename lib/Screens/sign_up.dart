@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:gameio/firebase_auth.dart';
-import 'package:gameio/welcome_page.dart';
+import 'package:gameio/Services/firebase_auth.dart';
+import 'package:gameio/Screens/welcome_page.dart';
 import 'package:provider/provider.dart';
 
 class SignUp extends StatefulWidget {
@@ -132,14 +132,14 @@ class _SignUpState extends State<SignUp> {
               padding: EdgeInsets.all(0),
               child: TextButton(
                 onPressed: () {
-                  if(FirebaseAuth.instance.currentUser?.uid == null){
+                 // if(FirebaseAuth.instance.currentUser?.uid == null){
                     // not logged
-                  } else {
+                  //} else {
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => WelcomeScreen()),         // logged
                     );
-                  }
+                  //}
                 },
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all<Color>(Color(0xFFEB1555)),

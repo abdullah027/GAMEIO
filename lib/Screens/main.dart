@@ -1,12 +1,12 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:gameio/home_page.dart';
-//import 'package:gameio/log_in.dart';
+import 'package:gameio/Screens/log_in.dart';
+import 'package:gameio/Screens/sign_up.dart';
 import 'home_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
-import 'package:gameio/firebase_auth.dart';
+import 'package:gameio/Services/firebase_auth.dart';
 //import 'map_page.dart';
 import 'welcome_page.dart';
 
@@ -18,6 +18,7 @@ Future<void> main() async {
 
 
 class MyApp extends StatelessWidget {
+  @override
   Widget build(BuildContext context) {
     return MultiProvider(
         providers: [
@@ -39,13 +40,17 @@ class MyApp extends StatelessWidget {
 }
 class AuthenticationWrapper extends StatelessWidget {
   @override
+  const AuthenticationWrapper({
+    Key key,
+  }) : super(key: key);
+  @override
   Widget build(BuildContext context) {
-    final firebaseUser = context.watch<User>();
-
+    final firebaseUser =context.watch<User>();
     if (firebaseUser != null) {
       return WelcomeScreen();
     }
     return HomePage();
   }
 }
+
 
