@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:gameio/Screens/fill_info.dart';
 import 'package:gameio/Services/firebase_auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
@@ -20,12 +21,18 @@ class WelcomeScreen extends StatelessWidget {
             children: <Widget>[
               Expanded(
                 flex: 5,
-                child: Text(
-                  "Welcome $userEmail",
-                  style: TextStyle(
-                    fontSize: 32,
-                    fontWeight: FontWeight.w500,
-                  ),
+                child: Row(
+                  children: [
+                    Flexible(
+                      child: Text(
+                        "Welcome $userEmail",
+                        style: TextStyle(
+                          fontSize: 32,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
               Expanded(
@@ -39,7 +46,7 @@ class WelcomeScreen extends StatelessWidget {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => MapPage()),
+                      MaterialPageRoute(builder: (context) => FillInfo()),
                     );
                   },
                   style: ButtonStyle(

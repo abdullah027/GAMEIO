@@ -23,24 +23,26 @@ class _SignUpState extends State<SignUp> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            Container(
-              color: Color(0XFF1D1F33),
-              padding: EdgeInsets.all(0),
-              margin: EdgeInsets.only(left: 10,right: 10),
-              child: TextField(
-                textAlign: TextAlign.center,
-                controller: nameController,
-                cursorColor: Colors.red,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: 'First Name',
+            Flexible(
+              child: Container(
+                color: Color(0XFF1D1F33),
+                padding: EdgeInsets.all(0),
+                margin: EdgeInsets.only(left: 10,right: 10),
+                child: TextField(
+                  textAlign: TextAlign.center,
+                  controller: nameController,
+                  cursorColor: Colors.red,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    hintText: 'First Name',
+                  ),
                 ),
               ),
             ),
             SizedBox(
               height: 5,
             ),
-            Container(
+            Flexible(child:Container(
               color: Color(0XFF1D1F33),
               padding: EdgeInsets.all(0),
               margin: EdgeInsets.only(left: 10,right: 10),
@@ -53,29 +55,32 @@ class _SignUpState extends State<SignUp> {
                     border: OutlineInputBorder(),
                     hintText: 'Email'),
               ),
+             ),
             ),
             SizedBox(
               height: 5,
             ),
-            Container(
-              color: Color(0XFF1D1F33),
-              padding: EdgeInsets.all(0),
-              margin: EdgeInsets.only(left: 10,right: 10),
-              child: TextField(
-                obscureText: true,
-                textAlign: TextAlign.center,
-                controller: passwordController,
-                cursorColor: Colors.red,
-                decoration: InputDecoration(
-                    hoverColor: Colors.white,
-                    border: OutlineInputBorder(),
-                    hintText: 'Password'),
+            Flexible(
+              child: Container(
+                color: Color(0XFF1D1F33),
+                padding: EdgeInsets.all(0),
+                margin: EdgeInsets.only(left: 10,right: 10),
+                child: TextField(
+                  obscureText: true,
+                  textAlign: TextAlign.center,
+                  controller: passwordController,
+                  cursorColor: Colors.red,
+                  decoration: InputDecoration(
+                      hoverColor: Colors.white,
+                      border: OutlineInputBorder(),
+                      hintText: 'Password'),
+                ),
               ),
             ),
             SizedBox(
               height: 5,
             ),
-            Container(
+            Flexible(child:Container(
               color: Color(0XFF1D1F33),
               padding: EdgeInsets.all(0),
               margin: EdgeInsets.only(left: 10,right: 10),
@@ -89,44 +94,46 @@ class _SignUpState extends State<SignUp> {
                     border: OutlineInputBorder(),
                     hintText: 'Confirm password'),
               ),
+            ),),
+            SizedBox(
+              height: 10,
+            ),
+            Flexible(
+              child: Container(
+                width: 150,
+                height: 50,
+                padding: EdgeInsets.all(0),
+                child: TextButton(
+                  onPressed: () {
+                    if(passwordController.text.trim() == cPasswordController.text.trim()){
+                      context.read<AuthenticationService>().signUp(
+                        email: emailController.text.trim(),
+                        password: passwordController.text.trim(),
+                      );
+
+
+                    }else{
+                      emailController
+                        ..text = "Passwords do not match"
+                        ..selection = TextSelection.fromPosition(TextPosition(
+                            offset: emailController.text.length,
+                            affinity: TextAffinity.upstream));
+                    }
+                  },
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all<Color>(Color(0xFFEB1555)),
+                  ),
+                  child: Text(
+                    'Register',
+                    style: TextStyle(color: Colors.white,
+                      fontWeight: FontWeight.bold,),
+                  ),),
+              ),
             ),
             SizedBox(
               height: 10,
             ),
-            Container(
-              width: 150,
-              height: 50,
-              padding: EdgeInsets.all(0),
-              child: TextButton(
-                onPressed: () {
-                  if(passwordController.text.trim() == cPasswordController.text.trim()){
-                    context.read<AuthenticationService>().signUp(
-                      email: emailController.text.trim(),
-                      password: passwordController.text.trim(),
-                    );
-
-
-                  }else{
-                    emailController
-                      ..text = "Passwords do not match"
-                      ..selection = TextSelection.fromPosition(TextPosition(
-                          offset: emailController.text.length,
-                          affinity: TextAffinity.upstream));
-                  }
-                },
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all<Color>(Color(0xFFEB1555)),
-                ),
-                child: Text(
-                  'Register',
-                  style: TextStyle(color: Colors.white,
-                    fontWeight: FontWeight.bold,),
-                ),),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Container(
+            Flexible(child:Container(
               width: 150,
               height: 50,
               padding: EdgeInsets.all(0),
@@ -149,7 +156,7 @@ class _SignUpState extends State<SignUp> {
                   style: TextStyle(color: Colors.white,
                     fontWeight: FontWeight.bold,),
                 ),),
-            ),
+            ),),
           ],
         ),
       ),
