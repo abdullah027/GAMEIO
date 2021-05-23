@@ -44,153 +44,147 @@ class _FillInfoState extends State<FillInfo> {
           ),
         ),
       ),
-      body: Padding(
-        padding: EdgeInsets.fromLTRB(2, 22, 2, 22),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Flexible(
-              child: Container(
-                color: Color(0XFF1D1F33),
-                padding: EdgeInsets.all(0),
-                margin: EdgeInsets.only(left: 10, right: 10),
-                child: TextField(
-                  textAlign: TextAlign.center,
-                  controller: usernameController,
-                  cursorColor: Colors.red,
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    hintText: 'Username',
-                  ),
-                ),
-              ),
-            ),
-            //SizedBox(
-             // height: 20,
-            //),
-            Flexible(
-              flex: 4,
-              child: Container(
-                color: Color(0XFF1D1F33),
-                padding: EdgeInsets.all(0),
-                margin: EdgeInsets.only(left: 10, right: 10),
-                child: TextField(
-                  keyboardType: TextInputType.multiline,
-                  maxLines: 11,
-                  textAlign: TextAlign.left,
-                  controller: bioController,
-                  cursorColor: Colors.red,
-                  decoration: InputDecoration(
-                      hoverColor: Colors.white,
-                      border: OutlineInputBorder(),
-                      hintText: 'Description...'),
-                ),
-              ),
-            ),
-            //SizedBox(
-              //height: 25,
-            //),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Flexible(
-                  child: Container(
-                    color: Color(0XFF1D1F33),
-                    padding: EdgeInsets.all(0),
-                    margin: EdgeInsets.only(left: 10),
-                    height: 40,
-                    width: 89,
-                    child: TextButton(
-                      child: Text(
-                        "Select DOB",
-                        style: TextStyle(
-                          color: Colors.white,
+      body: SafeArea(
+          child: ListView(
+            children: [
+              Padding(
+                padding: EdgeInsets.fromLTRB(6, 10, 6, 0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                      color: Color(0XFF1D1F33),
+                      padding: EdgeInsets.all(0),
+                      margin: EdgeInsets.only(left: 10, right: 10),
+                      child: TextField(
+                        textAlign: TextAlign.center,
+                        controller: usernameController,
+                        cursorColor: Colors.red,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          hintText: 'Username',
                         ),
                       ),
-                      onPressed: () {
-                        selectDate(context);
-                      },
                     ),
-                  ),
-                ),
-                Flexible(
-                  child: Container(
-                    height: 30,
-                    width: 80,
-                    alignment: Alignment.center,
-                    child: TextField(
-                      controller: ageController,
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w400,
+                    SizedBox(
+                     height: 20,
+                    ),
+                    Container(
+                      color: Color(0XFF1D1F33),
+                      padding: EdgeInsets.all(0),
+                      margin: EdgeInsets.only(left: 10, right: 10),
+                      child: TextField(
+                        keyboardType: TextInputType.multiline,
+                        maxLines: 11,
+                        textAlign: TextAlign.left,
+                        controller: bioController,
+                        cursorColor: Colors.red,
+                        decoration: InputDecoration(
+                            hoverColor: Colors.white,
+                            border: OutlineInputBorder(),
+                            hintText: 'Description...'),
                       ),
                     ),
-                  ),
-                ),
-                Flexible(
-                  child: Container(
-                    margin: EdgeInsets.only(right: 10),
-                    child: DropdownButton<String>(
-                      dropdownColor: Colors.white,
-                      value: dropdownValue,
-                      elevation: 16,
-                      style: TextStyle(color: Colors.white),
-                      underline: Container(
-                        height: 4,
-                        color: Colors.white,
-                      ),
-                      onChanged: (String newValue) {
-                        setState(() {
-                          dropdownValue = newValue;
-                        });
-                      },
-                      items: <String>[
-                        'Male',
-                        'Female',
-                        'Other',
-                      ].map<DropdownMenuItem<String>>((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(value),
-                        );
-                      }).toList(),
+                    SizedBox(
+                    height: 25,
                     ),
-                  ),
-                ),
-              ],
-            ),
-            //SizedBox(
-             // height: 100,
-            //),
-            Flexible(
-              child: Container(
-                margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                width: double.infinity,
-                child: TextButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => MapPage()),
-                    );
-                  },
-                  style: ButtonStyle(
-                    backgroundColor:
-                        MaterialStateProperty.all<Color>(Color(0xFFEB1555)),
-                  ),
-                  child: Center(
-                    child: Text("Update",
-                        style: TextStyle(
-                          fontSize: 23,
-                          color: Colors.white,
-                        )),
-                  ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Container(
+                          color: Color(0XFF1D1F33),
+                          padding: EdgeInsets.all(0),
+                          margin: EdgeInsets.only(left: 10),
+                          height: 40,
+                          width: 89,
+                          child: TextButton(
+                            child: Text(
+                              "Select DOB",
+                              style: TextStyle(
+                                color: Colors.white,
+                              ),
+                            ),
+                            onPressed: () {
+                              selectDate(context);
+                            },
+                          ),
+                        ),
+                        Container(
+                          height: 30,
+                          width: 80,
+                          alignment: Alignment.center,
+                          child: TextField(
+                            controller: ageController,
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(right: 10),
+                          child: DropdownButton<String>(
+                            dropdownColor: Colors.white,
+                            value: dropdownValue,
+                            elevation: 16,
+                            style: TextStyle(color: Colors.white),
+                            underline: Container(
+                              height: 4,
+                              color: Colors.white,
+                            ),
+                            onChanged: (String newValue) {
+                              setState(() {
+                                dropdownValue = newValue;
+                              });
+                            },
+                            items: <String>[
+                              'Male',
+                              'Female',
+                              'Other',
+                            ].map<DropdownMenuItem<String>>((String value) {
+                              return DropdownMenuItem<String>(
+                                value: value,
+                                child: Text(value),
+                              );
+                            }).toList(),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                     height: 20,
+                    ),
+                    Container(
+                      height: 50,
+                      margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                      width: double.infinity,
+                      child: TextButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => MapPage()),
+                          );
+                        },
+                        style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all<Color>(Color(0xFFEB1555)),
+                        ),
+                        child: Center(
+                          child: Text("Update",
+                              style: TextStyle(
+                                fontSize: 23,
+                                color: Colors.white,
+                              )),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
-      ),
     );
   }
 

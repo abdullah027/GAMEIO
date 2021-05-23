@@ -23,8 +23,7 @@ class _LogInState extends State<LogIn> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              Expanded(
-                flex: 5,
+              Flexible(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [

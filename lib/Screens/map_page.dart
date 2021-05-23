@@ -50,7 +50,7 @@ class _MapPageState extends State<MapPage> {
                   decoration: BoxDecoration(
                     color: Color(0xFF111439),
                   ),
-                  child: Text('Drawer Header'),
+                  child: Text('GAMEIO'),
                 ),
                 ListTile(
                   title: Text('Edit Profile'),
