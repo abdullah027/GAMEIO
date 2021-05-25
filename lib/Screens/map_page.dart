@@ -1,13 +1,12 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:gameio/Services/firebase_auth.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter/services.dart' show rootBundle;
 
 import 'fill_info.dart';
-
 
 class MapPage extends StatefulWidget {
   @override
@@ -15,7 +14,6 @@ class MapPage extends StatefulWidget {
 }
 
 class _MapPageState extends State<MapPage> {
-
   Completer<GoogleMapController> _controllerGoogleMap = Completer();
   GoogleMapController newGoogleMapController;
 
@@ -23,62 +21,89 @@ class _MapPageState extends State<MapPage> {
 
   var geoLocator = Geolocator();
   Position currentPosition;
+  Set<Marker> _markers = {};
+  String _mapStyle;
 
-  void locatePosition () async {
-      Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
-      currentPosition = position;
-
-      LatLng latLngPosition = LatLng(position.latitude, position.longitude);
-      CameraPosition cameraPosition = new CameraPosition(target: latLngPosition, zoom: 14 );
-      newGoogleMapController.animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
+  @override
+  void initState(){
+    super.initState();
+    locatePosition();
+    rootBundle.loadString('assets/map_style.txt').then((string) {
+      _mapStyle = string;
+    });
   }
-  static final CameraPosition _kGooglePlex = CameraPosition(
-      target: LatLng(24.903623,67.198376),
-      zoom: 14.4746,
+
+  void locatePosition() async {
+    Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
+    currentPosition = position;
+
+    LatLng latLngPosition = LatLng(position.latitude, position.longitude);
+    CameraPosition cameraPosition =
+        new CameraPosition(target: latLngPosition, zoom: 18);
+    newGoogleMapController
+        .animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
+
+    _markers.add(Marker(
+        markerId: MarkerId("a"),
+        draggable: true,
+        position: latLngPosition,
+        icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueBlue),
+        onDragEnd: (_currentlatLng) {
+          latLngPosition = _currentlatLng;
+        }));
+  }
+
+  final CameraPosition _kGooglePlex = CameraPosition(
+    target: LatLng(24.903623, 67.198376),
+    zoom: 18,
   );
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer:  Drawer(
-          child: Container(
-            color: Color(0xFF080B1E),
-            child: ListView(
-              padding: EdgeInsets.zero,
-              children: <Widget>[
-                DrawerHeader(
-                  decoration: BoxDecoration(
-                    color: Color(0xFF111439),
-                  ),
-                  child: Text('GAMEIO'),
+      drawer: Drawer(
+        child: Container(
+          color: Color(0xFF080B1E),
+          child: ListView(
+            padding: EdgeInsets.zero,
+            children: <Widget>[
+              DrawerHeader(
+                decoration: BoxDecoration(
+                  color: Color(0xFF111439),
                 ),
-                ListTile(
-                  title: Text('Edit Profile'),
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => FillInfo()),
-                    );
-                  },
-                ),
-                ListTile(
-                  title: Text('LogOut'),
-                  onTap: () {
-                    context.read<AuthenticationService>().signOut();
-                    },
-                ),
-              ],
-            ),
+                child: Text('GAMEIO'),
+              ),
+              ListTile(
+                title: Text('Edit Profile'),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => FillInfo()),
+                  );
+                },
+              ),
+              ListTile(
+                title: Text('LogOut'),
+                onTap: () {
+                  context.read<AuthenticationService>().signOut();
+                },
+              ),
+            ],
           ),
+        ),
       ),
       appBar: AppBar(
         actions: <Widget>[
           TextButton.icon(
-              onPressed:(){
-                context.read<AuthenticationService>().signOut();
-              },
-              icon: Icon(Icons.logout,color: Colors.white,),
-              label: Text(''),
+            onPressed: () {
+              context.read<AuthenticationService>().signOut();
+            },
+            icon: Icon(
+              Icons.logout,
+              color: Colors.white,
+            ),
+            label: Text(''),
           ),
         ],
         title: Center(
@@ -105,19 +130,19 @@ class _MapPageState extends State<MapPage> {
               width: double.infinity,
               child: GoogleMap(
                 initialCameraPosition: _kGooglePlex,
+                markers: _markers,
                 mapType: MapType.normal,
+
                 myLocationButtonEnabled: true,
                 zoomGesturesEnabled: true,
                 zoomControlsEnabled: true,
-
-               onMapCreated: (GoogleMapController controller){
+                onMapCreated: (GoogleMapController controller) {
                   _controllerGoogleMap.complete(controller);
                   newGoogleMapController = controller;
+                  newGoogleMapController.setMapStyle(_mapStyle);
 
                   locatePosition();
-
                 },
-
               ),
             ),
           ),
