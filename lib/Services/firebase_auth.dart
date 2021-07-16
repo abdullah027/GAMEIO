@@ -1,5 +1,4 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:gameio/Screens/welcome_page.dart';
 
 class AuthenticationService {
   final FirebaseAuth _firebaseAuth;
@@ -23,7 +22,7 @@ class AuthenticationService {
   Future<String> signIn({String email, String password}) async {
     try {
       await _firebaseAuth.signInWithEmailAndPassword(email: email, password: password);
-      return user;
+      return "Signed in";
     } on FirebaseAuthException catch (e) {
       return e.message;
     }
@@ -36,8 +35,8 @@ class AuthenticationService {
   Future<String> signUp({String email, String password}) async {
     try {
       UserCredential result = await _firebaseAuth.createUserWithEmailAndPassword(email: email, password: password);
-      User currentUser = result.user;
-      return currentUser;
+      final uid = result.user.uid;
+      return "Signed up";
     } on FirebaseAuthException catch (e) {
       return e.message;
     }
