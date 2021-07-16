@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:gameio/Screens/fill_info.dart';
 import 'package:gameio/Services/firebase_auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
@@ -46,7 +45,7 @@ class WelcomeScreen extends StatelessWidget {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => FillInfo()),
+                      MaterialPageRoute(builder: (context) => MapPage()),
                     );
                   },
                   style: ButtonStyle(

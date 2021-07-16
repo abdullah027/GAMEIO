@@ -59,9 +59,23 @@ class _MapPageState extends State<MapPage> {
     zoom: 18,
   );
 
+  Icon cusIcon = Icon(
+    Icons.search,
+    color: Colors.white,
+    size: 25,
+  );
+
+  Widget cusSearchBar = Text(
+    'Gameio',
+    style: TextStyle(
+      fontFamily: 'JuliusSansOne',
+      fontWeight: FontWeight.bold,
+    ),
+  );
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       drawer: Drawer(
         child: Container(
           color: Color(0xFF080B1E),
@@ -97,24 +111,52 @@ class _MapPageState extends State<MapPage> {
         actions: <Widget>[
           TextButton.icon(
             onPressed: () {
-              context.read<AuthenticationService>().signOut();            },
-            icon: Icon(
-              Icons.logout,
-              color: Colors.white,
-            ),
+              setState(() {
+                if(this.cusIcon.icon == Icons.search)
+                  {
+                    this.cusIcon = Icon(Icons.cancel);
+                    this.cusSearchBar = TextField(
+                      textInputAction: TextInputAction.go,
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        hintText: ("Search"),
+                      ),
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                      ),
+                    );
+
+
+                  }
+                else
+                  {
+                    this.cusIcon = Icon(
+                      Icons.search,
+                      color: Colors.white,
+                      size: 25,
+                    );
+
+                    this.cusSearchBar = Text(
+                      'Gameio',
+                      style: TextStyle(
+                        fontFamily: 'JuliusSansOne',
+                        fontWeight: FontWeight.bold,
+                      ),
+                    );
+
+                  }
+              });
+
+            },
+            icon: cusIcon,
             label: Text(''),
           ),
         ],
         title: Center(
           child: Container(
             alignment: Alignment.center,
-            child: Text(
-              'Gameio',
-              style: TextStyle(
-                fontFamily: 'JuliusSansOne',
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+            child: cusSearchBar,
           ),
         ),
       ),

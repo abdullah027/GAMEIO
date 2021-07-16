@@ -3,22 +3,23 @@ import 'package:flutter/material.dart';
 //import 'map_page.dart';
 import 'package:gameio/Services/firebase_auth.dart';
 import 'package:provider/provider.dart';
+
 class LogIn extends StatefulWidget {
   @override
   _LogInState createState() => _LogInState();
 }
 
 class _LogInState extends State<LogIn> {
-
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Container(
-          padding: EdgeInsets.only(left: 15,right: 15),
+          padding: EdgeInsets.only(left: 15, right: 15),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -59,22 +60,23 @@ class _LogInState extends State<LogIn> {
                         onPressed: () {
                           setState(() {
                             context.read<AuthenticationService>().signIn(
-                              email: emailController.text.trim(),
-                              password: passwordController.text.trim(),
-
-                            );
+                                  email: emailController.text.trim(),
+                                  password: passwordController.text.trim(),
+                                );
                           });
-
                         },
                         style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all<Color>(Color(0xFFEB1555)),
+                          backgroundColor: MaterialStateProperty.all<Color>(
+                              Color(0xFFEB1555)),
                         ),
                         child: Text(
                           'Log In',
-                          style: TextStyle(color: Colors.white,
+                          style: TextStyle(
+                            color: Colors.white,
                             fontWeight: FontWeight.bold,
                           ),
-                        ),),
+                        ),
+                      ),
                     ),
                   ],
                 ),

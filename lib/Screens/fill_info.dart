@@ -1,9 +1,12 @@
+import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:age/age.dart';
 import 'package:gameio/Screens/map_page.dart';
 import 'package:gameio/Services/firebase_auth.dart';
 import 'package:provider/provider.dart';
+import 'dart:async';
+import 'package:image_picker/image_picker.dart';
 
 class FillInfo extends StatefulWidget {
   @override
@@ -11,14 +14,31 @@ class FillInfo extends StatefulWidget {
 }
 
 class _FillInfoState extends State<FillInfo> {
+  File _image;
+  final picker = ImagePicker();
+
+  Future getImage() async {
+    final pickedFile = await picker.getImage(source: ImageSource.gallery);
+
+    setState(() {
+      if (pickedFile != null) {
+        _image = File(pickedFile.path);
+      } else {
+        print('No image selected.');
+      }
+    });
+  }
+
   String dropdownValue = 'Male';
   TextEditingController ageController = TextEditingController();
   TextEditingController usernameController = TextEditingController();
+  TextEditingController fullnameController = TextEditingController();
   TextEditingController bioController = TextEditingController();
   DateTime _selectedDate;
 
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         actions: <Widget>[
           TextButton.icon(
@@ -51,6 +71,62 @@ class _FillInfoState extends State<FillInfo> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
+              Row(
+                children: [
+                  Stack(children: [
+                    CircleAvatar(
+                      maxRadius: 60,
+                      backgroundColor: Color(0xFFEB1555),
+                      child: ClipOval(
+                        child: SizedBox(
+                          height: 100,
+                          width: 100,
+                          child: (_image != null)
+                              ? Image.file(
+                                  _image,
+                                  fit: BoxFit.fill,
+                                )
+                              : Image.network(
+                                  "https://cdn.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png",
+                                  fit: BoxFit.fill,
+                                ),
+                        ),
+                      ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.only(left: 90, top: 80),
+                      child: IconButton(
+                        icon: Icon(Icons.camera_alt_outlined),
+                        onPressed: () {
+                          setState(() {
+                            getImage();
+                          });
+                        },
+                      ),
+                    ),
+                  ]),
+                  SizedBox(
+                    width: 5,
+                  ),
+                  Flexible(
+                    child: Container(
+                      color: Color(0XFF1D1F33),
+                      child: TextField(
+                        textAlign: TextAlign.center,
+                        controller: usernameController,
+                        cursorColor: Colors.red,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          hintText: 'Username',
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              //SizedBox(
+              // height: 20,
+              //),
               Flexible(
                 child: Container(
                   color: Color(0XFF1D1F33),
@@ -60,16 +136,13 @@ class _FillInfoState extends State<FillInfo> {
                     cursorColor: Colors.red,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
-                      hintText: 'Username',
+                      hintText: 'Fullname',
                     ),
                   ),
                 ),
               ),
-              //SizedBox(
-               // height: 20,
-              //),
               Flexible(
-                flex: 4,
+                flex: 2,
                 child: Container(
                   color: Color(0XFF1D1F33),
                   child: TextField(
@@ -81,12 +154,13 @@ class _FillInfoState extends State<FillInfo> {
                     decoration: InputDecoration(
                         hoverColor: Colors.white,
                         border: OutlineInputBorder(),
-                        hintText: 'Description...'),
+                        hintText:
+                            'A few words about yourself, your play style and personality...'),
                   ),
                 ),
               ),
               //SizedBox(
-                //height: 25,
+              //height: 25,
               //),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -156,7 +230,7 @@ class _FillInfoState extends State<FillInfo> {
                 ],
               ),
               //SizedBox(
-               // height: 100,
+              // height: 100,
               //),
               Flexible(
                 child: Container(
