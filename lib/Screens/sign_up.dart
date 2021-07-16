@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:gameio/Services/firebase_auth.dart';
 import 'package:gameio/Screens/welcome_page.dart';
 import 'package:provider/provider.dart';
+import 'package:firebase_database/firebase_database.dart';
 
 class SignUp extends StatefulWidget {
   @override

@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:gameio/Screens/welcome_page.dart';
 
 class AuthenticationService {
   final FirebaseAuth _firebaseAuth;
@@ -22,7 +23,7 @@ class AuthenticationService {
   Future<String> signIn({String email, String password}) async {
     try {
       await _firebaseAuth.signInWithEmailAndPassword(email: email, password: password);
-      return "Signed in";
+      return user;
     } on FirebaseAuthException catch (e) {
       return e.message;
     }
@@ -34,8 +35,9 @@ class AuthenticationService {
   /// error messages. That way you can throw, return or whatever you prefer with that instead.
   Future<String> signUp({String email, String password}) async {
     try {
-      await _firebaseAuth.createUserWithEmailAndPassword(email: email, password: password);
-      return "Signed up";
+      UserCredential result = await _firebaseAuth.createUserWithEmailAndPassword(email: email, password: password);
+      User currentUser = result.user;
+      return currentUser;
     } on FirebaseAuthException catch (e) {
       return e.message;
     }

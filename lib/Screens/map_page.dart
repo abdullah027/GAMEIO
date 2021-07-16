@@ -97,8 +97,7 @@ class _MapPageState extends State<MapPage> {
         actions: <Widget>[
           TextButton.icon(
             onPressed: () {
-              context.read<AuthenticationService>().signOut();
-            },
+              context.read<AuthenticationService>().signOut();            },
             icon: Icon(
               Icons.logout,
               color: Colors.white,

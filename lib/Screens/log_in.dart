@@ -57,11 +57,14 @@ class _LogInState extends State<LogIn> {
                       width: 200,
                       child: TextButton(
                         onPressed: () {
-                          context.read<AuthenticationService>().signIn(
-                          email: emailController.text.trim(),
-                          password: passwordController.text.trim(),
+                          setState(() {
+                            context.read<AuthenticationService>().signIn(
+                              email: emailController.text.trim(),
+                              password: passwordController.text.trim(),
 
-                          );
+                            );
+                          });
+
                         },
                         style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all<Color>(Color(0xFFEB1555)),
