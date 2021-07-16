@@ -38,6 +38,7 @@ android {
         applicationId "com.fyp.gameio"
         minSdkVersion 16
         targetSdkVersion 30
+        multiDexEnabled true
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
     }
@@ -57,5 +58,6 @@ flutter {
     apply plugin: 'com.google.gms.google-services'
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'com.android.support:multidex:1.0.3'
     compile 'com.google.android.gms:play-services-auth:19.0.0'
 }

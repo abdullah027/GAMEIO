@@ -7,6 +7,7 @@ import 'package:gameio/Services/firebase_auth.dart';
 import 'package:provider/provider.dart';
 import 'dart:async';
 import 'package:image_picker/image_picker.dart';
+import 'package:gameio/Services/User_data.dart';
 
 class FillInfo extends StatefulWidget {
   @override
@@ -237,6 +238,7 @@ class _FillInfoState extends State<FillInfo> {
                   height: 80,
                   child: TextButton(
                     onPressed: () {
+
                       Navigator.push(
                         context,
                         MaterialPageRoute(builder: (context) => MapPage()),

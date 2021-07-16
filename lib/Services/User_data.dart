@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class UserDatabaseService {
 
@@ -15,4 +16,9 @@ class UserDatabaseService {
     });
   }
 
-}
+  //Future<String> GetUserName() async {
+  //  final result = await userCollection.doc(uid).get();
+ //   return result.doc.data()['displayname'];
+
+ //   }
+  }
