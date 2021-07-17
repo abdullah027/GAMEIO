@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:gameio/Screens/user_info.dart';
 import 'package:gameio/Services/firebase_auth.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -7,6 +8,7 @@ import 'package:provider/provider.dart';
 import 'package:flutter/services.dart' show rootBundle;
 
 import 'fill_info.dart';
+import 'help_center.dart';
 
 class MapPage extends StatefulWidget {
   @override
@@ -94,6 +96,25 @@ class _MapPageState extends State<MapPage> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => FillInfo()),
+                  );
+                },
+              ),
+
+              ListTile(
+                title: Text('User Information'),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => UserInfo()),
+                  );
+                },
+              ),
+              ListTile(
+                title: Text('Settings'),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => Settings()),
                   );
                 },
               ),
