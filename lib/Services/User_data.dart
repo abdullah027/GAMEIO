@@ -19,6 +19,5 @@ class UserDatabaseService {
   //Future<String> GetUserName() async {
   //  final result = await userCollection.doc(uid).get();
  //   return result.doc.data()['displayname'];
-
  //   }
   }
