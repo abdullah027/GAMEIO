@@ -29,7 +29,7 @@ class _SettingsState extends State<Settings> {
         ),
       ),
       body: SafeArea(
-        child: Column(
+        child: ListView(
           children: <Widget>[
             ListTile(
               leading: Icon(

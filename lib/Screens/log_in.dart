@@ -28,34 +28,62 @@ class _LogInState extends State<LogIn> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
+                    Container(
+                      margin: EdgeInsets.only(right: 330),
+                      child: Text(
+                        "Email",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 15,
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 5,
+                    ),
                     TextField(
-                      textAlign: TextAlign.center,
                       controller: emailController,
                       cursorColor: Colors.red,
                       decoration: InputDecoration(
                           hoverColor: Colors.white,
-                          border: OutlineInputBorder(),
-                          hintText: 'Email'),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          hintText: 'harrywilson@email.com'),
                     ),
                     SizedBox(
                       height: 10,
                     ),
+                    Container(
+                      margin: EdgeInsets.only(right: 305),
+                      child: Text(
+                        "Password",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 15,
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 5,
+                    ),
                     TextField(
                       obscureText: true,
-                      textAlign: TextAlign.center,
                       controller: passwordController,
                       cursorColor: Colors.red,
                       decoration: InputDecoration(
                           hoverColor: Colors.white,
-                          border: OutlineInputBorder(),
-                          hintText: 'Password'),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          hintText: 'Enter your Password'),
                     ),
                     SizedBox(
                       height: 15,
                     ),
                     Container(
                       height: 65,
-                      width: 200,
+                      width: 380,
                       child: TextButton(
                         onPressed: () {
                           setState(() {
@@ -66,6 +94,9 @@ class _LogInState extends State<LogIn> {
                           });
                         },
                         style: ButtonStyle(
+                          shape: MaterialStateProperty.all(
+                              RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20))),
                           backgroundColor: MaterialStateProperty.all<Color>(
                               Color(0xFFEB1555)),
                         ),

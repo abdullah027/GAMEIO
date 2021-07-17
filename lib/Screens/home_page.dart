@@ -12,9 +12,9 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        padding: EdgeInsets.symmetric(vertical: 100.0, horizontal: 30.0),
+        padding: EdgeInsets.symmetric(vertical: 100.0, horizontal: 50.0),
         child: SafeArea(
-          child:Column(
+          child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               Expanded(
@@ -39,8 +39,11 @@ class _HomePageState extends State<HomePage> {
                     );
                   },
                   style: ButtonStyle(
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(40))),
                     backgroundColor:
-                    MaterialStateProperty.all<Color>(Color(0XFF1D1F33)),
+                        MaterialStateProperty.all<Color>(Color(0XFF1D1F33)),
                   ),
                   child: Text(
                     'Log In',
@@ -63,8 +66,11 @@ class _HomePageState extends State<HomePage> {
                     );
                   },
                   style: ButtonStyle(
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(40))),
                     backgroundColor:
-                    MaterialStateProperty.all<Color>(Color(0XFF1D1F33)),
+                        MaterialStateProperty.all<Color>(Color(0XFF1D1F33)),
                   ),
                   child: Text(
                     'Sign Up',
@@ -75,6 +81,10 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
               ),
+              SizedBox(
+                height: 10,
+              ),
+              Center(child: Text("Don't have an account? Sign Up")),
             ],
           ),
         ),

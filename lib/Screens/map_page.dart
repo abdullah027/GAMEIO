@@ -8,7 +8,7 @@ import 'package:provider/provider.dart';
 import 'package:flutter/services.dart' show rootBundle;
 
 import 'fill_info.dart';
-import 'help_center.dart';
+import 'settings.dart';
 
 class MapPage extends StatefulWidget {
   @override
