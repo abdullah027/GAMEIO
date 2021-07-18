@@ -43,12 +43,11 @@ class _UserInfoState extends State<UserInfo> {
       appBar: AppBar(
         title: Center(
           child: Container(
-            margin: EdgeInsets.only(right: 75),
+            margin: EdgeInsets.only(right: 150),
             alignment: Alignment.center,
             child: Text(
-              'Gameio',
+              'User Information',
               style: TextStyle(
-                fontFamily: 'JuliusSansOne',
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -167,7 +166,7 @@ class _UserInfoState extends State<UserInfo> {
                       fillColor: Color(0XFF1D1F33),
                       hoverColor: Colors.white,
                       border: OutlineInputBorder(
-                        //borderRadius: BorderRadius.circular(80),
+                        borderRadius: BorderRadius.circular(10),
                       ),
                       labelText: 'Bio',
                       hintText:
@@ -205,7 +204,7 @@ class _UserInfoState extends State<UserInfo> {
                           fillColor: Color(0XFF1D1F33),
                           hoverColor: Colors.white,
                           border: OutlineInputBorder(
-                            //borderRadius: BorderRadius.circular(80),
+                            borderRadius: BorderRadius.circular(5),
                           ),
                           labelText: 'Age',
                           hintText: '21 years',

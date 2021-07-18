@@ -1,3 +1,5 @@
+//import 'dart:html';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 //import 'map_page.dart';
@@ -16,17 +18,82 @@ class _LogInState extends State<LogIn> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
+      appBar: AppBar(
+        title: Center(
+          child: Container(
+            margin: EdgeInsets.only(right: 200),
+            alignment: Alignment.center,
+            child: Text(
+              'Log in',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+        ),
+      ),
+      //resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Container(
+          margin: EdgeInsets.only(top: 30),
           padding: EdgeInsets.only(left: 15, right: 15),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
+          child: ListView(
+            padding: EdgeInsets.only(top: 30),
+            //mainAxisAlignment: MainAxisAlignment.center,
+            //crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
+              Text("Log in with one of the followings."),
+              SizedBox(
+                height: 20,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  GestureDetector(
+                    onTap: () => print("LogIn with Google"),
+                    child: Container(
+                      //margin: EdgeInsets.only(top: 200),
+                      height: 80,
+                      width: 180,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: Color(0xFF080B1E),
+                        border: Border.all(
+                          width: 1,
+                          color: Color(0xFFD9BEBE),
+                        ),
+                        image: DecorationImage(
+                          image: AssetImage('assets/images/icons8-google-30.png',),
+                        ),
+                    ),
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () => print('Login with Facebook'),
+                    child: Container(
+                      //margin: EdgeInsets.only(top: 200),
+                      height: 80,
+                      width: 180,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: Color(0xFF080B1E),
+                        border: Border.all(
+                          width: 1,
+                          color: Color(0xFFD9BEBE),
+                        ),
+                        image: DecorationImage(
+                          image: AssetImage('assets/images/icons8-facebook-30.png',),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 15,
+              ),
               Flexible(
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
                       margin: EdgeInsets.only(right: 330),
@@ -45,6 +112,9 @@ class _LogInState extends State<LogIn> {
                       controller: emailController,
                       cursorColor: Colors.red,
                       decoration: InputDecoration(
+                          prefixIcon: Icon(
+                            Icons.email,
+                          ),
                           hoverColor: Colors.white,
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(20),
@@ -72,6 +142,9 @@ class _LogInState extends State<LogIn> {
                       controller: passwordController,
                       cursorColor: Colors.red,
                       decoration: InputDecoration(
+                          prefixIcon: Icon(
+                            Icons.lock,
+                          ),
                           hoverColor: Colors.white,
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(20),
@@ -101,7 +174,7 @@ class _LogInState extends State<LogIn> {
                               Color(0xFFEB1555)),
                         ),
                         child: Text(
-                          'Log In',
+                          'Log in',
                           style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
@@ -109,6 +182,10 @@ class _LogInState extends State<LogIn> {
                         ),
                       ),
                     ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Text("Already have an account? Log in"),
                   ],
                 ),
               ),

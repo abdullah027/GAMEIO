@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:gameio/Services/firebase_auth.dart';
 import 'package:provider/provider.dart';
 
+import 'help_center.dart';
+
 class Settings extends StatefulWidget {
 
   @override
@@ -104,6 +106,12 @@ class _SettingsState extends State<Settings> {
               height: 0.2,
             ),
             ListTile(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => HelpCenter()),
+                );
+              },
               leading: Icon(
                 Icons.help_center,
               ),

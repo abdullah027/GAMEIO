@@ -117,7 +117,9 @@ class _FillInfoState extends State<FillInfo> {
                         controller: usernameController,
                         cursorColor: Colors.red,
                         decoration: InputDecoration(
-                          border: OutlineInputBorder(),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
                           hintText: 'Username',
                         ),
                       ),
@@ -136,7 +138,9 @@ class _FillInfoState extends State<FillInfo> {
                     controller: usernameController,
                     cursorColor: Colors.red,
                     decoration: InputDecoration(
-                      border: OutlineInputBorder(),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
                       hintText: 'Fullname',
                     ),
                   ),
@@ -154,7 +158,9 @@ class _FillInfoState extends State<FillInfo> {
                     cursorColor: Colors.red,
                     decoration: InputDecoration(
                         hoverColor: Colors.white,
-                        border: OutlineInputBorder(),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
                         hintText:
                             'A few words about yourself, your play style and personality...'),
                   ),
@@ -235,7 +241,7 @@ class _FillInfoState extends State<FillInfo> {
               //),
               Flexible(
                 child: Container(
-                  height: 80,
+                  height: 70,
                   child: TextButton(
                     onPressed: () {
 
@@ -245,6 +251,7 @@ class _FillInfoState extends State<FillInfo> {
                       );
                     },
                     style: ButtonStyle(
+                      shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(20))),
                       backgroundColor:
                           MaterialStateProperty.all<Color>(Color(0xFFEB1555)),
                     ),

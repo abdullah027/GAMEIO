@@ -51,7 +51,7 @@ class WelcomeScreen extends StatelessWidget {
                   style: ButtonStyle(
                     backgroundColor:
                         MaterialStateProperty.all<Color>(Color(0xFFEB1555)),
-                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(40))),
+                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(20))),
                   ),
                 ),
               ),
