@@ -1,13 +1,15 @@
 import 'dart:io';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:age/age.dart';
 import 'package:gameio/Screens/map_page.dart';
+import 'package:gameio/Services/User_data.dart';
 import 'package:gameio/Services/firebase_auth.dart';
 import 'package:provider/provider.dart';
 import 'dart:async';
 import 'package:image_picker/image_picker.dart';
-import 'package:gameio/Services/User_data.dart';
+//import 'package:gameio/Services/User_data.dart';
 
 class FillInfo extends StatefulWidget {
   @override
@@ -15,6 +17,7 @@ class FillInfo extends StatefulWidget {
 }
 
 class _FillInfoState extends State<FillInfo> {
+  User user = FirebaseAuth.instance.currentUser;
   File _image;
   final picker = ImagePicker();
 
@@ -245,6 +248,7 @@ class _FillInfoState extends State<FillInfo> {
                   child: TextButton(
                     onPressed: () {
 
+                      UserDatabaseService(uid:user.uid ).updateUserData(usernameController.text.trim(), int.parse(ageController.text), dropdownValue.trim(), bioController.text.trim());
                       Navigator.push(
                         context,
                         MaterialPageRoute(builder: (context) => MapPage()),
@@ -301,7 +305,7 @@ class _FillInfoState extends State<FillInfo> {
           fromDate: newSelectedDate, toDate: today, includeToDate: false);
       int out = age.years;
       ageController
-        ..text = "$out" + " years"
+        ..text = "$out"
         ..selection = TextSelection.fromPosition(TextPosition(
             offset: ageController.text.length,
             affinity: TextAffinity.upstream));

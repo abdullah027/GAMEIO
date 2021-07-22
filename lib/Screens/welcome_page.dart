@@ -4,11 +4,20 @@ import 'package:gameio/Services/firebase_auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
 import 'map_page.dart';
+//import 'package:gameio/Models/User.dart';
+import 'package:gameio/Services/Provider.dart';
 
 dynamic user;
 String userEmail = FirebaseAuth.instance.currentUser.email;
 
-class WelcomeScreen extends StatelessWidget {
+class WelcomeScreen extends StatefulWidget {
+  @override
+  _WelcomeScreen createState() => _WelcomeScreen();
+}
+
+class _WelcomeScreen extends State<WelcomeScreen> {
+  User user = FirebaseAuth.instance.currentUser;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,7 +33,7 @@ class WelcomeScreen extends StatelessWidget {
                   children: [
                     Flexible(
                       child: Text(
-                        "Welcome $userEmail",
+                        "Welcome" + user.displayName,
                         style: TextStyle(
                           fontSize: 32,
                           fontWeight: FontWeight.w500,
