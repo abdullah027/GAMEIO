@@ -18,6 +18,7 @@ class MapPage extends StatefulWidget {
 class _MapPageState extends State<MapPage> {
   Completer<GoogleMapController> _controllerGoogleMap = Completer();
   GoogleMapController newGoogleMapController;
+  BitmapDescriptor myIcon;
 
   GlobalKey<ScaffoldState> scaffoldKey = new GlobalKey<ScaffoldState>();
 
@@ -27,7 +28,12 @@ class _MapPageState extends State<MapPage> {
   String _mapStyle;
 
   @override
-  void initState(){
+  void initState() {
+    BitmapDescriptor.fromAssetImage(
+        ImageConfiguration(size: Size(100,100)), 'assets/images/icons8-street-view-96.png')
+        .then((onValue) {
+      myIcon = onValue;
+    });
     super.initState();
     locatePosition();
     rootBundle.loadString('assets/map_style.txt').then((string) {
@@ -46,16 +52,19 @@ class _MapPageState extends State<MapPage> {
     newGoogleMapController
         .animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
 
-    _markers.add(Marker(
-        markerId: MarkerId("a"),
-        draggable: true,
-        position: latLngPosition,
-        icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueBlue),
-        onDragEnd: (_currentlatLng) {
-          latLngPosition = _currentlatLng;
-        }));
+    setState(() {
+      _markers.add(Marker(
+          markerId: MarkerId("a"),
+          draggable: true,
+          position: latLngPosition,
+          icon: myIcon,
+          infoWindow: InfoWindow(title: 'Username',snippet: 'Playing CSGO'),
+          onDragEnd: (_currentlatLng) {
+            latLngPosition = _currentlatLng;
+          }
+          ));
+    });
   }
-
   final CameraPosition _kGooglePlex = CameraPosition(
     target: LatLng(24.903623, 67.198376),
     zoom: 18,
@@ -99,7 +108,6 @@ class _MapPageState extends State<MapPage> {
                   );
                 },
               ),
-
               ListTile(
                 title: Text('User Information'),
                 onTap: () {
@@ -133,42 +141,35 @@ class _MapPageState extends State<MapPage> {
           TextButton.icon(
             onPressed: () {
               setState(() {
-                if(this.cusIcon.icon == Icons.search)
-                  {
-                    this.cusIcon = Icon(Icons.cancel);
-                    this.cusSearchBar = TextField(
-                      textInputAction: TextInputAction.go,
-                      decoration: InputDecoration(
-                        border: InputBorder.none,
-                        hintText: ("Search"),
-                      ),
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16,
-                      ),
-                    );
-
-
-                  }
-                else
-                  {
-                    this.cusIcon = Icon(
-                      Icons.search,
+                if (this.cusIcon.icon == Icons.search) {
+                  this.cusIcon = Icon(Icons.cancel);
+                  this.cusSearchBar = TextField(
+                    textInputAction: TextInputAction.go,
+                    decoration: InputDecoration(
+                      border: InputBorder.none,
+                      hintText: ("Search"),
+                    ),
+                    style: TextStyle(
                       color: Colors.white,
-                      size: 25,
-                    );
+                      fontSize: 16,
+                    ),
+                  );
+                } else {
+                  this.cusIcon = Icon(
+                    Icons.search,
+                    color: Colors.white,
+                    size: 25,
+                  );
 
-                    this.cusSearchBar = Text(
-                      'Gameio',
-                      style: TextStyle(
-                        fontFamily: 'JuliusSansOne',
-                        fontWeight: FontWeight.bold,
-                      ),
-                    );
-
-                  }
+                  this.cusSearchBar = Text(
+                    'Gameio',
+                    style: TextStyle(
+                      fontFamily: 'JuliusSansOne',
+                      fontWeight: FontWeight.bold,
+                    ),
+                  );
+                }
               });
-
             },
             icon: cusIcon,
             label: Text(''),
@@ -181,33 +182,48 @@ class _MapPageState extends State<MapPage> {
           ),
         ),
       ),
-      body: Column(
+      body: Stack(
         children: [
-          SizedBox(
-            height: 100,
-          ),
-          Flexible(
-            child: Container(
-              height: 300,
-              width: double.infinity,
-              child: GoogleMap(
-                initialCameraPosition: _kGooglePlex,
-                markers: _markers,
-                mapType: MapType.normal,
+          Column(
+            children: [
+              //SizedBox(
+              //height: 0,
+              //),
+              Flexible(
+                child: Container(
+                  height: double.infinity,
+                  width: double.infinity,
+                  child: GoogleMap(
+                    initialCameraPosition: _kGooglePlex,
+                    markers: _markers,
+                    mapType: MapType.normal,
+                    myLocationButtonEnabled: true,
+                    zoomGesturesEnabled: true,
+                    zoomControlsEnabled: true,
+                    onMapCreated: (GoogleMapController controller) {
+                      _controllerGoogleMap.complete(controller);
+                      newGoogleMapController = controller;
+                      newGoogleMapController.setMapStyle(_mapStyle);
 
-                myLocationButtonEnabled: true,
-                zoomGesturesEnabled: true,
-                zoomControlsEnabled: true,
-                onMapCreated: (GoogleMapController controller) {
-                  _controllerGoogleMap.complete(controller);
-                  newGoogleMapController = controller;
-                  newGoogleMapController.setMapStyle(_mapStyle);
-
-                  locatePosition();
-                },
+                      locatePosition();
+                    },
+                  ),
+                ),
               ),
-            ),
+            ],
           ),
+          Positioned(
+              bottom: 100,
+              right: 10,
+              child:
+              TextButton(
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all<Color>(Colors.black54),
+                  ),
+                  child: Icon(Icons.pin_drop),
+                  onPressed: () => locatePosition(),
+              )
+          )
         ],
       ),
     );
