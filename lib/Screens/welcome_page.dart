@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:gameio/Services/firebase_auth.dart';
+//import 'package:gameio/Services/firebase_auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:provider/provider.dart';
+//import 'package:provider/provider.dart';
 import 'map_page.dart';
 //import 'package:gameio/Models/User.dart';
-import 'package:gameio/Services/Provider.dart';
+//import 'package:gameio/Services/Provider.dart';
 
 dynamic user;
 String userEmail = FirebaseAuth.instance.currentUser.email;
