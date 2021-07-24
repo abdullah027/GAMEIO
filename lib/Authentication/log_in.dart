@@ -52,7 +52,7 @@ class _LogInState extends State<LogIn> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   GestureDetector(
-                    onTap: () => print("LogIn with Google"),
+                    onTap: () =>context.read<AuthenticationService>().signInWithGoogle(),
                     child: Container(
                       //margin: EdgeInsets.only(top: 200),
                       height: 80,

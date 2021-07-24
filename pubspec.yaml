@@ -14,7 +14,7 @@ dependencies:
   age: ^0.0.1
   firebase_core: "1.0.4"
   firebase_auth: ^1.1.1
-
+  google_sign_in: "^4.0.7"
   permission_handler:
 
   provider: ^4.3.2+1
