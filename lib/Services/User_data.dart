@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class UserDatabaseService {
-
+  var value;
   final String uid;
   UserDatabaseService({this.uid});
   final CollectionReference userCollection = FirebaseFirestore.instance.collection('Users');
@@ -13,11 +13,11 @@ class UserDatabaseService {
       'age': age,
       'gender' : gender,
       'bio': bio,
-    });
+    }, SetOptions(merge: true));
   }
 
-  //Future<String> GetUserName() async {
-  //  final result = await userCollection.doc(uid).get();
- //   return result.doc.data()['displayname'];
- //   }
+  Future<String> GetUserName() async {
+   final result = await userCollection.doc(uid).get().then((value) => null);
+    return value.data()['name'];
+    }
   }

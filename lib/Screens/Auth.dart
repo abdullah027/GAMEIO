@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'sign_up.dart';
-import 'log_in.dart';
+import 'package:gameio/Authentication/sign_up.dart';
+import '../Authentication/log_in.dart';
 
 class HomePage extends StatefulWidget {
   @override

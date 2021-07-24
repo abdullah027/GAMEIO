@@ -107,6 +107,7 @@ class _UserInfoState extends State<UserInfo> {
                 child: Container(
                   width: 300,
                   child: TextField(
+                    enabled: false,
                     textAlign: TextAlign.center,
                     controller: usernameController,
                     cursorColor: Colors.red,

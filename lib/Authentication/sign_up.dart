@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:gameio/Services/firebase_auth.dart';
 import 'package:gameio/Screens/welcome_page.dart';
 import 'package:provider/provider.dart';
+import 'package:gameio/Services/User_data.dart';
+
 
 class SignUp extends StatefulWidget {
   @override
@@ -226,6 +228,7 @@ class _SignUpState extends State<SignUp> {
                                   email: emailController.text.trim(),
                                   password: passwordController.text.trim(),
                                 );
+
                           } else {
                             emailController
                               ..text = "Passwords do not match"
@@ -233,6 +236,8 @@ class _SignUpState extends State<SignUp> {
                                   offset: emailController.text.length,
                                   affinity: TextAffinity.upstream));
                           }
+
+                          UserDatabaseService(uid:user.uid ).updateUserData(nameController.text.trim(), 0, "Gender", "Tell us a little about yourself");
                         },
                         style: ButtonStyle(
                           shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(20))),

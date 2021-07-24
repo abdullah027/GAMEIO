@@ -185,7 +185,7 @@ class _LogInState extends State<LogIn> {
                     SizedBox(
                       height: 10,
                     ),
-                    Text("Already have an account? Log in"),
+                    Text("Dont have an Account? Sign up"),
                   ],
                 ),
               ),

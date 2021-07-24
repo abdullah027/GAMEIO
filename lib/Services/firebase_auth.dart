@@ -46,6 +46,7 @@ class AuthenticationService {
     try {
       UserCredential result = await _firebaseAuth.createUserWithEmailAndPassword(email: email, password: password);
       final uid = result.user.uid;
+      await result.user.reload();
       return "Signed up";
     } on FirebaseAuthException catch (e) {
       return e.message;
