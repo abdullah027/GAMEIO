@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthenticationService {
@@ -20,7 +21,6 @@ class AuthenticationService {
   Future getCurrentUser() async {
     return  _firebaseAuth.currentUser;
   }
-
   /// This won't pop routes so you could do something like
   /// Navigator.of(context).pushNamedAndRemoveUntil('/', (Route<dynamic> route) => false);
   /// after you called this method if you want to pop all routes.

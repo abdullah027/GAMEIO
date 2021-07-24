@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:gameio/Screens/user_info.dart';
 import 'package:gameio/Services/firebase_auth.dart';
+import 'package:gameio/Services/user_details.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
@@ -29,8 +30,8 @@ class _MapPageState extends State<MapPage> {
 
   @override
   void initState() {
-    BitmapDescriptor.fromAssetImage(
-        ImageConfiguration(size: Size(100,100)), 'assets/images/icons8-street-view-96.png')
+    BitmapDescriptor.fromAssetImage(ImageConfiguration(size: Size(100, 100)),
+            'assets/images/icons8-street-view-96.png')
         .then((onValue) {
       myIcon = onValue;
     });
@@ -58,31 +59,18 @@ class _MapPageState extends State<MapPage> {
           draggable: true,
           position: latLngPosition,
           icon: myIcon,
-          infoWindow: InfoWindow(title: 'Username',snippet: 'Playing CSGO'),
+          infoWindow: InfoWindow(title: 'Username', snippet: 'Playing CSGO'),
           onDragEnd: (_currentlatLng) {
             latLngPosition = _currentlatLng;
-          }
-          ));
+          }));
     });
   }
+
   final CameraPosition _kGooglePlex = CameraPosition(
     target: LatLng(24.903623, 67.198376),
     zoom: 18,
   );
 
-  Icon cusIcon = Icon(
-    Icons.search,
-    color: Colors.white,
-    size: 25,
-  );
-
-  Widget cusSearchBar = Text(
-    'Gameio',
-    style: TextStyle(
-      fontFamily: 'JuliusSansOne',
-      fontWeight: FontWeight.bold,
-    ),
-  );
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -137,50 +125,20 @@ class _MapPageState extends State<MapPage> {
         ),
       ),
       appBar: AppBar(
-        actions: <Widget>[
-          TextButton.icon(
-            onPressed: () {
-              setState(() {
-                if (this.cusIcon.icon == Icons.search) {
-                  this.cusIcon = Icon(Icons.cancel);
-                  this.cusSearchBar = TextField(
-                    textInputAction: TextInputAction.go,
-                    decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: ("Search"),
-                    ),
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 16,
-                    ),
-                  );
-                } else {
-                  this.cusIcon = Icon(
-                    Icons.search,
-                    color: Colors.white,
-                    size: 25,
-                  );
-
-                  this.cusSearchBar = Text(
-                    'Gameio',
-                    style: TextStyle(
-                      fontFamily: 'JuliusSansOne',
-                      fontWeight: FontWeight.bold,
-                    ),
-                  );
-                }
-              });
-            },
-            icon: cusIcon,
-            label: Text(''),
-          ),
-        ],
-        title: Center(
-          child: Container(
-            alignment: Alignment.center,
-            child: cusSearchBar,
+        centerTitle: true,
+        title: Text(
+          'Gameio',
+          style: TextStyle(
+            fontFamily: 'JuliusSansOne',
+            fontWeight: FontWeight.bold,
           ),
         ),
+        actions: [
+          IconButton(icon: Icon(Icons.search), onPressed: (){
+            Navigator.push(context, MaterialPageRoute(builder: (context)=>UserDetails()));
+
+          })
+        ],
       ),
       body: Stack(
         children: [
@@ -215,15 +173,14 @@ class _MapPageState extends State<MapPage> {
           Positioned(
               bottom: 100,
               right: 10,
-              child:
-              TextButton(
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all<Color>(Colors.black54),
-                  ),
-                  child: Icon(Icons.pin_drop),
-                  onPressed: () => locatePosition(),
-              )
-          )
+              child: TextButton(
+                style: ButtonStyle(
+                  backgroundColor:
+                      MaterialStateProperty.all<Color>(Colors.black54),
+                ),
+                child: Icon(Icons.pin_drop),
+                onPressed: () => locatePosition(),
+              ))
         ],
       ),
     );

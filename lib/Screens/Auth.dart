@@ -81,10 +81,6 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
               ),
-              SizedBox(
-                height: 10,
-              ),
-              Center(child: Text("Don't have an account? Sign Up")),
             ],
           ),
         ),

@@ -55,4 +55,13 @@ class UserDatabaseService {
     return name;
     }
   }
+//class UserManagement{
+ //storeNewUser(user,context) async{
+    //var firebaseUser= await FirebaseAuth.instance.currentUser;
+   // FirebaseFirestore.instance
+   // .collection('Users')
+    //.doc(firebaseUser.uid)
+   // .set({'email':user.email, 'uid':user.uid})
+   // .then((value) => Navigator.push)
 
+ // }

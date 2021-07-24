@@ -1,4 +1,5 @@
 import 'dart:io';
+//import 'dart:js_util';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +13,7 @@ import 'package:gameio/Services/firebase_auth.dart';
 import 'dart:async';
 import 'package:image_picker/image_picker.dart';
 import 'package:gameio/Services/User_data.dart';
+import 'package:provider/provider.dart';
 
 class UserInfo extends StatefulWidget {
   @override
