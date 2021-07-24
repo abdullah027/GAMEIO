@@ -1,4 +1,5 @@
 //import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gameio/Services/firebase_auth.dart';
@@ -17,6 +18,7 @@ class _SignUpState extends State<SignUp> {
   TextEditingController passwordController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController cPasswordController = TextEditingController();
+  FirebaseAuth _firebaseAuth;
 
   @override
   Widget build(BuildContext context) {
@@ -237,7 +239,9 @@ class _SignUpState extends State<SignUp> {
                                   affinity: TextAffinity.upstream));
                           }
 
-                          UserDatabaseService(uid:user.uid ).updateUserData(nameController.text.trim(), 0, "Gender", "Tell us a little about yourself");
+
+                          _firebaseAuth.currentUser.updateProfile(displayName: nameController.text.trim());
+                          UserDatabaseService(uid:user.uid ).addUserData(nameController.text.trim(), 0, "Gender", "Tell us a little about yourself");
                         },
                         style: ButtonStyle(
                           shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(20))),

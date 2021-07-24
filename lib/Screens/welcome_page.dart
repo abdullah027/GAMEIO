@@ -1,19 +1,22 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 //import 'package:gameio/Services/firebase_auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:gameio/Services/User_data.dart';
 //import 'package:provider/provider.dart';
 import 'map_page.dart';
 //import 'package:gameio/Models/User.dart';
 //import 'package:gameio/Services/Provider.dart';
 
 dynamic user;
-String userEmail = FirebaseAuth.instance.currentUser.email;
+String username = FirebaseAuth.instance.currentUser.displayName;
 
 class WelcomeScreen extends StatefulWidget {
   @override
   _WelcomeScreen createState() => _WelcomeScreen();
 }
+
 
 class _WelcomeScreen extends State<WelcomeScreen> {
   User user = FirebaseAuth.instance.currentUser;
@@ -33,7 +36,7 @@ class _WelcomeScreen extends State<WelcomeScreen> {
                   children: [
                     Flexible(
                       child: Text(
-                        "Welcome" + user.displayName,
+                        "Welcome $username" ,
                         style: TextStyle(
                           fontSize: 32,
                           fontWeight: FontWeight.w500,

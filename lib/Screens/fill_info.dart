@@ -138,7 +138,7 @@ class _FillInfoState extends State<FillInfo> {
                   color: Color(0XFF1D1F33),
                   child: TextField(
                     textAlign: TextAlign.center,
-                    controller: usernameController,
+                    controller: fullnameController,
                     cursorColor: Colors.red,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(
@@ -248,7 +248,7 @@ class _FillInfoState extends State<FillInfo> {
                   child: TextButton(
                     onPressed: () {
 
-                      UserDatabaseService(uid:user.uid ).updateUserData(usernameController.text.trim(), int.parse(ageController.text), dropdownValue.trim(), bioController.text.trim());
+                      UserDatabaseService(uid:user.uid ).updateUserData(usernameController.text.trim(), fullnameController.text.trim(), int.parse(ageController.text), dropdownValue.trim(), bioController.text.trim());
                       Navigator.push(
                         context,
                         MaterialPageRoute(builder: (context) => MapPage()),

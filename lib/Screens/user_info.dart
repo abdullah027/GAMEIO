@@ -1,14 +1,17 @@
 import 'dart:io';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gameio/Screens/fill_info.dart';
+import 'package:gameio/Screens/welcome_page.dart';
+import 'package:gameio/Services/User_data.dart';
 //import 'package:age/age.dart';
 //import 'package:gameio/Screens/map_page.dart';
-//import 'package:gameio/Services/firebase_auth.dart';
+import 'package:gameio/Services/firebase_auth.dart';
 //import 'package:provider/provider.dart';
 import 'dart:async';
 import 'package:image_picker/image_picker.dart';
-//import 'package:gameio/Services/User_data.dart';
+import 'package:gameio/Services/User_data.dart';
 
 class UserInfo extends StatefulWidget {
   @override
@@ -16,6 +19,8 @@ class UserInfo extends StatefulWidget {
 }
 
 class _UserInfoState extends State<UserInfo> {
+  User user = FirebaseAuth.instance.currentUser;
+
   File _image;
   final picker = ImagePicker();
 
@@ -127,7 +132,7 @@ class _UserInfoState extends State<UserInfo> {
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(40),
                       ),
-                      hintText: name,
+                      hintText: user.displayName,
                       hintStyle: TextStyle(
                         fontWeight: FontWeight.bold,
                         color: Colors.white,

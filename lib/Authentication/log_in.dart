@@ -1,7 +1,9 @@
 //import 'dart:html';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 //import 'map_page.dart';
 import 'package:gameio/Services/firebase_auth.dart';
 import 'package:provider/provider.dart';
@@ -159,12 +161,12 @@ class _LogInState extends State<LogIn> {
                       width: 380,
                       child: TextButton(
                         onPressed: () {
-                          setState(() {
+
                             context.read<AuthenticationService>().signIn(
                                   email: emailController.text.trim(),
                                   password: passwordController.text.trim(),
                                 );
-                          });
+
                         },
                         style: ButtonStyle(
                           shape: MaterialStateProperty.all(

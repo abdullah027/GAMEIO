@@ -109,7 +109,7 @@ class _MapPageState extends State<MapPage> {
                 },
               ),
               ListTile(
-                title: Text('User Information'),
+                title: Text('Profile'),
                 onTap: () {
                   Navigator.push(
                     context,
