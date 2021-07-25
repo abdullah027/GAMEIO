@@ -51,7 +51,7 @@ class _UserInfoState extends State<UserInfo> {
             margin: EdgeInsets.only(right: 150),
             alignment: Alignment.center,
             child: Text(
-              'User Information',
+              'Profile',
               style: TextStyle(
                 fontWeight: FontWeight.bold,
               ),
