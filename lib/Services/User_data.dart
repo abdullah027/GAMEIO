@@ -25,7 +25,7 @@ class UserDatabaseService {
 
 // update profile data of user
   Future updateUserData(String username, String name, int age, String gender,
-      String bio) async {
+      String bio, String country) async {
     //set particulars of user
     return await userCollection.doc(uid).set({
       'displayName': username,
@@ -33,6 +33,7 @@ class UserDatabaseService {
       'age': age,
       'gender': gender,
       'bio': bio,
+      country: country
     }, SetOptions(merge: true)); // merge with old record
 
   }

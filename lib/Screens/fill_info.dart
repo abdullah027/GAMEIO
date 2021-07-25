@@ -248,7 +248,7 @@ class _FillInfoState extends State<FillInfo> {
                   child: TextButton(
                     onPressed: () {
 
-                      UserDatabaseService(uid:user.uid ).updateUserData(usernameController.text.trim(), fullnameController.text.trim(), int.parse(ageController.text), dropdownValue.trim(), bioController.text.trim());
+                      UserDatabaseService(uid:user.uid ).updateUserData(usernameController.text.trim(), fullnameController.text.trim(), int.parse(ageController.text), dropdownValue.trim(), bioController.text.trim(),"None");
                       Navigator.push(
                         context,
                         MaterialPageRoute(builder: (context) => MapPage()),
