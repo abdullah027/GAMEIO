@@ -24,7 +24,7 @@ class _UserDetailsState extends State<UserDetails> {
               future: getUserInfo(),
               builder: (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
                 if (snapshot.connectionState == ConnectionState.done) {
-                  return Center(child: Container(child: Text("Username "+snapshot.data.get('name'))));
+                  return Center(child: Container(child: Text("Username "+snapshot.data.get('name'))));   // from user's document retrieve name
                 } else {
                   return Center(child: CircularProgressIndicator());
                 }
@@ -35,8 +35,8 @@ class _UserDetailsState extends State<UserDetails> {
   }
 
   Future<DocumentSnapshot> getUserInfo()async{
-    var firebaseUser = await FirebaseAuth.instance.currentUser;
-    return await FirebaseFirestore.instance.collection("Users").doc(firebaseUser.uid).get();
+    var firebaseUser = await FirebaseAuth.instance.currentUser; //retrieve current user logged in
+    return await FirebaseFirestore.instance.collection("Users").doc(firebaseUser.uid).get(); //get profile record of current user form firebase and return snapshot of document
   }
 
 }

@@ -1,9 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:gameio/Services/User_data.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthenticationService {
+  User user = FirebaseAuth.instance.currentUser;
   final FirebaseAuth _firebaseAuth;
+
   final GoogleSignIn _googleSignIn = GoogleSignIn();
 
 
@@ -21,13 +24,15 @@ class AuthenticationService {
   Future getCurrentUser() async {
     return  _firebaseAuth.currentUser;
   }
-  /// This won't pop routes so you could do something like
-  /// Navigator.of(context).pushNamedAndRemoveUntil('/', (Route<dynamic> route) => false);
-  /// after you called this method if you want to pop all routes.
-  Future<void> signOut() async {
-    await _firebaseAuth.signOut();
 
+
+  /// Sign out user
+  Future<void> signOut() async {
+    UserDatabaseService(uid:user.uid ).isLoggedOut();
+    return  _firebaseAuth.signOut();
   }
+
+ 
 
   /// There are a lot of different ways on how you can do exception handling.
   /// This is to make it as easy as possible but a better way would be to
@@ -37,6 +42,7 @@ class AuthenticationService {
     try {
       UserCredential result = await _firebaseAuth.signInWithEmailAndPassword(email: email, password: password);
       await result.user.reload();
+      UserDatabaseService(uid:user.uid ).isLoggedIn();
       return "Signed in";
     } on FirebaseAuthException catch (e) {
       return e.message;
@@ -52,7 +58,7 @@ class AuthenticationService {
       UserCredential result = await _firebaseAuth.createUserWithEmailAndPassword(email: email, password: password);
       final uid = result.user.uid;
       await result.user.reload();
-
+      UserDatabaseService(uid:user.uid ).isLoggedIn();
       return "Signed up";
     } on FirebaseAuthException catch (e) {
       return e.message;
@@ -66,6 +72,7 @@ class AuthenticationService {
       idToken: _googleAuth.idToken,
       accessToken: _googleAuth.accessToken,
     );
+    UserDatabaseService(uid:user.uid ).isLoggedIn();
     return (await _firebaseAuth.signInWithCredential(credential)).user.uid;
   }
 }

@@ -5,56 +5,58 @@ import 'firebase_auth.dart';
 class UserDatabaseService {
   var value;
   final String uid;
-  UserDatabaseService({this.uid});
-  final CollectionReference userCollection = FirebaseFirestore.instance.collection('Users');
 
-  Future addUserData( String name, int age, String gender, String bio) async {
+  UserDatabaseService({this.uid});
+
+  final CollectionReference userCollection = FirebaseFirestore.instance
+      .collection('Users');
+
+
+  //function called when new user is created to store name
+  Future addUserData(String name, int age, String gender, String bio) async {
+    // set default values and name
     return await userCollection.doc(uid).set({
-      'name' :name,
+      'name': name,
       'age': age,
-      'gender' : gender,
+      'gender': gender,
       'bio': bio,
     }, SetOptions(merge: true));
   }
 
-  Future updateUserData(String username, String name, int age, String gender, String bio) async {
+// update profile data of user
+  Future updateUserData(String username, String name, int age, String gender,
+      String bio) async {
+    //set particulars of user
     return await userCollection.doc(uid).set({
       'displayName': username,
-      'name' :name,
+      'name': name,
       'age': age,
-      'gender' : gender,
+      'gender': gender,
       'bio': bio,
-    }, SetOptions(merge: true));
+    }, SetOptions(merge: true)); // merge with old record
 
   }
 
-
-  Future isLoggedIn(String name, int age, String gender, String bio) async {
+//set logged in value to true
+  Future isLoggedIn() async {
     return await userCollection.doc(uid).set({
-      'isloggedin' :true,
+      'isloggedin': true,
     }, SetOptions(merge: true));
   }
 
   Future updateUsername(String username) async {
     return await userCollection.doc(uid).set({
-      'username' :username,
+      'username': username,
     }, SetOptions(merge: true));
   }
 
-
-  Future isLoggedOut(String name, int age, String gender, String bio) async {
+//set logged in value to false
+  Future isLoggedOut() async {
     return await userCollection.doc(uid).set({
-      'isloggedin' :false,
+      'isloggedin': false,
     }, SetOptions(merge: true));
   }
-
-  Future<String> GetUserName() async {
-   final result = await userCollection.doc(uid).get().then(value);
-    String name = value.data()['name'];
-    print(name);
-    return name;
-    }
-  }
+}
 //class UserManagement{
  //storeNewUser(user,context) async{
     //var firebaseUser= await FirebaseAuth.instance.currentUser;
