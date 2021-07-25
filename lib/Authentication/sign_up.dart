@@ -241,7 +241,7 @@ class _SignUpState extends State<SignUp> {
 
 
                           _firebaseAuth.currentUser.updateProfile(displayName: nameController.text.trim());
-                          UserDatabaseService(uid:user.uid ).addUserData(nameController.text.trim(), 0, "Gender", "Tell us a little about yourself");
+                          UserDatabaseService(uid:user.uid ).addUserData(nameController.text.trim(), 0, "Gender", "Tell us a little about yourself"); // set default parameters to user profile
                         },
                         style: ButtonStyle(
                           shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(20))),
@@ -281,7 +281,7 @@ class _SignUpState extends State<SignUp> {
                               MaterialStateProperty.all<Color>(Color(0xFFEB1555)),
                         ),
                         child: Text(
-                          'GO',
+                          'GO', //this button exists due to glitch caused by some feature depriciating and causing issues on log in
                           style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
