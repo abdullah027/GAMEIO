@@ -1,5 +1,6 @@
 import 'dart:io';
 //import 'dart:js_util';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +10,8 @@ import 'package:gameio/Services/User_data.dart';
 //import 'package:age/age.dart';
 //import 'package:gameio/Screens/map_page.dart';
 import 'package:gameio/Services/firebase_auth.dart';
+import 'package:gameio/Services/user_details.dart';
+import 'package:gameio/Services/user_details.dart';
 //import 'package:provider/provider.dart';
 import 'dart:async';
 import 'package:image_picker/image_picker.dart';
@@ -16,6 +19,7 @@ import 'package:gameio/Services/User_data.dart';
 import 'package:provider/provider.dart';
 
 class UserInfo extends StatefulWidget {
+
   @override
   _UserInfoState createState() => _UserInfoState();
 }
@@ -110,7 +114,7 @@ class _UserInfoState extends State<UserInfo> {
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(40),
                       ),
-                      hintText: name,
+                      hintText: 'ss',
                       hintStyle: TextStyle(
                         fontWeight: FontWeight.bold,
                         color: Colors.white,

@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:gameio/Screens/search_data.dart';
 import 'package:gameio/Screens/user_info.dart';
 import 'package:gameio/Services/firebase_auth.dart';
 import 'package:gameio/Services/user_details.dart';
@@ -88,20 +89,11 @@ class _MapPageState extends State<MapPage> {
                 child: Text('GAMEIO'),
               ),
               ListTile(
-                title: Text('Edit Profile'),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => FillInfo()),
-                  );
-                },
-              ),
-              ListTile(
                 title: Text('Profile'),
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => UserInfo()),
+                    MaterialPageRoute(builder: (context) => FillInfo()),
                   );
                 },
               ),
@@ -135,8 +127,7 @@ class _MapPageState extends State<MapPage> {
         ),
         actions: [
           IconButton(icon: Icon(Icons.search), onPressed: (){
-            Navigator.push(context, MaterialPageRoute(builder: (context)=>UserDetails()));
-
+            showSearch(context: context, delegate: DataSearch());
           })
         ],
       ),

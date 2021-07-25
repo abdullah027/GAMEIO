@@ -52,69 +52,71 @@ class _HelpCenterState extends State<HelpCenter> {
                 ),
               ),
             ),
-            Container(
-              padding: EdgeInsets.only(top: 50),
-              child: Column(
-                children: [
-                  Text(
-                    "Contact us",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 25,
-                    ),
-                  ),
-                  Card(
-                    margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 25.0),
-                    color: Color(0XFF1D1F33),
-                    child: ListTile(
-                      leading: Icon(
-                        Icons.call,
+            Flexible(
+              child: Container(
+                padding: EdgeInsets.only(top: 50),
+                child: Column(
+                  children: [
+                    Text(
+                      "Contact us",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 25,
                       ),
-                      title: Text(
-                        "+92 315 293 0197",
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
+                    ),
+                    Card(
+                      margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 25.0),
+                      color: Color(0XFF1D1F33),
+                      child: ListTile(
+                        leading: Icon(
+                          Icons.call,
+                        ),
+                        title: Text(
+                          "+92 315 293 0197",
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  Card(
-                    margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 25.0),
-                    color: Color(0XFF1D1F33),
-                    child: ListTile(
-                      leading: Icon(
-                        Icons.mail,
-                      ),
-                      title: Text(
-                        "fyp.gameio@gmail.com",
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
+                    Card(
+                      margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 25.0),
+                      color: Color(0XFF1D1F33),
+                      child: ListTile(
+                        leading: Icon(
+                          Icons.mail,
+                        ),
+                        title: Text(
+                          "fyp.gameio@gmail.com",
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  Card(
-                    margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 25.0),
-                    color: Color(0XFF1D1F33),
-                    child: ListTile(
-                      leading: Icon(
-                        Icons.question_answer_outlined,
-                      ),
-                      title: Text(
-                        "FAQs",
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
+                    Card(
+                      margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 25.0),
+                      color: Color(0XFF1D1F33),
+                      child: ListTile(
+                        leading: Icon(
+                          Icons.question_answer_outlined,
+                        ),
+                        title: Text(
+                          "FAQs",
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ],
