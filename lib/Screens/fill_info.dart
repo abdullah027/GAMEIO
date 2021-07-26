@@ -21,6 +21,7 @@ class _FillInfoState extends State<FillInfo> {
   User user = FirebaseAuth.instance.currentUser;
   File _image;
   final picker = ImagePicker();
+  String avatarURL ;
 
   Future getImage() async {
     final pickedFile = await picker.getImage(source: ImageSource.gallery);
@@ -28,6 +29,7 @@ class _FillInfoState extends State<FillInfo> {
     setState(() {
       if (pickedFile != null) {
         _image = File(pickedFile.path);
+
       } else {
         print('No image selected.');
       }
@@ -80,6 +82,7 @@ class _FillInfoState extends State<FillInfo> {
                     Stack(children: [
                       Center(
                         child: CircleAvatar(
+
                           maxRadius: 60,
                           backgroundColor: Color(0xFFEB1555),
                           child: ClipOval(
@@ -92,7 +95,7 @@ class _FillInfoState extends State<FillInfo> {
                                       fit: BoxFit.fill,
                                     )
                                   : Image.network(
-                                      "https://cdn.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png",
+                                snapshot.data.get('avatarUrl'),
                                       fit: BoxFit.fill,
                                     ),
                             ),
@@ -211,6 +214,7 @@ class _FillInfoState extends State<FillInfo> {
                                 ),
                               ),
                               onPressed: () {
+
                                 selectDate(context);
                               },
                             ),
@@ -279,6 +283,8 @@ class _FillInfoState extends State<FillInfo> {
                         height: 70,
                         child: TextButton(
                           onPressed: () {
+                            UserDatabaseService(uid: user.uid).uploadPicture(_image);
+
                             UserDatabaseService(uid: user.uid).updateUserData(
                                 usernameController.text.trim(),
                                 fullnameController.text.trim(),
@@ -286,6 +292,7 @@ class _FillInfoState extends State<FillInfo> {
                                 dropdownValue.trim(),
                                 bioController.text.trim(),
                                 countryController.text.trim(),
+                              checkUrl(avatarURL)
                             );
                             Navigator.push(
                               context,
@@ -365,4 +372,15 @@ Future<DocumentSnapshot> getUserInfo() async {
       .doc(firebaseUser.uid)
       .get();
   //get profile record of current user form firebase and return snapshot of document
+}
+String checkUrl(String Url){
+  User user = FirebaseAuth.instance.currentUser;
+   if(Url!=null){
+    return "gs://gameio-c7058.appspot.com/user/profile/$user.uid";
+  }
+  else{
+    return "https://cdn.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png";
+  }
+
+
 }

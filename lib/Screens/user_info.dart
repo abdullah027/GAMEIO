@@ -4,7 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:gameio/Screens/profile.dart';
+import 'package:gameio/Screens/fill_info.dart';
 import 'package:gameio/Screens/welcome_page.dart';
 import 'package:gameio/Services/User_data.dart';
 //import 'package:age/age.dart';

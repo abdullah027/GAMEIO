@@ -1,10 +1,15 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/material.dart';
 import 'firebase_auth.dart';
 
 class UserDatabaseService {
   var value;
   final String uid;
+  FirebaseStorage storage = FirebaseStorage.instance;
 
   UserDatabaseService({this.uid});
 
@@ -29,7 +34,7 @@ class UserDatabaseService {
 
 // update profile data of user
   Future updateUserData(String username, String name, int age, String gender,
-      String bio, String country) async {
+      String bio, String country, String avatarUrl) async {
     //set particulars of user
     return await userCollection.doc(uid).update({
       'displayName': username,
@@ -37,7 +42,8 @@ class UserDatabaseService {
       'age': age,
       'gender': gender,
       'bio': bio,
-      "country": country
+      "country": country,
+      //"avatarUrl" : avatarUrl
     }, ); // merge with old record
 
   }
@@ -54,6 +60,11 @@ class UserDatabaseService {
       'username': username,
     }, SetOptions(merge: true));
   }
+  Future setavatarUrl(String Url) async {
+    return await userCollection.doc(uid).set({
+      'avatarUrl': Url,
+    }, SetOptions(merge: true));
+  }
 
 //set logged in value to false
   Future isLoggedOut() async {
@@ -61,4 +72,23 @@ class UserDatabaseService {
       'isloggedin': false,
     }, SetOptions(merge: true));
   }
+
+  Future<String> uploadPicture(File file) async{
+    //String avatarURL;
+  Reference storageRef = storage.ref().child("user/profile/${uid}.jpeg");
+  UploadTask uploadTask = storageRef.putFile(file);
+  uploadTask.whenComplete(() async{
+    storageRef.getDownloadURL().then((avatarUrl){
+      this.setavatarUrl(avatarUrl);
+      print(avatarUrl);
+    } );
+
+  }).catchError((onError){
+    print(onError);
+  });
+
+  ;
+  }
+
 }
+
