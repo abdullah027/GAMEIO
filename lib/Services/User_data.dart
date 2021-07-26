@@ -16,6 +16,9 @@ class UserDatabaseService {
   Future addUserData(String name, int age, String gender, String bio) async {
     // set default values and name
     return await userCollection.doc(uid).set({
+      'displayName': "",
+      'country': "",
+      'currentlyPlaying': "",
       'name': name,
       'age': age,
       'gender': gender,
@@ -27,14 +30,14 @@ class UserDatabaseService {
   Future updateUserData(String username, String name, int age, String gender,
       String bio, String country) async {
     //set particulars of user
-    return await userCollection.doc(uid).set({
+    return await userCollection.doc(uid).update({
       'displayName': username,
       'name': name,
       'age': age,
       'gender': gender,
       'bio': bio,
       "country": country
-    }, SetOptions(merge: true)); // merge with old record
+    }, ); // merge with old record
 
   }
 

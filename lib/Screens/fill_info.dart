@@ -229,7 +229,7 @@ class _FillInfoState extends State<FillInfo> {
 
                               ),
                               decoration: InputDecoration(
-                                  hintText: snapshot.data.get('age').toString() + " years",
+                                  hintText: snapshot.data.get('age').toString(),
                                   hintStyle: TextStyle(
                                     color: Colors.white,
                                     fontStyle: FontStyle.italic,
