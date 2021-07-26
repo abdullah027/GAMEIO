@@ -218,7 +218,7 @@ class _FillInfoState extends State<FillInfo> {
                         Flexible(
                           child: Container(
                             height: 30,
-                            width: 100,
+                            width: 80,
                             alignment: Alignment.center,
                             child: TextField(
                               controller: ageController,
@@ -284,6 +284,7 @@ class _FillInfoState extends State<FillInfo> {
                                 int.parse(ageController.text),
                                 dropdownValue.trim(),
                                 bioController.text.trim());
+                                ;
                             Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -356,7 +357,7 @@ class _FillInfoState extends State<FillInfo> {
 
 Future<DocumentSnapshot> getUserInfo() async {
   var firebaseUser =
-     FirebaseAuth.instance.currentUser; //retrieve current user logged in
+      await FirebaseAuth.instance.currentUser; //retrieve current user logged in
   return await FirebaseFirestore.instance
       .collection("Users")
       .doc(firebaseUser.uid)
