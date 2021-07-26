@@ -5,13 +5,13 @@ import 'package:provider/provider.dart';
 
 import 'help_center.dart';
 
-class Settings extends StatefulWidget {
+class Setting extends StatefulWidget {
 
   @override
-  _SettingsState createState() => _SettingsState();
+  _SettingState createState() => _SettingState();
 }
 
-class _SettingsState extends State<Settings> {
+class _SettingState extends State<Setting> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

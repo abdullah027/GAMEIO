@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gameio/Screens/search_data.dart';
 import 'package:gameio/Screens/user_info.dart';
@@ -10,6 +12,7 @@ import 'package:provider/provider.dart';
 import 'package:flutter/services.dart' show rootBundle;
 
 import 'fill_info.dart';
+import 'settings.dart';
 import 'settings.dart';
 
 class MapPage extends StatefulWidget {
@@ -28,6 +31,7 @@ class _MapPageState extends State<MapPage> {
   Position currentPosition;
   Set<Marker> _markers = {};
   String _mapStyle;
+
 
   @override
   void initState() {
@@ -60,7 +64,7 @@ class _MapPageState extends State<MapPage> {
           draggable: true,
           position: latLngPosition,
           icon: myIcon,
-          infoWindow: InfoWindow(title: 'Username', snippet: 'Playing CSGO'),
+          infoWindow: InfoWindow(title: "Username", snippet: 'Playing CSGO'),
           onDragEnd: (_currentlatLng) {
             latLngPosition = _currentlatLng;
           }));
@@ -102,7 +106,7 @@ class _MapPageState extends State<MapPage> {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => Settings()),
+                    MaterialPageRoute(builder: (context) => Setting()),
                   );
                 },
               ),

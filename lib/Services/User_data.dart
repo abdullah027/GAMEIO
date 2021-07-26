@@ -33,7 +33,7 @@ class UserDatabaseService {
       'age': age,
       'gender': gender,
       'bio': bio,
-      country: country
+      "country": country
     }, SetOptions(merge: true)); // merge with old record
 
   }

@@ -39,6 +39,7 @@ class _FillInfoState extends State<FillInfo> {
   TextEditingController usernameController = TextEditingController();
   TextEditingController fullnameController = TextEditingController();
   TextEditingController bioController = TextEditingController();
+  TextEditingController countryController = TextEditingController();
   DateTime _selectedDate;
 
   Widget build(BuildContext context) {
@@ -283,8 +284,9 @@ class _FillInfoState extends State<FillInfo> {
                                 fullnameController.text.trim(),
                                 int.parse(ageController.text),
                                 dropdownValue.trim(),
-                                bioController.text.trim());
-                                ;
+                                bioController.text.trim(),
+                                countryController.text.trim(),
+                            );
                             Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -361,5 +363,6 @@ Future<DocumentSnapshot> getUserInfo() async {
   return await FirebaseFirestore.instance
       .collection("Users")
       .doc(firebaseUser.uid)
-      .get(); //get profile record of current user form firebase and return snapshot of document
+      .get();
+  //get profile record of current user form firebase and return snapshot of document
 }

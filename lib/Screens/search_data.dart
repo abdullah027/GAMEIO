@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'chat_screen.dart';
+
 
 class DataSearch extends SearchDelegate<String> {
   final players = [
@@ -73,7 +75,9 @@ class DataSearch extends SearchDelegate<String> {
                 showResults(context);
               },
               leading: Icon(Icons.person_rounded),
-              trailing: IconButton(icon: Icon(Icons.message),iconSize: 20,onPressed: (){},),
+              trailing: IconButton(icon: Icon(Icons.message),iconSize: 20,onPressed: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>ChatScreen()));
+              },),
               title: Text(suggestionList[index]),
             ),
       itemCount: suggestionList.length,
