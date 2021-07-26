@@ -9,12 +9,19 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  #google dependencies
   google_maps_flutter: ^2.0.3
+  google_sign_in: "^4.0.7"
   intl: ^0.17.0
   age: ^0.0.1
-  firebase_core: "1.0.4"
+
+  #firebase dependencies
+  firebase_core: ^1.4.0
   firebase_auth: ^1.1.1
-  google_sign_in: "^4.0.7"
+  firebase_storage: ^10.0.1
+
+
+
   permission_handler:
 
   provider: ^4.3.2+1
