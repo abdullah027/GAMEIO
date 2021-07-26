@@ -23,6 +23,7 @@ class UserDatabaseService {
       'age': age,
       'gender': gender,
       'bio': bio,
+      'discord_username': ""
     }, SetOptions(merge: true));
   }
 

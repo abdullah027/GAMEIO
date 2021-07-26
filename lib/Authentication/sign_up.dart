@@ -227,10 +227,11 @@ class _SignUpState extends State<SignUp> {
                           if (passwordController.text.trim() ==
                               cPasswordController.text.trim()) {
                             context.read<AuthenticationService>().signUp(
+                                  name: nameController.text.trim(),
                                   email: emailController.text.trim(),
                                   password: passwordController.text.trim(),
                                 );
-
+                            UserDatabaseService(uid:user.uid ).addUserData(nameController.text.trim(), 0, "Gender", "Tell us a little about yourself"); // set default parameters to user profile
                           } else {
                             emailController
                               ..text = "Passwords do not match"
@@ -240,8 +241,8 @@ class _SignUpState extends State<SignUp> {
                           }
 
 
-                          _firebaseAuth.currentUser.updateProfile(displayName: nameController.text.trim());
-                          UserDatabaseService(uid:user.uid ).addUserData(nameController.text.trim(), 0, "Gender", "Tell us a little about yourself"); // set default parameters to user profile
+                          //_firebaseAuth.currentUser.updateProfile(displayName: nameController.text.trim());
+
                         },
                         style: ButtonStyle(
                           shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(20))),
@@ -272,6 +273,7 @@ class _SignUpState extends State<SignUp> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
+
                                 builder: (context) => WelcomeScreen()), // logged
                           );
                           //}
