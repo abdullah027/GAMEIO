@@ -58,8 +58,8 @@ class AuthenticationService {
       UserCredential result = await _firebaseAuth.createUserWithEmailAndPassword(email: email, password: password);
       final uid = result.user.uid;
       await result.user.reload();
-      await UserDatabaseService(uid:result.user.uid ).addUserData(name, 0, "Gender", "Tell us a little about yourself"); // set default parameters to user profile
-      UserDatabaseService(uid:result.user.uid ).isLoggedIn();
+      await UserDatabaseService(uid:uid ).addUserData(name, 0, "Gender", "Tell us a little about yourself"); // set default parameters to user profile
+      UserDatabaseService(uid:uid ).isLoggedIn();
       return "Signed up";
     } on FirebaseAuthException catch (e) {
       return e.message;
