@@ -43,6 +43,8 @@ class UserDatabaseService {
       'gender': gender,
       'bio': bio,
       "country": country,
+      "currentlyPlaying": currentlyPlaying,
+      "discord_username": discord_username,
       //"avatarUrl" : avatarUrl
     }, ); // merge with old record
 
