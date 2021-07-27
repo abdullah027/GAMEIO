@@ -90,7 +90,7 @@ class _FillInfoState extends State<FillInfo> {
                           Center(
                             child: CircleAvatar(
                               maxRadius: 60,
-                              backgroundColor: Color(0xFFEB1555),
+                              backgroundColor: Colors.black,
                               child: ClipOval(
                                 child: SizedBox(
                                   height: 100,
@@ -212,7 +212,7 @@ class _FillInfoState extends State<FillInfo> {
                           Flexible(
                             child: Container(
                               child: Text(
-                                'Playing What Game? : ',
+                                'Playing ? : ',
                                 style: TextStyle(
                                   fontSize: 18,
                                   fontWeight: FontWeight.bold,

@@ -67,7 +67,7 @@ class _MapPageState extends State<MapPage> {
           draggable: true,
           position: latLngPosition,
           icon: myIcon,
-          infoWindow: InfoWindow(title: name.data, snippet: 'Playing' + playing.data),
+          infoWindow: InfoWindow(title: name.data, snippet: 'Playing ' + playing.data),
           onDragEnd: (_currentlatLng) {
             latLngPosition = _currentlatLng;
           }));
@@ -175,7 +175,7 @@ class _MapPageState extends State<MapPage> {
             future: getUserInfo(),
             builder: (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
               if (snapshot.connectionState == ConnectionState.done) {
-                return name = Text(snapshot.data.get('name'));
+                return name = Text(snapshot.data.get('name'),style: TextStyle(fontSize: 0),);
               } else {
                 return Text('loading');
               }
@@ -185,7 +185,7 @@ class _MapPageState extends State<MapPage> {
             future: getUserInfo(),
             builder: (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
               if (snapshot.connectionState == ConnectionState.done) {
-                return playing = Text(snapshot.data.get('currentlyPlaying'));
+                return playing = Text(snapshot.data.get('currentlyPlaying'),style: TextStyle(fontSize: 0),);
               } else {
                 return Text('loading');
               }
