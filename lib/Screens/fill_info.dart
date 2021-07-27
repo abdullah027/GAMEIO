@@ -21,7 +21,7 @@ class _FillInfoState extends State<FillInfo> {
   User user = FirebaseAuth.instance.currentUser;
   File _image;
   final picker = ImagePicker();
-  String avatarURL ;
+  String avatarURL;
 
   Future getImage() async {
     final pickedFile = await picker.getImage(source: ImageSource.gallery);
@@ -29,7 +29,6 @@ class _FillInfoState extends State<FillInfo> {
     setState(() {
       if (pickedFile != null) {
         _image = File(pickedFile.path);
-
       } else {
         print('No image selected.');
       }
@@ -42,6 +41,8 @@ class _FillInfoState extends State<FillInfo> {
   TextEditingController fullnameController = TextEditingController();
   TextEditingController bioController = TextEditingController();
   TextEditingController countryController = TextEditingController();
+  TextEditingController discordController = TextEditingController();
+  TextEditingController gamingController = TextEditingController();
   DateTime _selectedDate;
 
   Widget build(BuildContext context) {
@@ -77,48 +78,56 @@ class _FillInfoState extends State<FillInfo> {
             future: getUserInfo(),
             builder: (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
               if (snapshot.connectionState == ConnectionState.done) {
-                return ListView(
-                  children: [
-                    Stack(children: [
-                      Center(
-                        child: CircleAvatar(
-
-                          maxRadius: 60,
-                          backgroundColor: Color(0xFFEB1555),
-                          child: ClipOval(
-                            child: SizedBox(
-                              height: 100,
-                              width: 100,
-                              child: (_image != null)
-                                  ? Image.file(
-                                      _image,
-                                      fit: BoxFit.fill,
-                                    )
-                                  : Image.network(
-                                snapshot.data.get('avatarUrl'),
-                                      fit: BoxFit.fill,
-                                    ),
+                return Container(
+                  padding: EdgeInsets.fromLTRB(15, 0, 15, 0),
+                  child: ListView(
+                    children: [
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Stack(
+                        children: [
+                          Center(
+                            child: CircleAvatar(
+                              maxRadius: 60,
+                              backgroundColor: Color(0xFFEB1555),
+                              child: ClipOval(
+                                child: SizedBox(
+                                  height: 100,
+                                  width: 100,
+                                  child: (_image != null)
+                                      ? Image.file(
+                                          _image,
+                                          fit: BoxFit.fill,
+                                        )
+                                      : Image.network(
+                                          snapshot.data.get('avatarUrl'),
+                                          fit: BoxFit.fill,
+                                        ),
+                                ),
+                              ),
                             ),
                           ),
-                        ),
+                          Container(
+                            width: 0,
+                            height: 0,
+                            color: Colors.red,
+                            padding: EdgeInsets.only(left: 235, top: 80),
+                            child: IconButton(
+                              icon: Icon(Icons.camera_alt_outlined),
+                              onPressed: () {
+                                setState(() {
+                                  getImage();
+                                });
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 10,
                       ),
                       Container(
-                        padding: EdgeInsets.only(left: 235, top: 80),
-                        child: IconButton(
-                          icon: Icon(Icons.camera_alt_outlined),
-                          onPressed: () {
-                            setState(() {
-                              getImage();
-                            });
-                          },
-                        ),
-                      ),
-                    ]),
-                    SizedBox(
-                      width: 5,
-                    ),
-                    Flexible(
-                      child: Container(
                         height: 40,
                         //color: Color(0XFF1D1F33),
                         child: TextField(
@@ -139,9 +148,7 @@ class _FillInfoState extends State<FillInfo> {
                           ),
                         ),
                       ),
-                    ),
-                    Flexible(
-                      child: Container(
+                      Container(
                         height: 30,
                         //color: Color(0XFF1D1F33),
                         child: TextField(
@@ -162,14 +169,124 @@ class _FillInfoState extends State<FillInfo> {
                           ),
                         ),
                       ),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Flexible(
-                      flex: 1,
-                      child: Container(
-                        height: 175,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        textBaseline: TextBaseline.alphabetic,
+                        children: [
+                          Flexible(
+                            child: Container(
+                              child: Text(
+                                'Enter Country : ',
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ),
+                          Flexible(
+                            child: TextField(
+                              textAlign: TextAlign.left,
+                              controller: countryController,
+                              cursorColor: Colors.red,
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(
+                                  borderSide: BorderSide.none,
+                                ),
+                                hintText: snapshot.data.get('country'),
+                                hintStyle: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Row(
+                        children: [
+                          Flexible(
+                            child: Container(
+                              child: Text(
+                                'Playing What Game? : ',
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ),
+                          Flexible(
+                            child: TextField(
+                              textAlign: TextAlign.left,
+                              controller: gamingController,
+                              cursorColor: Colors.red,
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(
+                                  borderSide: BorderSide.none,
+                                ),
+                                hintText:
+                                    snapshot.data.get('currentlyPlaying'),
+                                hintStyle: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Row(
+                        children: [
+                          Flexible(
+                            child: Container(
+                              child: Text(
+                                'Enter Disord Url: ',
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ),
+                          Flexible(
+                            child: TextField(
+                              textAlign: TextAlign.left,
+                              controller: discordController,
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w400,
+                              ),
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(
+                                  borderSide: BorderSide.none,
+                                ),
+                                hintText:
+                                    snapshot.data.get('discord_username'),
+                                hintStyle: TextStyle(
+                                  color: Colors.white,
+                                  fontStyle: FontStyle.italic,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      Container(
+                        height: 150,
                         //color: Color(0XFF1D1F33),
                         child: TextField(
                           keyboardType: TextInputType.multiline,
@@ -193,16 +310,14 @@ class _FillInfoState extends State<FillInfo> {
                           ),
                         ),
                       ),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Flexible(
-                          child: Container(
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Container(
                             color: Color(0XFF1D1F33),
                             height: 50,
                             width: 89,
@@ -214,14 +329,11 @@ class _FillInfoState extends State<FillInfo> {
                                 ),
                               ),
                               onPressed: () {
-
                                 selectDate(context);
                               },
                             ),
                           ),
-                        ),
-                        Flexible(
-                          child: Container(
+                          Container(
                             height: 30,
                             width: 80,
                             alignment: Alignment.center,
@@ -230,22 +342,19 @@ class _FillInfoState extends State<FillInfo> {
                               style: TextStyle(
                                 fontSize: 20,
                                 fontWeight: FontWeight.w400,
-
                               ),
                               decoration: InputDecoration(
-                                  hintText: snapshot.data.get('age').toString(),
-                                  hintStyle: TextStyle(
-                                    color: Colors.white,
-                                    fontStyle: FontStyle.italic,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 20,
-                                  ),
+                                hintText: snapshot.data.get('age').toString(),
+                                hintStyle: TextStyle(
+                                  color: Colors.white,
+                                  fontStyle: FontStyle.italic,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20,
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                        Flexible(
-                          child: Container(
+                          Container(
                             child: DropdownButton<String>(
                               dropdownColor: Colors.black,
                               value: dropdownValue,
@@ -272,18 +381,15 @@ class _FillInfoState extends State<FillInfo> {
                               }).toList(),
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Flexible(
-                      child: Container(
-                        height: 70,
+                        ],
+                      ),
+                      Container(
+                        padding: EdgeInsets.only(top: 10),
+                        height: 80,
                         child: TextButton(
                           onPressed: () {
-                            UserDatabaseService(uid: user.uid).uploadPicture(_image);
+                            UserDatabaseService(uid: user.uid)
+                                .uploadPicture(_image);
 
                             UserDatabaseService(uid: user.uid).updateUserData(
                                 usernameController.text.trim(),
@@ -292,8 +398,9 @@ class _FillInfoState extends State<FillInfo> {
                                 dropdownValue.trim(),
                                 bioController.text.trim(),
                                 countryController.text.trim(),
-                              checkUrl(avatarURL)
-                            );
+                                gamingController.text.trim(),
+                                discordController.text.trim(),
+                                checkUrl(avatarURL));
                             Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -316,8 +423,8 @@ class _FillInfoState extends State<FillInfo> {
                           ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 );
               } else {
                 return Center(child: CircularProgressIndicator());
@@ -373,14 +480,12 @@ Future<DocumentSnapshot> getUserInfo() async {
       .get();
   //get profile record of current user form firebase and return snapshot of document
 }
-String checkUrl(String Url){
+
+String checkUrl(String Url) {
   User user = FirebaseAuth.instance.currentUser;
-   if(Url!=null){
+  if (Url != null) {
     return "gs://gameio-c7058.appspot.com/user/profile/$user.uid";
-  }
-  else{
+  } else {
     return "https://cdn.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png";
   }
-
-
 }

@@ -101,7 +101,7 @@ class _SignUpState extends State<SignUp> {
                 child: Column(
                   children: [
                     Container(
-                      margin: EdgeInsets.only(right: 330),
+                      width: double.infinity,
                       child: Text(
                         "Name",
                         style: TextStyle(
@@ -130,7 +130,7 @@ class _SignUpState extends State<SignUp> {
                       height: 10,
                     ),
                     Container(
-                      margin: EdgeInsets.only(right: 330),
+                      width: double.infinity,
                       child: Text(
                         "Email",
                         style: TextStyle(
@@ -159,7 +159,7 @@ class _SignUpState extends State<SignUp> {
                       height: 10,
                     ),
                     Container(
-                      margin: EdgeInsets.only(right: 300),
+                      width: double.infinity,
                       child: Text(
                         "Password",
                         style: TextStyle(
@@ -189,7 +189,7 @@ class _SignUpState extends State<SignUp> {
                       height: 10,
                     ),
                     Container(
-                      margin: EdgeInsets.only(right: 240),
+                      width: double.infinity,
                       child: Text(
                         "Confirm Password",
                         style: TextStyle(

@@ -34,7 +34,7 @@ class UserDatabaseService {
 
 // update profile data of user
   Future updateUserData(String username, String name, int age, String gender,
-      String bio, String country, String avatarUrl) async {
+      String bio, String country, String currentlyPlaying, String discord_username, String avatarUrl) async {
     //set particulars of user
     return await userCollection.doc(uid).update({
       'displayName': username,

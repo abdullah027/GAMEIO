@@ -12,8 +12,10 @@ import 'package:provider/provider.dart';
 import 'package:flutter/services.dart' show rootBundle;
 
 import 'fill_info.dart';
+import 'fill_info.dart';
 import 'settings.dart';
 import 'settings.dart';
+import 'welcome_page.dart';
 
 class MapPage extends StatefulWidget {
   @override
@@ -31,7 +33,8 @@ class _MapPageState extends State<MapPage> {
   Position currentPosition;
   Set<Marker> _markers = {};
   String _mapStyle;
-
+  Text name;
+  Text playing;
 
   @override
   void initState() {
@@ -64,7 +67,7 @@ class _MapPageState extends State<MapPage> {
           draggable: true,
           position: latLngPosition,
           icon: myIcon,
-          infoWindow: InfoWindow(title: "Username", snippet: 'Playing CSGO'),
+          infoWindow: InfoWindow(title: name.data, snippet: 'Playing' + playing.data),
           onDragEnd: (_currentlatLng) {
             latLngPosition = _currentlatLng;
           }));
@@ -76,6 +79,7 @@ class _MapPageState extends State<MapPage> {
     zoom: 18,
   );
 
+  User user = FirebaseAuth.instance.currentUser;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -130,9 +134,11 @@ class _MapPageState extends State<MapPage> {
           ),
         ),
         actions: [
-          IconButton(icon: Icon(Icons.search), onPressed: (){
-            showSearch(context: context, delegate: DataSearch());
-          })
+          IconButton(
+              icon: Icon(Icons.search),
+              onPressed: () {
+                showSearch(context: context, delegate: DataSearch());
+              })
         ],
       ),
       body: Stack(
@@ -165,6 +171,26 @@ class _MapPageState extends State<MapPage> {
               ),
             ],
           ),
+          FutureBuilder(
+            future: getUserInfo(),
+            builder: (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+              if (snapshot.connectionState == ConnectionState.done) {
+                return name = Text(snapshot.data.get('name'));
+              } else {
+                return Text('loading');
+              }
+            },
+          ),
+          FutureBuilder(
+            future: getUserInfo(),
+            builder: (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+              if (snapshot.connectionState == ConnectionState.done) {
+                return playing = Text(snapshot.data.get('currentlyPlaying'));
+              } else {
+                return Text('loading');
+              }
+            },
+          ),
           Positioned(
               bottom: 100,
               right: 10,
@@ -180,4 +206,14 @@ class _MapPageState extends State<MapPage> {
       ),
     );
   }
+}
+
+Future<DocumentSnapshot> getUserInfo() async {
+  var firebaseUser =
+      await FirebaseAuth.instance.currentUser; //retrieve current user logged in
+  return await FirebaseFirestore.instance
+      .collection("Users")
+      .doc(firebaseUser.uid)
+      .get();
+  //get profile record of current user form firebase and return snapshot of document
 }
