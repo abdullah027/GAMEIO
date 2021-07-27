@@ -75,7 +75,20 @@ class _LogInState extends State<LogIn> {
                       ),
                     ),
                     GestureDetector(
-                      onTap: () => print('Login with Facebook'),
+                      onTap: () { showDialog<String>(
+                        context: context,
+                        builder: (BuildContext context) => AlertDialog(
+                          title: const Text('Not Available'),
+                          content: const Text('This option is not available now'),
+                          actions: <Widget>[
+                            TextButton(
+                              onPressed: () => Navigator.pop(context, 'OK'),
+                              child: const Text('OK'),
+                            ),
+                          ],
+                        ),
+                      );
+                      },
                       child: Container(
                         //margin: EdgeInsets.only(top: 200),
                         height: 80,

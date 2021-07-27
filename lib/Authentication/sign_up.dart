@@ -1,4 +1,5 @@
 //import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -7,11 +8,11 @@ import 'package:gameio/Screens/welcome_page.dart';
 import 'package:provider/provider.dart';
 import 'package:gameio/Services/User_data.dart';
 
-
 class SignUp extends StatefulWidget {
   @override
   _SignUpState createState() => _SignUpState();
 }
+
 
 class _SignUpState extends State<SignUp> {
   TextEditingController nameController = TextEditingController();
@@ -55,7 +56,9 @@ class _SignUpState extends State<SignUp> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   GestureDetector(
-                    onTap: () => print("LogIn with Google"),
+                    onTap: () => context
+                        .read<AuthenticationService>()
+                        .signInWithGoogle(),
                     child: Container(
                       //margin: EdgeInsets.only(top: 200),
                       height: 80,
@@ -68,13 +71,28 @@ class _SignUpState extends State<SignUp> {
                           color: Color(0xFFD9BEBE),
                         ),
                         image: DecorationImage(
-                          image: AssetImage('assets/images/icons8-google-30.png',),
+                          image: AssetImage(
+                            'assets/images/icons8-google-30.png',
+                          ),
                         ),
                       ),
                     ),
                   ),
                   GestureDetector(
-                    onTap: () => print('Sign up with Facebook'),
+                    onTap: (){
+                      showDialog<String>(
+                          context: context,
+                          builder: (BuildContext context) => AlertDialog(
+                        title: const Text('Not Available'),
+                        content: const Text('This option is not available now'),
+                        actions: <Widget>[
+                          TextButton(
+                            onPressed: () => Navigator.pop(context, 'OK'),
+                            child: const Text('OK'),
+                          ),
+                        ],
+                      ),);
+                    },
                     child: Container(
                       //margin: EdgeInsets.only(top: 200),
                       height: 80,
@@ -87,7 +105,9 @@ class _SignUpState extends State<SignUp> {
                           color: Color(0xFFD9BEBE),
                         ),
                         image: DecorationImage(
-                          image: AssetImage('assets/images/icons8-facebook-30.png',),
+                          image: AssetImage(
+                            'assets/images/icons8-facebook-30.png',
+                          ),
                         ),
                       ),
                     ),
@@ -220,7 +240,7 @@ class _SignUpState extends State<SignUp> {
                     ),
                     Container(
                       width: 390,
-                      height: 50,
+                      height: 70,
                       padding: EdgeInsets.all(0),
                       child: TextButton(
                         onPressed: () {
@@ -231,59 +251,31 @@ class _SignUpState extends State<SignUp> {
                                   email: emailController.text.trim(),
                                   password: passwordController.text.trim(),
                                 );
-                            UserDatabaseService(uid:user.uid ).addUserData(nameController.text.trim(), 0, "Gender", "Tell us a little about yourself"); // set default parameters to user profile
+                            UserDatabaseService(uid: user.uid).addUserData(
+                                nameController.text.trim(),
+                                0,
+                                "Gender",
+                                "Tell us a little about yourself"); // set default parameters to user profile
                           } else {
                             emailController
                               ..text = "Passwords do not match"
-                              ..selection = TextSelection.fromPosition(TextPosition(
-                                  offset: emailController.text.length,
-                                  affinity: TextAffinity.upstream));
+                              ..selection = TextSelection.fromPosition(
+                                  TextPosition(
+                                      offset: emailController.text.length,
+                                      affinity: TextAffinity.upstream));
                           }
 
-
                           //_firebaseAuth.currentUser.updateProfile(displayName: nameController.text.trim());
-
                         },
                         style: ButtonStyle(
-                          shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(20))),
-                          backgroundColor:
-                              MaterialStateProperty.all<Color>(Color(0xFFEB1555)),
+                          shape: MaterialStateProperty.all(
+                              RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20))),
+                          backgroundColor: MaterialStateProperty.all<Color>(
+                              Color(0xFFEB1555)),
                         ),
                         child: Text(
                           'Create Account',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Container(
-                      width: 150,
-                      height: 50,
-                      padding: EdgeInsets.all(0),
-                      child: TextButton(
-                        onPressed: () {
-                          // if(FirebaseAuth.instance.currentUser?.uid == null){
-                          // not logged
-                          //} else {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-
-                                builder: (context) => WelcomeScreen()), // logged
-                          );
-                          //}
-                        },
-                        style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStateProperty.all<Color>(Color(0xFFEB1555)),
-                        ),
-                        child: Text(
-                          'GO', //this button exists due to glitch caused by some feature depriciating and causing issues on log in
                           style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
