@@ -33,22 +33,23 @@ class UserDatabaseService {
   }
 
 // update profile data of user
-  Future updateUserData(String username, String name, int age, String gender,
-      String bio, String country, String currentlyPlaying, String discord_username, String avatarUrl) async {
+  Future updateUserData(String userName, String name, int age, String gender,
+      String bio, String country, String currentlyPlaying, String discordUsername, String avatarUrl) async {
     //set particulars of user
     return await userCollection.doc(uid).update({
-      'displayName': username,
+      'userName': userName,
       'name': name,
       'age': age,
       'gender': gender,
       'bio': bio,
       "country": country,
       "currentlyPlaying": currentlyPlaying,
-      "discord_username": discord_username,
+      "discord_username": discordUsername,
       //"avatarUrl" : avatarUrl
     }, ); // merge with old record
 
   }
+
 
 //set logged in value to true
   Future isLoggedIn() async {

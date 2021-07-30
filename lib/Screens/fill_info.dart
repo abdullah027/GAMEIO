@@ -10,8 +10,6 @@ import 'package:gameio/Services/firebase_auth.dart';
 import 'package:provider/provider.dart';
 import 'dart:async';
 import 'package:image_picker/image_picker.dart';
-//import 'package:gameio/Services/User_data.dart';
-
 class FillInfo extends StatefulWidget {
   @override
   _FillInfoState createState() => _FillInfoState();
@@ -22,6 +20,17 @@ class _FillInfoState extends State<FillInfo> {
   File _image;
   final picker = ImagePicker();
   String avatarURL;
+  Map data;
+
+  fetchData(){
+    User firebaseUser = FirebaseAuth.instance.currentUser;
+    CollectionReference collectionReference = FirebaseFirestore.instance.collection("Users");
+    collectionReference.doc(firebaseUser.uid).snapshots().listen((snapshot) {
+      setState(() {
+        data = snapshot.data();
+      });
+    });
+  }
 
   Future getImage() async {
     final pickedFile = await picker.getImage(source: ImageSource.gallery);
@@ -33,6 +42,11 @@ class _FillInfoState extends State<FillInfo> {
         print('No image selected.');
       }
     });
+  }
+  @override
+  void initState() {
+    super.initState();
+    fetchData();
   }
 
   String dropdownValue = 'Male';
@@ -74,21 +88,17 @@ class _FillInfoState extends State<FillInfo> {
         ),
       ),
       body: SafeArea(
-        child: FutureBuilder(
-            future: getUserInfo(),
-            builder: (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
-              if (snapshot.connectionState == ConnectionState.done) {
-                return Container(
+        child: Container(
                   padding: EdgeInsets.fromLTRB(15, 0, 15, 0),
                   child: ListView(
                     children: [
                       SizedBox(
                         height: 10,
                       ),
-                      Stack(
-                        children: [
-                          Center(
-                            child: CircleAvatar(
+                      Center(
+                        child: Stack(
+                          children: [
+                            CircleAvatar(
                               maxRadius: 60,
                               backgroundColor: Colors.black,
                               child: ClipOval(
@@ -101,28 +111,22 @@ class _FillInfoState extends State<FillInfo> {
                                           fit: BoxFit.fill,
                                         )
                                       : Image.network(
-                                          snapshot.data.get('avatarUrl'),
+                                          data['avatarUrl'],
                                           fit: BoxFit.fill,
                                         ),
                                 ),
                               ),
                             ),
-                          ),
-                          Container(
-                            width: 0,
-                            height: 0,
-                            color: Colors.red,
-                            padding: EdgeInsets.only(left: 235, top: 80),
-                            child: IconButton(
+                            IconButton(
+                              padding: EdgeInsets.fromLTRB(100, 85, 0, 0),
                               icon: Icon(Icons.camera_alt_outlined),
                               onPressed: () {
-                                setState(() {
-                                  getImage();
-                                });
-                              },
+                                    print('pressed');
+                                    getImage();
+                                  },
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                       SizedBox(
                         height: 10,
@@ -139,7 +143,7 @@ class _FillInfoState extends State<FillInfo> {
                               borderRadius: BorderRadius.circular(10),
                               borderSide: BorderSide.none,
                             ),
-                            hintText: snapshot.data.get('name'),
+                            hintText: data['name'].toString(),
                             hintStyle: TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
@@ -160,7 +164,7 @@ class _FillInfoState extends State<FillInfo> {
                               borderRadius: BorderRadius.circular(10),
                               borderSide: BorderSide.none,
                             ),
-                            hintText: snapshot.data.get('displayName'),
+                            hintText: data['userName'],
                             hintStyle: TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
@@ -193,7 +197,7 @@ class _FillInfoState extends State<FillInfo> {
                                 border: OutlineInputBorder(
                                   borderSide: BorderSide.none,
                                 ),
-                                hintText: snapshot.data.get('country'),
+                                hintText: data['country'],
                                 hintStyle: TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,
@@ -229,8 +233,7 @@ class _FillInfoState extends State<FillInfo> {
                                 border: OutlineInputBorder(
                                   borderSide: BorderSide.none,
                                 ),
-                                hintText:
-                                    snapshot.data.get('currentlyPlaying'),
+                                hintText: data['currentlyPlaying'],
                                 hintStyle: TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,
@@ -269,8 +272,7 @@ class _FillInfoState extends State<FillInfo> {
                                 border: OutlineInputBorder(
                                   borderSide: BorderSide.none,
                                 ),
-                                hintText:
-                                    snapshot.data.get('discord_username'),
+                               hintText: data['discordUsername'],
                                 hintStyle: TextStyle(
                                   color: Colors.white,
                                   fontStyle: FontStyle.italic,
@@ -300,7 +302,7 @@ class _FillInfoState extends State<FillInfo> {
                               borderRadius: BorderRadius.circular(20),
                               //borderSide: BorderSide.none,
                             ),
-                            hintText: snapshot.data.get('bio'),
+                            hintText: data['bio'],
                             hintStyle: TextStyle(
                               color: Colors.white,
                               fontStyle: FontStyle.italic,
@@ -344,7 +346,7 @@ class _FillInfoState extends State<FillInfo> {
                                 fontWeight: FontWeight.w400,
                               ),
                               decoration: InputDecoration(
-                                hintText: snapshot.data.get('age').toString(),
+                                //hintText: ,
                                 hintStyle: TextStyle(
                                   color: Colors.white,
                                   fontStyle: FontStyle.italic,
@@ -425,13 +427,9 @@ class _FillInfoState extends State<FillInfo> {
                       ),
                     ],
                   ),
-                );
-              } else {
-                return Center(child: CircularProgressIndicator());
-              }
-            }),
-      ),
-    );
+                ),
+            ),
+      );
   }
 
   selectDate(BuildContext context) async {
@@ -470,17 +468,6 @@ class _FillInfoState extends State<FillInfo> {
     }
   }
 }
-
-Future<DocumentSnapshot> getUserInfo() async {
-  var firebaseUser =
-      await FirebaseAuth.instance.currentUser; //retrieve current user logged in
-  return await FirebaseFirestore.instance
-      .collection("Users")
-      .doc(firebaseUser.uid)
-      .get();
-  //get profile record of current user form firebase and return snapshot of document
-}
-
 String checkUrl(String Url) {
   User user = FirebaseAuth.instance.currentUser;
   if (Url != null) {

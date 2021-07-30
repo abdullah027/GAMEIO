@@ -33,8 +33,19 @@ class _MapPageState extends State<MapPage> {
   Position currentPosition;
   Set<Marker> _markers = {};
   String _mapStyle;
-  Text name;
-  Text playing;
+  Map data;
+
+  fetchData(){
+    User firebaseUser = FirebaseAuth.instance.currentUser;
+    CollectionReference collectionReference = FirebaseFirestore.instance.collection("Users");
+    collectionReference.doc(firebaseUser.uid).snapshots().listen((snapshot) {
+      setState(() {
+        data = snapshot.data();
+      });
+    });
+  }
+
+
 
   @override
   void initState() {
@@ -44,6 +55,7 @@ class _MapPageState extends State<MapPage> {
       myIcon = onValue;
     });
     super.initState();
+    fetchData();
     locatePosition();
     rootBundle.loadString('assets/map_style.txt').then((string) {
       _mapStyle = string;
@@ -67,7 +79,7 @@ class _MapPageState extends State<MapPage> {
           draggable: true,
           position: latLngPosition,
           icon: myIcon,
-          infoWindow: InfoWindow(title: name.data, snippet: 'Playing ' + playing.data),
+          infoWindow: InfoWindow(title: data['name'], snippet: data['currentlyPlaying']),
           onDragEnd: (_currentlatLng) {
             latLngPosition = _currentlatLng;
           }));
@@ -79,7 +91,7 @@ class _MapPageState extends State<MapPage> {
     zoom: 18,
   );
 
-  User user = FirebaseAuth.instance.currentUser;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -170,26 +182,6 @@ class _MapPageState extends State<MapPage> {
                 ),
               ),
             ],
-          ),
-          FutureBuilder(
-            future: getUserInfo(),
-            builder: (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
-              if (snapshot.connectionState == ConnectionState.done) {
-                return name = Text(snapshot.data.get('name'),style: TextStyle(fontSize: 0),);
-              } else {
-                return Text('loading');
-              }
-            },
-          ),
-          FutureBuilder(
-            future: getUserInfo(),
-            builder: (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
-              if (snapshot.connectionState == ConnectionState.done) {
-                return playing = Text(snapshot.data.get('currentlyPlaying'),style: TextStyle(fontSize: 0),);
-              } else {
-                return Text('loading');
-              }
-            },
           ),
           Positioned(
               bottom: 100,

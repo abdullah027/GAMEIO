@@ -1,13 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:gameio/Screens/welcome_page.dart';
 
 
 import 'chat_screen.dart';
 
 
 class DataSearch extends SearchDelegate<String> {
-  var user = FirebaseAuth.instance.currentUser;
+  List<DocumentSnapshot> data;
+
+  fetchData(){
+
+
+    //User firebaseUser = FirebaseAuth.instance.currentUser;
+    CollectionReference collectionReference = FirebaseFirestore.instance.collection("Users");
+    collectionReference.snapshots().listen((snapshot) {
+        data = snapshot.docs;
+    });
+  }
 
 
 
@@ -27,12 +38,14 @@ class DataSearch extends SearchDelegate<String> {
     "Louis Lane",
     "Cisco"
   ];
-  final recentSearch = [
+  List recentSearch = [
     "John Doe",
     "Harry Wilson",
     "Farhan Ali",
     "Esa Khan",
+    "Esha Ali",
   ];
+
   @override
   List<Widget> buildActions(BuildContext context) {
     // actions for AppBar
@@ -64,16 +77,28 @@ class DataSearch extends SearchDelegate<String> {
         child: Card(
           color: Colors.red,
           child: Center(
-            child: Text(query),
+            child: StreamBuilder(
+              stream: FirebaseFirestore.instance.collection('Users').snapshots(),
+              builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot){
+                if(!snapshot.hasData) return Text("Loading");
+                return ListView(
+                  children: snapshot.data.docs.map((document){
+                    return ListTile(
+                      title: Text(document['1F1GvuxjooWnzdlRnoTsv8zpz973']),
+                    );
+                  }).toList(),
+                );
+              },
+            )
           ),
         ),
       ),
     );
 
   }
-
   @override
   Widget buildSuggestions(BuildContext context) {
+    fetchData();
     final suggestionList = query.isEmpty ? recentSearch : players.where((p) => p.startsWith(query)).toList();
 
     return ListView.builder(
