@@ -7,6 +7,8 @@ import 'package:flutter/widgets.dart';
 //import 'map_page.dart';
 import 'package:gameio/Services/firebase_auth.dart';
 import 'package:provider/provider.dart';
+import 'package:gameio/Screens/map_page.dart';
+import 'package:gameio/Screens/main.dart';
 
 class LogIn extends StatefulWidget {
   @override
@@ -182,7 +184,9 @@ class _LogInState extends State<LogIn> {
                           context.read<AuthenticationService>().signIn(
                                 email: emailController.text.trim(),
                                 password: passwordController.text.trim(),
-                              );
+                              ).then((value) =>  Navigator.push(
+                              context, MaterialPageRoute(builder: (BuildContext context) =>MapPage(),),),
+                          );
 
                       },
                       style: ButtonStyle(
@@ -210,3 +214,5 @@ class _LogInState extends State<LogIn> {
     );
   }
 }
+
+
