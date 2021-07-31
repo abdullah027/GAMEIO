@@ -15,8 +15,14 @@ Future<void> main() async {
   runApp(MyApp());
 }
 
+class MyApp extends StatefulWidget {
+  const MyApp({key}) : super(key: key);
 
-class MyApp extends StatelessWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -37,6 +43,8 @@ class MyApp extends StatelessWidget {
         ));
   }
 }
+
+
 class AuthenticationWrapper extends StatelessWidget {
   @override
   const AuthenticationWrapper({
