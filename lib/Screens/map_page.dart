@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:gameio/Screens/check.dart';
 import 'package:gameio/Screens/search_data.dart';
 import 'package:gameio/Screens/user_info.dart';
 import 'package:gameio/Services/firebase_auth.dart';
@@ -137,6 +138,7 @@ class _MapPageState extends State<MapPage> {
         ),
       ),
       appBar: AppBar(
+        backgroundColor: Color(0xFF0A0D22),
         centerTitle: true,
         title: Text(
           'Gameio',
@@ -149,7 +151,7 @@ class _MapPageState extends State<MapPage> {
           IconButton(
               icon: Icon(Icons.search),
               onPressed: () {
-                showSearch(context: context, delegate: DataSearch());
+               showSearch(context: context, delegate: DataSearch());
               })
         ],
       ),
