@@ -23,13 +23,13 @@ class UserDatabaseService {
     return await userCollection.doc(uid).set({
       'displayName': "",
       'country': "",
-      'currentlyPlaying': "",
       'avatarUrl': "https://cdn.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png",
-      'name': name,
-      'age': age,
-      'gender': gender,
-      'bio': bio,
-      'discord_username': ""
+      'name': name??"name",
+      'age': age??0,
+      'gender': gender??"ohter",
+      'bio': bio??"Tell us something about yourself",
+      "currentlyPlaying": "None",
+      "discord_username": "Undefined",
     }, SetOptions(merge: true));
   }
 
@@ -38,14 +38,14 @@ class UserDatabaseService {
       String bio, String country, String currentlyPlaying, String discordUsername, String avatarUrl) async {
     //set particulars of user
     return await userCollection.doc(uid).update({
-      'userName': userName,
-      'name': name,
-      'age': age,
-      'gender': gender,
-      'bio': bio,
-      "country": country,
-      "currentlyPlaying": currentlyPlaying,
-      "discord_username": discordUsername,
+      'userName': userName??"undefined",
+      'name': name??"name",
+      'age': age??0,
+      'gender': gender??"other",
+      'bio': bio??"Tell us something about yourself",
+      "country": country??"undefined",
+      "currentlyPlaying": currentlyPlaying??"None",
+      "discord_username": discordUsername??"Undefined",
       //"avatarUrl" : avatarUrl
     }, ); // merge with old record
 
