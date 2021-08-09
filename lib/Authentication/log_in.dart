@@ -142,7 +142,7 @@ class _LogInState extends State<LogIn> {
                   ),
                   Row(
                     children: [
-                      Expanded(child: Divider()),
+                      Expanded(child: Divider(color: Colors.white,)),
                       SizedBox(
                         width: 20,
                       ),
@@ -150,7 +150,7 @@ class _LogInState extends State<LogIn> {
                       SizedBox(
                         width: 20,
                       ),
-                      Expanded(child: Divider()),
+                      Expanded(child: Divider(color: Colors.white,)),
                     ],
                   ),
                   SizedBox(

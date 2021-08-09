@@ -218,7 +218,7 @@ class _SignUpState extends State<SignUp> {
                     ),
                     Row(
                       children: [
-                        Expanded(child: Divider()),
+                        Expanded(child: Divider(color: Colors.white,)),
                         SizedBox(
                           width: 20,
                         ),
@@ -226,7 +226,7 @@ class _SignUpState extends State<SignUp> {
                         SizedBox(
                           width: 20,
                         ),
-                        Expanded(child: Divider()),
+                        Expanded(child: Divider(color: Colors.white,)),
                       ],
                     ),
                     SizedBox(
