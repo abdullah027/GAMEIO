@@ -12,8 +12,8 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/services.dart' show rootBundle;
 
-import 'fill_info.dart';
-import 'fill_info.dart';
+import 'profile_view.dart';
+import 'profile_view.dart';
 import 'settings.dart';
 import 'settings.dart';
 import 'welcome_page.dart';
@@ -131,6 +131,7 @@ class _MapPageState extends State<MapPage> {
                 title: Text('LogOut'),
                 onTap: () {
                   context.read<AuthenticationService>().signOut();
+                  Navigator.pop(context);
                 },
               ),
             ],

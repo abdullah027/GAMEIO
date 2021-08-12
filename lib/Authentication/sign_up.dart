@@ -173,7 +173,7 @@ class _SignUpState extends State<SignUp> {
                       height: 70,
                       padding: EdgeInsets.all(0),
                       child: TextButton(
-                        onPressed: () {
+                        onPressed: () async {
                           if (passwordController.text.trim() ==
                               cPasswordController.text.trim()) {
                             context.read<AuthenticationService>().signUp(

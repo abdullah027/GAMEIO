@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 
 
-import 'chat_screen.dart';
+import 'chat_view.dart';
 
 
 class DataSearch extends SearchDelegate<String> {

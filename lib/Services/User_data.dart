@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -26,7 +25,7 @@ class UserDatabaseService {
       'avatarUrl': "https://cdn.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png",
       'name': name??"name",
       'age': age??0,
-      'gender': gender??"ohter",
+      'gender': gender??"other",
       'bio': bio??"Tell us something about yourself",
       "currentlyPlaying": "None",
       "discord_username": "Undefined",
