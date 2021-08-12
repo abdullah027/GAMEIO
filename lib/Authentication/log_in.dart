@@ -113,12 +113,14 @@ class _LogInState extends State<LogIn> {
                     child: TextButton(
                       onPressed: () {
 
-                          context.read<AuthenticationService>().signIn(
-                                email: emailController.text.trim(),
-                                password: passwordController.text.trim(),
-                              ).then((value) =>  Navigator.push(
-                              context, MaterialPageRoute(builder: (BuildContext context) =>MapPage(),),),
-                          );
+                          setState(() {
+                            context.read<AuthenticationService>().signIn(
+                                  email: emailController.text.trim(),
+                                  password: passwordController.text.trim(),
+                                ).then((value) =>  Navigator.push(
+                                context, MaterialPageRoute(builder: (BuildContext context) =>MapPage(),),),
+                            );
+                          });
 
                       },
                       style: ButtonStyle(

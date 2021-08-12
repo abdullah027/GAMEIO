@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:gameio/Screens/profile_view.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 
 
@@ -71,14 +73,30 @@ class DataSearch extends SearchDelegate<String> {
             return ListView.builder(
               itemCount: suggestionList.length,
               itemBuilder: (context, index) {
-
+                setProfileData()async{
+                  SharedPreferences pref = await SharedPreferences.getInstance();
+                  pref.setString('name', snapshot.data[index]['name']);
+                  pref.setString('username', snapshot.data[index]['userName']);
+                  pref.setString('age', snapshot.data[index]['age']);
+                  pref.setString('country', snapshot.data[index]['country']);
+                  pref.setString('discord_ID', snapshot.data[index]['discord_username']);
+                  pref.setString('bio', snapshot.data[index]['bio']);
+                }
                 return Column(children: [
                   ListTile(
                     tileColor: Color(0xFF363742),
-                    leading: Icon(Icons.person),
+                    leading: IconButton(icon: Icon(Icons.person),
+                      onPressed: ()async{
+                      setProfileData();
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ProfileView()));
+                    },),
                     trailing: IconButton(
                       icon: Icon(Icons.message),
-                      onPressed: () {
+                      onPressed: (){
+
                         Navigator.push(
                             context,
                             MaterialPageRoute(
