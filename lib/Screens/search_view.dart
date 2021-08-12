@@ -75,9 +75,10 @@ class DataSearch extends SearchDelegate<String> {
               itemBuilder: (context, index) {
                 setProfileData()async{
                   SharedPreferences pref = await SharedPreferences.getInstance();
+                  pref.setString('image', snapshot.data[index]['avatarUrl']);
                   pref.setString('name', snapshot.data[index]['name']);
                   pref.setString('username', snapshot.data[index]['userName']);
-                  pref.setString('age', snapshot.data[index]['age']);
+                  pref.setInt('age', snapshot.data[index]['age']);
                   pref.setString('country', snapshot.data[index]['country']);
                   pref.setString('discord_ID', snapshot.data[index]['discord_username']);
                   pref.setString('bio', snapshot.data[index]['bio']);
