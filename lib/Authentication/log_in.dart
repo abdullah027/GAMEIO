@@ -160,7 +160,7 @@ class _LogInState extends State<LogIn> {
                     onTap: () =>context.read<AuthenticationService>().signInWithGoogle(),
                     child: Container(
                       //margin: EdgeInsets.only(top: 200),
-                      height: 80,
+                      height: 65,
                       width: double.infinity,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),

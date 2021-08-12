@@ -238,7 +238,7 @@ class _SignUpState extends State<SignUp> {
                           .signInWithGoogle(),
                       child: Container(
                         //margin: EdgeInsets.only(top: 200),
-                        height: 80,
+                        height: 65,
                         width: double.infinity,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
