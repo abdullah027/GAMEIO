@@ -100,7 +100,7 @@ class _FillInfoState extends State<FillInfo> {
                           children: [
                             CircleAvatar(
                               maxRadius: 60,
-                              backgroundColor: Colors.black,
+                              backgroundColor: Colors.black38,
                               child: ClipOval(
                                 child: SizedBox(
                                   height: 100,

@@ -174,26 +174,29 @@ class _SignUpState extends State<SignUp> {
                       padding: EdgeInsets.all(0),
                       child: TextButton(
                         onPressed: () async {
-                          if (passwordController.text.trim() ==
-                              cPasswordController.text.trim()) {
-                            context.read<AuthenticationService>().signUp(
-                                  name: nameController.text.trim(),
-                                  email: emailController.text.trim(),
-                                  password: passwordController.text.trim(),
-                                );
-                            UserDatabaseService(uid: user.uid).addUserData(
-                                nameController.text.trim(),
-                                0,
-                                "Gender",
-                                "Tell us a little about yourself"); // set default parameters to user profile
-                          } else {
-                            emailController
-                              ..text = "Passwords do not match"
-                              ..selection = TextSelection.fromPosition(
-                                  TextPosition(
-                                      offset: emailController.text.length,
-                                      affinity: TextAffinity.upstream));
-                          }
+                          setState(() {
+                            if (passwordController.text.trim() ==
+                                cPasswordController.text.trim()) {
+                              context.read<AuthenticationService>().signUp(
+                                name: nameController.text.trim(),
+                                email: emailController.text.trim(),
+                                password: passwordController.text.trim(),
+                              );
+                              UserDatabaseService(uid: user.uid).addUserData(
+                                  nameController.text.trim(),
+                                  0,
+                                  "Gender",
+                                  "Tell us a little about yourself"); // set default parameters to user profile
+                            } else {
+                              emailController
+                                ..text = "Passwords do not match"
+                                ..selection = TextSelection.fromPosition(
+                                    TextPosition(
+                                        offset: emailController.text.length,
+                                        affinity: TextAffinity.upstream));
+                            }
+                          });
+
 
                           //_firebaseAuth.currentUser.updateProfile(displayName: nameController.text.trim());
                         },
@@ -233,9 +236,13 @@ class _SignUpState extends State<SignUp> {
                       height: 25,
                     ),
                     GestureDetector(
-                      onTap: () => context
-                          .read<AuthenticationService>()
-                          .signInWithGoogle(),
+                      onTap: () {
+                        setState(() {
+                          return context
+                              .read<AuthenticationService>()
+                              .signInWithGoogle();
+                        });
+                      },
                       child: Container(
                         //margin: EdgeInsets.only(top: 200),
                         height: 65,
