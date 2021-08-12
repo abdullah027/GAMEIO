@@ -159,7 +159,12 @@ class _LogInState extends State<LogIn> {
                     height: 25,
                   ),
                   GestureDetector(
-                    onTap: () =>context.read<AuthenticationService>().signInWithGoogle(),
+                    onTap: () {
+                      setState(() {
+                        return context.read<AuthenticationService>().signInWithGoogle();
+                      });
+
+                    },
                     child: Container(
                       //margin: EdgeInsets.only(top: 200),
                       height: 65,
