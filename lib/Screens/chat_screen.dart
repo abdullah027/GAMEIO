@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'map_page.dart';
 
@@ -9,6 +11,29 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
+  final _firestore = FirebaseFirestore.instance;
+  final _auth = FirebaseAuth.instance;
+  User loggedInUser;
+  String messageBody;
+  @override
+  void initState() {
+    super.initState();
+
+    getCurrentUser();
+  }
+
+  void getCurrentUser() async {
+    try {
+      final user = _auth.currentUser;
+      if (user != null) {
+        loggedInUser = user;
+
+      }
+    } catch(e){
+      print(e);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,14 +71,18 @@ class _ChatScreenState extends State<ChatScreen> {
                         border: InputBorder.none,
                       ),
                       onChanged: (value) {
-                        //Do something with the user input.
+                        messageBody = value;
                       },
                     ),
 
                   ),
                   TextButton(
                     onPressed: () {
-                      //Implement send functionality.
+                      //messageBody + loggedInUser.email
+                      _firestore.collection("messages").add({
+                        'body': messageBody,
+                        'sender': loggedInUser.email,
+                      });
                     },
                     child: Text(
                       'Send',

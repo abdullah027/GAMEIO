@@ -131,6 +131,7 @@ class _MapPageState extends State<MapPage> {
                 title: Text('LogOut'),
                 onTap: () {
                   context.read<AuthenticationService>().signOut();
+                  Navigator.pop(context);
                 },
               ),
             ],
