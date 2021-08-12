@@ -1,3 +1,5 @@
+
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -33,6 +35,14 @@ class _ChatScreenState extends State<ChatScreen> {
       print(e);
     }
   }
+  void getMesages() async {
+    CollectionReference _collectionRef = _firestore.collection('messages');
+    QuerySnapshot querySnapshot = await _collectionRef.get();
+    final messages = querySnapshot.docs.map((doc) => doc.data()).toList();
+    for (var msg in messages) {
+      print(msg);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +53,8 @@ class _ChatScreenState extends State<ChatScreen> {
           IconButton(
               icon: Icon(Icons.close),
               onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context)=> MapPage()));
+                getMesages();
+                //Navigator.push(context, MaterialPageRoute(builder: (context)=> MapPage()));
               }),
         ],
         title: Text('Chat'),
