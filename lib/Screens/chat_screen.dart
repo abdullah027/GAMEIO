@@ -40,7 +40,7 @@ class _ChatScreenState extends State<ChatScreen> {
     QuerySnapshot querySnapshot = await _collectionRef.get();
     final messages = querySnapshot.docs.map((doc) => doc.data()).toList();
     for (var msg in messages) {
-      print(msg);
+      print(msg['sender']);
     }
   }
 
