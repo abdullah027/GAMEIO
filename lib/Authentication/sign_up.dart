@@ -13,7 +13,6 @@ class SignUp extends StatefulWidget {
   _SignUpState createState() => _SignUpState();
 }
 
-
 class _SignUpState extends State<SignUp> {
   TextEditingController nameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
@@ -48,75 +47,6 @@ class _SignUpState extends State<SignUp> {
             //mainAxisAlignment: MainAxisAlignment.center,
             //crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              Text("Sign up with one of the following options."),
-              SizedBox(
-                height: 20,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  GestureDetector(
-                    onTap: () => context
-                        .read<AuthenticationService>()
-                        .signInWithGoogle(),
-                    child: Container(
-                      //margin: EdgeInsets.only(top: 200),
-                      height: 80,
-                      width: 180,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        color: Color(0xFF080B1E),
-                        border: Border.all(
-                          width: 1,
-                          color: Color(0xFFD9BEBE),
-                        ),
-                        image: DecorationImage(
-                          image: AssetImage(
-                            'assets/images/icons8-google-30.png',
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: (){
-                      showDialog<String>(
-                          context: context,
-                          builder: (BuildContext context) => AlertDialog(
-                        title: const Text('Not Available'),
-                        content: const Text('This option is not available now'),
-                        actions: <Widget>[
-                          TextButton(
-                            onPressed: () => Navigator.pop(context, 'OK'),
-                            child: const Text('OK'),
-                          ),
-                        ],
-                      ),);
-                    },
-                    child: Container(
-                      //margin: EdgeInsets.only(top: 200),
-                      height: 80,
-                      width: 180,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        color: Color(0xFF080B1E),
-                        border: Border.all(
-                          width: 1,
-                          color: Color(0xFFD9BEBE),
-                        ),
-                        image: DecorationImage(
-                          image: AssetImage(
-                            'assets/images/icons8-facebook-30.png',
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 15,
-              ),
               Flexible(
                 child: Column(
                   children: [
@@ -239,7 +169,7 @@ class _SignUpState extends State<SignUp> {
                       height: 20,
                     ),
                     Container(
-                      width: 390,
+                      width: double.infinity,
                       height: 70,
                       padding: EdgeInsets.all(0),
                       child: TextButton(
@@ -279,6 +209,48 @@ class _SignUpState extends State<SignUp> {
                           style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 25,
+                    ),
+                    Row(
+                      children: [
+                        Expanded(child: Divider(color: Colors.white,)),
+                        SizedBox(
+                          width: 20,
+                        ),
+                        Text('or sign up with'),
+                        SizedBox(
+                          width: 20,
+                        ),
+                        Expanded(child: Divider(color: Colors.white,)),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 25,
+                    ),
+                    GestureDetector(
+                      onTap: () => context
+                          .read<AuthenticationService>()
+                          .signInWithGoogle(),
+                      child: Container(
+                        //margin: EdgeInsets.only(top: 200),
+                        height: 80,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: Color(0xFF080B1E),
+                          border: Border.all(
+                            width: 1,
+                            color: Color(0xFFD9BEBE),
+                          ),
+                          image: DecorationImage(
+                            image: AssetImage(
+                              'assets/images/icons8-google-30.png',
+                            ),
                           ),
                         ),
                       ),
