@@ -33,7 +33,6 @@ class _ChatScreenState extends State<ChatScreen> {
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -77,7 +76,6 @@ class _ChatScreenState extends State<ChatScreen> {
                         messageBody = value;
                       },
                     ),
-
                   ),
                   TextButton(
                     onPressed: () {
@@ -95,7 +93,6 @@ class _ChatScreenState extends State<ChatScreen> {
                         fontWeight: FontWeight.bold,
                         fontSize: 18.0,
                       ),
-
                     ),
                   ),
                 ],
@@ -121,12 +118,11 @@ class MessagesStream extends StatelessWidget {
               ),
             );
           }
-          final msgs = snapshot.data.docs;
+          final msgs = snapshot.data.docs.reversed;
           List<MsgBubble>  messageBubbles =[];
           for (var msg in msgs){
             final msgtext = msg.data()['body'];
             final msgsender = msg.data()['sender'];
-
             final currentUser = loggedInUser.email;
             final messageBubble = MsgBubble(
               sender: msgsender,
@@ -137,12 +133,12 @@ class MessagesStream extends StatelessWidget {
           }
           return Expanded(
             child: ListView(
+              reverse: true,
               padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
               children: messageBubbles,
             ),
           );
         }
-
     );
   }
 }
