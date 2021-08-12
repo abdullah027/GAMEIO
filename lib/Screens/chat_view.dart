@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'map_page.dart';
 
+User loggedInUser;
 final _firestore = FirebaseFirestore.instance;
 
 class ChatScreen extends StatefulWidget {
@@ -12,7 +13,6 @@ class ChatScreen extends StatefulWidget {
 class _ChatScreenState extends State<ChatScreen> {
   final messageTextController = TextEditingController();
   final _auth = FirebaseAuth.instance;
-  User loggedInUser;
   String messageBody;
   @override
   void initState() {
@@ -32,21 +32,7 @@ class _ChatScreenState extends State<ChatScreen> {
       print(e);
     }
   }
-//  void getMesages() async {
-//    CollectionReference _collectionRef = _firestore.collection('messages');
-//    QuerySnapshot querySnapshot = await _collectionRef.get();
-//    final messages = querySnapshot.docs.map((doc) => doc.data()).toList();
-//    for (var msg in messages) {
-//      print(msg['sender']);
-//    }
-//  }
-  void messagesStream() async {
-    await for(var snapshot in _firestore.collection('messages').snapshots()){
-     for( var msg in snapshot.docs){
-       print(msg.data());
-     }
-    }
-  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -141,9 +127,11 @@ class MessagesStream extends StatelessWidget {
             final msgtext = msg.data()['body'];
             final msgsender = msg.data()['sender'];
 
+            final currentUser = loggedInUser.email;
             final messageBubble = MsgBubble(
               sender: msgsender,
               body: msgtext,
+              fromSelf: currentUser == msgsender,
             );
             messageBubbles.add(messageBubble);
           }
@@ -160,25 +148,34 @@ class MessagesStream extends StatelessWidget {
 }
 
 class MsgBubble extends StatelessWidget {
-  MsgBubble({this.sender, this.body});
+  MsgBubble({this.sender, this.body, this.fromSelf});
   final String sender;
   final String body;
+  final bool fromSelf;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.all(10.0),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
+        crossAxisAlignment: fromSelf ? CrossAxisAlignment.end: CrossAxisAlignment.start,
         children: <Widget>[
           Text(sender, style: TextStyle(
             fontSize: 12.0,
             color: Colors.white60
           ),),
           Material(
-            borderRadius: BorderRadius.circular(30.0),
+            borderRadius: fromSelf ? BorderRadius.only(
+                topLeft: Radius.circular(30),
+            bottomLeft: Radius.circular(30),
+            bottomRight: Radius.circular(30)): BorderRadius.only(
+                topRight: Radius.circular(30),
+                bottomLeft: Radius.circular(30),
+                bottomRight: Radius.circular(30)
+
+            ),
             elevation: 6.0,
-            color: Colors.lightBlueAccent,
+            color: fromSelf ? Colors.lightBlueAccent : Colors.greenAccent ,
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
               child: Text(
