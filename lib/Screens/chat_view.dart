@@ -6,17 +6,17 @@ import 'map_page.dart';
 
 User loggedInUser;
 final _firestore = FirebaseFirestore.instance;
+String secondEmail;
+
+
 class ChatScreen extends StatefulWidget {
   @override
   _ChatScreenState createState() => _ChatScreenState();
 }
-
-
 class _ChatScreenState extends State<ChatScreen> {
   final messageTextController = TextEditingController();
   final _auth = FirebaseAuth.instance;
   String messageBody;
-  String secondEmail;
   @override
   void initState() {
     super.initState();
@@ -121,7 +121,7 @@ class MessagesStream extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-        stream: _firestore.collection('messages').snapshots(),
+        stream: _firestore.collection('messages').where('sender'.toString(), isEqualTo: loggedInUser.email).snapshots(),
         builder: (context, snapshot){
           if(!snapshot.hasData){
             return Center(
