@@ -1,23 +1,26 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'map_page.dart';
 
 User loggedInUser;
 final _firestore = FirebaseFirestore.instance;
-
 class ChatScreen extends StatefulWidget {
   @override
   _ChatScreenState createState() => _ChatScreenState();
 }
+
+
 class _ChatScreenState extends State<ChatScreen> {
   final messageTextController = TextEditingController();
   final _auth = FirebaseAuth.instance;
   String messageBody;
+  String secondEmail;
   @override
   void initState() {
     super.initState();
-
+    getProfileData();
     getCurrentUser();
   }
 
@@ -31,6 +34,13 @@ class _ChatScreenState extends State<ChatScreen> {
     } catch(e){
       print(e);
     }
+  }
+  getProfileData() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+
+    setState(() {
+      secondEmail = pref.getString("email");
+    });
   }
 
   @override
@@ -80,10 +90,12 @@ class _ChatScreenState extends State<ChatScreen> {
                   TextButton(
                     onPressed: () {
                       messageTextController.clear();
+                      print(secondEmail +" this is the sender" );
                       //messageBody + loggedInUser.email
                       _firestore.collection("messages").add({
                         'body': messageBody,
                         'sender': loggedInUser.email,
+                        'receiver': secondEmail,
                       });
                     },
                     child: Text(
@@ -190,3 +202,5 @@ class MsgBubble extends StatelessWidget {
 
   }
 }
+
+
