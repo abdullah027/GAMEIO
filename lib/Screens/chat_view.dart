@@ -121,7 +121,7 @@ class MessagesStream extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-        stream: _firestore.collection('messages').where('sender'.toString(), isEqualTo: loggedInUser.email).snapshots(),
+        stream: _firestore.collection('messages').where('receiver'.toString(), isEqualTo: loggedInUser.email).where( 'sender'.toString(), isEqualTo: secondEmail).snapshots(),
         builder: (context, snapshot){
           if(!snapshot.hasData){
             return Center(
