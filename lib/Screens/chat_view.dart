@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'map_page.dart';
-import 'package:async/async.dart';
-
 
 User loggedInUser;
 final _firestore = FirebaseFirestore.instance;
@@ -25,7 +23,6 @@ class _ChatScreenState extends State<ChatScreen> {
     getProfileData();
     getCurrentUser();
   }
-
 
   void getCurrentUser() async {
     try {
@@ -206,6 +203,5 @@ class MsgBubble extends StatelessWidget {
 
   }
 }
-
 
 
