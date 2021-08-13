@@ -9,6 +9,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/services.dart' show rootBundle;
+import 'Auth.dart';
 import 'profile_edit_view.dart';
 import 'settings.dart';
 
@@ -130,7 +131,7 @@ class _MapPageState extends State<MapPage> {
                 onTap: () {
                   setState(() {
                     context.read<AuthenticationService>().signOut();
-                    Navigator.pop(context);
+                    //Navigator.popUntil(context,ModalRoute.withName('HomePage'));
                   });
 
                 },
