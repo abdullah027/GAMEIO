@@ -183,6 +183,7 @@ class _SignUpState extends State<SignUp> {
                                 email: emailController.text.trim(),
                                 password: passwordController.text.trim(),
                               );
+                              UserDatabaseService(uid: user.uid).setEmail(emailController.text.trim()); //add the users email to database so its accessible.
                               UserDatabaseService(uid: user.uid).addUserData(
                                   nameController.text.trim(),
                                   0,

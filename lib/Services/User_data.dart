@@ -76,6 +76,12 @@ class UserDatabaseService {
     }, SetOptions(merge: true));
   }
 
+  Future setEmail(String email) async {
+    return await userCollection.doc(uid).set({
+      'email': email,
+    }, SetOptions(merge: true));
+  }
+
   Future<String> uploadPicture(File file) async{
     //String avatarURL;
   Reference storageRef = storage.ref().child("user/profile/${uid}.jpeg");
