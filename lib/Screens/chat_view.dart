@@ -97,6 +97,7 @@ class _ChatScreenState extends State<ChatScreen> {
                         'id':loggedInUser.email + secondEmail,
                         'sender': loggedInUser.email,
                         'receiver': secondEmail,
+                        'timestamp':Timestamp.now(),
                       });
                     },
                     child: Text(
@@ -122,7 +123,7 @@ class MessagesStream extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-        stream: _firestore.collection('messages').where('id',whereIn: [loggedInUser.email.toString()+ secondEmail, secondEmail + loggedInUser.email]).snapshots(),
+        stream: _firestore.collection('messages').where('id',whereIn: [loggedInUser.email.toString()+ secondEmail, secondEmail + loggedInUser.email]).orderBy('timestamp').snapshots(),
         builder: (context, snapshot){
           if(!snapshot.hasData){
             return Center(
