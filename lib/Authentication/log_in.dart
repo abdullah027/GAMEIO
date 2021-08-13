@@ -8,7 +8,7 @@ import 'package:flutter/widgets.dart';
 import 'package:gameio/Services/firebase_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:gameio/Screens/map_page.dart';
-import 'package:gameio/Screens/main.dart';
+import 'package:gameio/main.dart';
 
 class LogIn extends StatefulWidget {
   @override

@@ -3,6 +3,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:gameio/Screens/map_page.dart';
 import 'package:gameio/Services/firebase_auth.dart';
 import 'package:gameio/Screens/welcome_page.dart';
 import 'package:provider/provider.dart';
@@ -186,7 +187,9 @@ class _SignUpState extends State<SignUp> {
                                   nameController.text.trim(),
                                   0,
                                   "Gender",
-                                  "Tell us a little about yourself"); // set default parameters to user profile
+                                  "Tell us a little about yourself").then((value) =>  Navigator.push(
+                                context, MaterialPageRoute(builder: (BuildContext context) =>MapPage(),),),
+                              );; // set default parameters to user profile
                             } else {
                               emailController
                                 ..text = "Passwords do not match"

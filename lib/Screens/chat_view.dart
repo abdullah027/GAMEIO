@@ -98,6 +98,7 @@ class _ChatScreenState extends State<ChatScreen> {
                         'sender': loggedInUser.email,
                         'receiver': secondEmail,
                         'timestamp':Timestamp.now(),
+                        'createdAt':Timestamp.now().seconds,
                       });
                     },
                     child: Text(
@@ -123,16 +124,16 @@ class MessagesStream extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-        stream: _firestore.collection('messages').where('id',whereIn: [loggedInUser.email.toString()+ secondEmail, secondEmail + loggedInUser.email]).orderBy('timestamp').snapshots(),
+        stream: _firestore.collection('messages').where('id',whereIn: [loggedInUser.email.toString()+ secondEmail, secondEmail + loggedInUser.email]).orderBy("timestamp", descending: true).snapshots(),
         builder: (context, snapshot){
           if(!snapshot.hasData){
             return Center(
               child: CircularProgressIndicator(
-                backgroundColor: Colors.amber,
+                backgroundColor: Colors.purpleAccent,
               ),
             );
           }
-          final msgs = snapshot.data.docs.reversed;
+          final msgs = snapshot.data.docs;
           List<MsgBubble>  messageBubbles =[];
           for (var msg in msgs){
             final msgtext = msg.data()['body'];

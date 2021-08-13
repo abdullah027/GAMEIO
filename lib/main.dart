@@ -3,11 +3,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gameio/Screens/map_page.dart';
 import 'package:gameio/Services/user_details.dart';
-import 'Auth.dart';
+import 'package:gameio/Screens/Auth.dart';
+import 'package:gameio/Screens/welcome_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:gameio/Services/firebase_auth.dart';
-import 'welcome_page.dart';
+
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
