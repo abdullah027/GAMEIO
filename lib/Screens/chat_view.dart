@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'map_page.dart';
-import 'package:async/async.dart';
-
 
 User loggedInUser;
 final _firestore = FirebaseFirestore.instance;
@@ -25,7 +23,6 @@ class _ChatScreenState extends State<ChatScreen> {
     getProfileData();
     getCurrentUser();
   }
-
 
   void getCurrentUser() async {
     try {
@@ -125,11 +122,7 @@ class MessagesStream extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-<<<<<<< HEAD
-        stream: _firestore.collection('messages').where('receiver'.toString(), isEqualTo: loggedInUser.email).where( 'sender'.toString(), isEqualTo: secondEmail).snapshots(),
-=======
         stream: _firestore.collection('messages').where('id',whereIn: [loggedInUser.email.toString()+ secondEmail, secondEmail + loggedInUser.email]).snapshots(),
->>>>>>> 28a0a10024be414f938da6eb98c90bf98f32b776
         builder: (context, snapshot){
           if(!snapshot.hasData){
             return Center(
@@ -210,6 +203,5 @@ class MsgBubble extends StatelessWidget {
 
   }
 }
-
 
 
