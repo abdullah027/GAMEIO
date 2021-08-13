@@ -96,8 +96,9 @@ class DataSearch extends SearchDelegate<String> {
                     },),
                     trailing: IconButton(
                       icon: Icon(Icons.message),
-                      onPressed: (){
-
+                      onPressed: () async {
+                        SharedPreferences pref = await SharedPreferences.getInstance();
+                        pref.setString('email', snapshot.data[index]['email']);
                         Navigator.push(
                             context,
                             MaterialPageRoute(
