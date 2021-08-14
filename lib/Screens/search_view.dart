@@ -80,6 +80,7 @@ class DataSearch extends SearchDelegate<String> {
                   SharedPreferences pref = await SharedPreferences.getInstance();
                   pref.setString('image', snapshot.data[index]['avatarUrl']);
                   pref.setString('name', snapshot.data[index]['name']);
+                  pref.setString('email', snapshot.data[index]['email']);
                   pref.setString('username', snapshot.data[index]['userName']);
                   pref.setInt('age', snapshot.data[index]['age']);
                   pref.setString('country', snapshot.data[index]['country']);
@@ -91,7 +92,7 @@ class DataSearch extends SearchDelegate<String> {
                 }
                 return Column(children: [
                   ListTile(
-                    tileColor: Color(0xFF363742),
+                    tileColor: Color(0XFF1D1F33),
                     leading: IconButton(icon: Icon(Icons.person),
                       onPressed: ()async{
                       setProfileData();
@@ -105,6 +106,7 @@ class DataSearch extends SearchDelegate<String> {
                       onPressed: () async {
                         SharedPreferences pref = await SharedPreferences.getInstance();
                         pref.setString('email', snapshot.data[index]['email']);
+                        pref.setString('name', snapshot.data[index]['name']);
                         Navigator.push(
                             context,
                             MaterialPageRoute(

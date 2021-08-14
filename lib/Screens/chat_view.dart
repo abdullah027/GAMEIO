@@ -7,6 +7,7 @@ import 'map_page.dart';
 User loggedInUser;
 final _firestore = FirebaseFirestore.instance;
 String secondEmail;
+String receiverName;
 
 
 class ChatScreen extends StatefulWidget {
@@ -40,6 +41,7 @@ class _ChatScreenState extends State<ChatScreen> {
 
     setState(() {
       secondEmail = pref.getString("email");
+      receiverName = pref.getString("name");
     });
   }
 
@@ -56,7 +58,7 @@ class _ChatScreenState extends State<ChatScreen> {
                 Navigator.push(context, MaterialPageRoute(builder: (context)=> MapPage()));
               }),
         ],
-        title: Text('Chat'),
+        title: Text(receiverName),
         backgroundColor: Color(0xFF025472),
       ),
       body: SafeArea(
@@ -87,7 +89,9 @@ class _ChatScreenState extends State<ChatScreen> {
                       },
                     ),
                   ),
-                  TextButton(
+                  IconButton(
+                    color: Colors.yellowAccent,
+                    icon: Icon(Icons.send),
                     onPressed: () {
                       messageTextController.clear();
                       //print(secondEmail +" this is the receiver" );
@@ -101,14 +105,6 @@ class _ChatScreenState extends State<ChatScreen> {
                         'createdAt':Timestamp.now().seconds,
                       });
                     },
-                    child: Text(
-                      'Send',
-                      style: TextStyle(
-                        color: Colors.lightBlueAccent,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18.0,
-                      ),
-                    ),
                   ),
                 ],
               ),
@@ -186,13 +182,14 @@ class MsgBubble extends StatelessWidget {
 
             ),
             elevation: 6.0,
-            color: fromSelf ? Colors.lightBlueAccent : Colors.greenAccent ,
+            color: fromSelf ? Colors.white : Color(0XFF1D1F33) ,
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
               child: Text(
                 '$body',
                 style: TextStyle(
                   fontSize: 16.0,
+                  color: fromSelf ? Colors.black : Colors.white,
                 ),
               ),
             ),

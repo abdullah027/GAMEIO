@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'chat_view.dart';
+
 class ProfileView extends StatefulWidget {
   @override
   _ProfileViewState createState() => _ProfileViewState();
@@ -9,6 +11,7 @@ class ProfileView extends StatefulWidget {
 class _ProfileViewState extends State<ProfileView> {
   String image;
   String name;
+  String receiverEmail;
   String username;
   int age;
   String country;
@@ -27,6 +30,7 @@ class _ProfileViewState extends State<ProfileView> {
     setState(() {
       image = pref.getString('image');
       name = pref.getString('name');
+      receiverEmail = pref.getString('email');
       username = pref.getString('username');
       age = pref.getInt('age');
       country = pref.getString('country');
@@ -94,7 +98,15 @@ class _ProfileViewState extends State<ProfileView> {
                       height: 55,
                       width: 225,
                       child: TextButton(
-                        onPressed: () {},
+                        onPressed: () async {
+                          SharedPreferences pref = await SharedPreferences.getInstance();
+                          pref.setString('email', receiverEmail);
+                          pref.setString('name', name);
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ChatScreen()));
+                        },
                         style: ButtonStyle(
                           shape: MaterialStateProperty.all(
                               RoundedRectangleBorder(
