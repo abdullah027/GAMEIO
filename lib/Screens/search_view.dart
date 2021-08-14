@@ -1,5 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:gameio/Screens/map_page.dart';
 import 'package:gameio/Screens/profile_view.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -82,6 +85,9 @@ class DataSearch extends SearchDelegate<String> {
                   pref.setString('country', snapshot.data[index]['country']);
                   pref.setString('discord_ID', snapshot.data[index]['discord_username']);
                   pref.setString('bio', snapshot.data[index]['bio']);
+                }
+                if(snapshot.data[index]['email'] == FirebaseAuth.instance.currentUser.email){
+                  return Container(height: 0);
                 }
                 return Column(children: [
                   ListTile(
