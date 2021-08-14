@@ -132,8 +132,8 @@ class MessagesStream extends StatelessWidget {
           final msgs = snapshot.data.docs;
           List<MsgBubble>  messageBubbles =[];
           for (var msg in msgs){
-            final msgtext = msg.data()['body'];
-            final msgsender = msg.data()['sender'];
+            final msgtext =  msg['body'];
+            final msgsender = msg['sender'];
             final currentUser = loggedInUser.email;
             final messageBubble = MsgBubble(
               sender: msgsender,
