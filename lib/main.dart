@@ -37,7 +37,7 @@ class _MyAppState extends State<MyApp> {
         ],
         child:MaterialApp(
           theme: ThemeData.dark().copyWith(
-            primaryColor: Color(0xFF0A0D22),
+            appBarTheme: AppBarTheme(color: Color(0xFF0A0D22)),
             scaffoldBackgroundColor: Color(0xFF080B1E),
           ),
           home: AuthenticationWrapper(),

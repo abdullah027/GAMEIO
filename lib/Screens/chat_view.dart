@@ -59,7 +59,6 @@ class _ChatScreenState extends State<ChatScreen> {
               }),
         ],
         title: Text(receiverName),
-        backgroundColor: Color(0xFF025472),
       ),
       body: SafeArea(
         child: Column(
