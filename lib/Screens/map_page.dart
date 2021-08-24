@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:gameio/Screens/profile_view.dart';
 import 'package:gameio/Screens/search_view.dart';
 import 'package:gameio/Services/User_data.dart';
 import 'package:gameio/Services/firebase_auth.dart';
@@ -9,6 +10,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/services.dart' show rootBundle;
+import 'package:shared_preferences/shared_preferences.dart';
 import 'profile_edit_view.dart';
 import 'settings.dart';
 
@@ -90,6 +92,17 @@ class _MapPageState extends State<MapPage> {
     zoom: 18,
   );
 
+  setProfileData()async{
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    pref.setString('image', data['avatarUrl']);
+    pref.setString('name', data['name']);
+    pref.setString('email', data['email']);
+    pref.setString('username', data['userName']);
+    pref.setInt('age', data['age']);
+    pref.setString('country', data['country']);
+    pref.setString('discord_ID', data['discord_username']);
+    pref.setString('bio', data['bio']);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -109,10 +122,11 @@ class _MapPageState extends State<MapPage> {
               ),
               ListTile(
                 title: Text('Profile'),
-                onTap: () {
+                onTap: () async{
+                  setProfileData();
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => FillInfo()),
+                    MaterialPageRoute(builder: (context) => ProfileView()),
                   );
                 },
               ),
