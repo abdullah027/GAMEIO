@@ -78,14 +78,9 @@ class _ProfileViewState extends State<ProfileView> {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(left: 360.0),
-                        child: IconButton(
-                          icon: Icon(
-                            Icons.edit,
-                            color: Colors.black,
-                          ),
-                          alignment: Alignment.topRight,
-                          onPressed: () {
+                        padding: const EdgeInsets.only(top: 10,left: 290.0, right: 5),
+                        child: GestureDetector(
+                          onTap: () {
                             setState(() {
                               Navigator.push(
                                   context,
@@ -93,6 +88,27 @@ class _ProfileViewState extends State<ProfileView> {
                                       builder: (context) => FillInfo()));
                             });
                           },
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.zero,
+                            ),
+                            child: Row(
+                              children: [
+                                Text(
+                                  "Edit Profile",
+                                  style: TextStyle(
+                                      color: Colors.black, fontSize: 18),
+                                ),
+                                SizedBox(
+                                  width: 5,
+                                ),
+                                Icon(
+                                  Icons.edit,
+                                  color: Colors.black,
+                                ),
+                              ],
+                            ),
+                          ),
                         ),
                       ),
                       Padding(
@@ -266,7 +282,7 @@ class _ProfileViewState extends State<ProfileView> {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(top: 105,left: 190),
+                        padding: const EdgeInsets.only(top: 105, left: 190),
                         child: Container(
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(30)),
@@ -286,15 +302,14 @@ class _ProfileViewState extends State<ProfileView> {
                             style: ButtonStyle(
                               shape: MaterialStateProperty.all(
                                   RoundedRectangleBorder(
-                                      borderRadius:
-                                          BorderRadius.circular(30))),
-                              backgroundColor: MaterialStateProperty.all(
-                                  Colors.blueAccent),
+                                      borderRadius: BorderRadius.circular(30))),
+                              backgroundColor:
+                                  MaterialStateProperty.all(Colors.blueAccent),
                             ),
                             child: Text(
                               'message',
-                              style: TextStyle(
-                                  color: Colors.white, fontSize: 20),
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 20),
                             ),
                           ),
                         ),
