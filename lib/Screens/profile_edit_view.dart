@@ -403,6 +403,7 @@ class _FillInfoState extends State<FillInfo> {
                                 gamingController.text.trim(),
                                 discordController.text.trim(),
                                 checkUrl(avatarURL));
+
                             Navigator.push(
                               context,
                               MaterialPageRoute(

@@ -17,7 +17,7 @@ class UserDatabaseService {
 
 
   //function called when new user is created to store name
-  Future addUserData(String name, int age, String gender, String bio) async {
+  Future addUserData(String name, int age, String gender, String bio, String email) async {
     // set default values and name
     return await userCollection.doc(uid).set({
       'displayName': "set_displayname",
@@ -29,6 +29,7 @@ class UserDatabaseService {
       'bio': bio??"Tell us something about yourself",
       "currentlyPlaying": "None",
       "discord_username": "Undefined",
+      " email":email,
     }, SetOptions(merge: true));
   }
 
@@ -45,6 +46,7 @@ class UserDatabaseService {
       "country": country??"undefined",
       "currentlyPlaying": currentlyPlaying??"None",
       "discord_username": discordUsername??"Undefined",
+
       //"avatarUrl" : avatarUrl
     }, ); // merge with old record
 

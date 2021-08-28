@@ -183,12 +183,12 @@ class _SignUpState extends State<SignUp> {
                                 email: emailController.text.trim(),
                                 password: passwordController.text.trim(),
                               );
-                              UserDatabaseService(uid: user.uid).setEmail(emailController.text.trim()); //add the users email to database so its accessible.
+                              //UserDatabaseService(uid: user.uid).setEmail(emailController.text.trim()); //add the users email to database so its accessible.
                               UserDatabaseService(uid: user.uid).addUserData(
                                   nameController.text.trim(),
                                   0,
                                   "Gender",
-                                  "Tell us a little about yourself").then((value) =>  Navigator.push(
+                                  "Tell us a little about yourself",emailController.text.trim()).then((value) =>  Navigator.push(
                                 context, MaterialPageRoute(builder: (BuildContext context) =>MapPage(),),),
                               );; // set default parameters to user profile
                             } else {
