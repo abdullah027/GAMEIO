@@ -20,8 +20,8 @@ class UserDatabaseService {
   Future addUserData(String name, int age, String gender, String bio) async {
     // set default values and name
     return await userCollection.doc(uid).set({
-      'displayName': "",
-      'country': "",
+      'displayName': "set_displayname",
+      'country': "set_country",
       'avatarUrl': "https://cdn.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png",
       'name': name??"name",
       'age': age??0,
