@@ -188,9 +188,7 @@ class _SignUpState extends State<SignUp> {
                                   nameController.text.trim(),
                                   0,
                                   "Gender",
-                                  "Tell us a little about yourself",emailController.text.trim()).then((value) =>  Navigator.push(
-                                context, MaterialPageRoute(builder: (BuildContext context) =>MapPage(),),),
-                              );; // set default parameters to user profile
+                                  "Tell us a little about yourself",emailController.text.trim()); // set default parameters to user profile
                             } else {
                               emailController
                                 ..text = "Passwords do not match"
