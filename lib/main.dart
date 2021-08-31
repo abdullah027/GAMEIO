@@ -45,12 +45,13 @@ class _MyAppState extends State<MyApp> {
   }
 }
 
+class AuthenticationWrapper extends StatefulWidget {
 
-class AuthenticationWrapper extends StatelessWidget {
   @override
-  const AuthenticationWrapper({
-    Key key,
-  }) : super(key: key);
+  _AuthenticationWrapperState createState() => _AuthenticationWrapperState();
+}
+
+class _AuthenticationWrapperState extends State<AuthenticationWrapper> {
   @override
   Widget build(BuildContext context) {
     final firebaseUser =context.watch<User>();
@@ -60,5 +61,4 @@ class AuthenticationWrapper extends StatelessWidget {
     return HomePage();
   }
 }
-
 
