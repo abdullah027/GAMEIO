@@ -1,0 +1,57 @@
+name: gameio
+description: A new Flutter application.
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  #google dependencies
+  google_maps_flutter: ^2.0.3
+  google_sign_in: "^4.0.7"
+  intl: ^0.17.0
+  age: ^0.0.1
+
+  #firebase dependencies
+  firebase_core: ^1.4.0
+  firebase_auth: ^1.1.1
+  firebase_storage: ^10.0.1
+
+
+
+  permission_handler:
+
+  provider: ^4.3.2+1
+
+
+  cupertino_icons: ^1.0.0
+  geolocator: ^7.0.3
+  image_picker: ^0.8.0+3
+  cloud_firestore: ^2.4.0
+  shared_preferences: ^2.0.6
+  rxdart: ^0.27.1
+  geoflutterfire: ^3.0.1
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+
+flutter:
+
+
+  uses-material-design: true
+
+  assets:
+    - assets/map_style.txt
+    - assets/images/
+
+
+  fonts:
+    - family: JuliusSansOne
+      fonts:
+        - asset: fonts/JuliusSansOne-Regular.ttf
