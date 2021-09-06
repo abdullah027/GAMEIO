@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gameio/Services/firebase_auth.dart';
+import 'package:gameio/dialog/policy_dialog.dart';
 import 'package:provider/provider.dart';
 
 import 'help_center.dart';
 
 class Setting extends StatefulWidget {
-
   @override
   _SettingState createState() => _SettingState();
 }
@@ -56,33 +56,26 @@ class _SettingState extends State<Setting> {
               width: double.infinity,
               height: 0.2,
             ),
-            ListTile(
-              leading: Icon(
-                Icons.privacy_tip_outlined,
-              ),
-              title: Text(
-                'Privacy Policy',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
+            GestureDetector(
+              onTap: () {
+                showDialog(
+                    context: context,
+                    builder: (context) {
+                      return PolicyDialog(
+                        mdFileName: 'privacy_policy.md',
+                      );
+                    });
+              },
+              child: ListTile(
+                leading: Icon(
+                  Icons.privacy_tip_outlined,
                 ),
-              ),
-
-            ),
-            Container(
-              color: Colors.white,
-              width: double.infinity,
-              height: 0.2,
-            ),
-            ListTile(
-              leading: Icon(
-                Icons.verified_user,
-              ),
-              title: Text(
-                'User Agreement',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
+                title: Text(
+                  'Privacy Policy',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ),
@@ -91,15 +84,26 @@ class _SettingState extends State<Setting> {
               width: double.infinity,
               height: 0.2,
             ),
-            ListTile(
-              leading: Icon(
-                Icons.notes_outlined,
-              ),
-              title: Text(
-                'End User License Agreement',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
+            GestureDetector(
+              onTap: (){
+                showDialog(
+                    context: context,
+                    builder: (context) {
+                      return PolicyDialog(
+                        mdFileName: 'terms_and_conditions.md',
+                      );
+                    });
+              },
+              child: ListTile(
+                leading: Icon(
+                  Icons.notes_sharp,
+                ),
+                title: Text(
+                  'Terms and Conditions',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ),
