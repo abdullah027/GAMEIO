@@ -50,7 +50,7 @@ class _ProfileViewState extends State<ProfileView> {
             margin: EdgeInsets.only(right: 200),
             alignment: Alignment.center,
             child: Text(
-              'ProileView',
+              'Profile',
               style: TextStyle(
                 fontWeight: FontWeight.bold,
               ),
