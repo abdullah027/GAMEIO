@@ -47,7 +47,7 @@ class _ProfileViewState extends State<ProfileView> {
       appBar: AppBar(
         title: Center(
           child: Container(
-            margin: EdgeInsets.only(right: 200),
+            margin: EdgeInsets.only(right: 320),
             alignment: Alignment.center,
             child: Text(
               'Profile',
