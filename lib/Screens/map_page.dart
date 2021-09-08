@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gameio/Screens/profile_view.dart';
 import 'package:gameio/Screens/search_view.dart';
+import 'package:gameio/Screens/welcome_page.dart';
 import 'package:gameio/Services/User_data.dart';
 import 'package:gameio/Services/firebase_auth.dart';
 import 'package:geolocator/geolocator.dart';
@@ -104,7 +105,9 @@ class _MapPageState extends State<MapPage> {
     pref.setString('bio', data['bio']);
   }
 
+
   @override
+
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -222,6 +225,7 @@ class _MapPageState extends State<MapPage> {
 
 void setOnline(){
   UserDatabaseService(uid: firebaseUser.uid).isLoggedIn();
+  UserDatabaseService(uid: firebaseUser.uid).addGeoPoint();
 }
 
 Future<DocumentSnapshot> getUserInfo() async {

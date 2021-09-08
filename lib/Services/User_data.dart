@@ -104,7 +104,7 @@ class UserDatabaseService {
 
   ;
   }
-  Future _addGeoPoint() async {
+  Future addGeoPoint() async {
     var pos = await Geolocator.getCurrentPosition();
     GeoFirePoint point = geo.point(latitude: pos.latitude, longitude: pos.longitude);
     return  await userCollection.doc(uid).set({
