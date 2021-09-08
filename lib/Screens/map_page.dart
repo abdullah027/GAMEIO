@@ -4,49 +4,53 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gameio/Screens/profile_view.dart';
 import 'package:gameio/Screens/search_view.dart';
-import 'package:gameio/Screens/welcome_page.dart';
 import 'package:gameio/Services/User_data.dart';
 import 'package:gameio/Services/firebase_auth.dart';
+import 'package:geoflutterfire/geoflutterfire.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/services.dart' show rootBundle;
+import 'package:rxdart/rxdart.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'profile_edit_view.dart';
 import 'settings.dart';
 
 User firebaseUser = FirebaseAuth.instance.currentUser;
+Geoflutterfire geo = Geoflutterfire();
+var radius = BehaviorSubject<double>().publishValueSeeded(100.0);
+StreamSubscription subscription;
+Stream<dynamic> query;
+Completer<GoogleMapController> _controllerGoogleMap = Completer();
+GoogleMapController newGoogleMapController;
+Set<Marker> _markers = {};
+var geoLocator = Geolocator();
+Map data;
+
 class MapPage extends StatefulWidget {
   @override
   _MapPageState createState() => _MapPageState();
 }
 
-
 class _MapPageState extends State<MapPage> {
 
-  Completer<GoogleMapController> _controllerGoogleMap = Completer();
-  GoogleMapController newGoogleMapController;
+
   BitmapDescriptor myIcon;
 
   GlobalKey<ScaffoldState> scaffoldKey = new GlobalKey<ScaffoldState>();
 
-  var geoLocator = Geolocator();
   Position currentPosition;
-  Set<Marker> _markers = {};
+
   String _mapStyle;
-  Map data;
 
-  fetchData(){
-
-    CollectionReference collectionReference = FirebaseFirestore.instance.collection("Users");
+  fetchData() {
+    CollectionReference collectionReference =
+        FirebaseFirestore.instance.collection("Users");
     collectionReference.doc(firebaseUser.uid).snapshots().listen((snapshot) {
       setState(() {
         data = snapshot.data();
       });
     });
   }
-
-
 
   @override
   void initState() {
@@ -81,7 +85,8 @@ class _MapPageState extends State<MapPage> {
           draggable: true,
           position: latLngPosition,
           icon: myIcon,
-          infoWindow: InfoWindow(title: data['name'], snippet: data['currentlyPlaying']),
+          infoWindow: InfoWindow(
+              title: data['name'], snippet: data['currentlyPlaying']),
           onDragEnd: (_currentlatLng) {
             latLngPosition = _currentlatLng;
           }));
@@ -93,7 +98,7 @@ class _MapPageState extends State<MapPage> {
     zoom: 18,
   );
 
-  setProfileData()async{
+  setProfileData() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     pref.setString('image', data['avatarUrl']);
     pref.setString('name', data['name']);
@@ -105,9 +110,7 @@ class _MapPageState extends State<MapPage> {
     pref.setString('bio', data['bio']);
   }
 
-
   @override
-
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -125,7 +128,7 @@ class _MapPageState extends State<MapPage> {
               ),
               ListTile(
                 title: Text('Profile'),
-                onTap: () async{
+                onTap: () async {
                   setProfileData();
                   Navigator.push(
                     context,
@@ -149,7 +152,6 @@ class _MapPageState extends State<MapPage> {
                     context.read<AuthenticationService>().signOut();
                     //Navigator.popUntil(context,ModalRoute.withName('HomePage'));
                   });
-
                 },
               ),
             ],
@@ -195,11 +197,14 @@ class _MapPageState extends State<MapPage> {
                     zoomGesturesEnabled: true,
                     zoomControlsEnabled: true,
                     onMapCreated: (GoogleMapController controller) {
+                      startQuery();
+
                       _controllerGoogleMap.complete(controller);
                       newGoogleMapController = controller;
                       newGoogleMapController.setMapStyle(_mapStyle);
-
-                      locatePosition();
+                      setState(() {
+                        locatePosition();
+                      });
                     },
                   ),
                 ),
@@ -216,21 +221,40 @@ class _MapPageState extends State<MapPage> {
                 ),
                 child: Icon(Icons.pin_drop),
                 onPressed: () => locatePosition(),
+              )),
+          Positioned(
+              bottom: 50,
+              left: 10,
+              child: Slider(
+                min: 100.0,
+                max: 500.0,
+                divisions: 4,
+                value: radius.value,
+                label: 'Radius ${radius.value}km',
+                activeColor: Colors.green,
+                inactiveColor: Colors.green.withOpacity(0.2),
+                onChanged: updateQuery,
               ))
         ],
       ),
     );
   }
+
+  @override
+  dispose() {
+    subscription.cancel();
+    super.dispose();
+  }
 }
 
-void setOnline(){
+void setOnline() {
   UserDatabaseService(uid: firebaseUser.uid).isLoggedIn();
   UserDatabaseService(uid: firebaseUser.uid).addGeoPoint();
 }
 
 Future<DocumentSnapshot> getUserInfo() async {
   var firebaseUser =
-      await FirebaseAuth.instance.currentUser; //retrieve current user logged in
+      FirebaseAuth.instance.currentUser; //retrieve current user logged in
   return await FirebaseFirestore.instance
       .collection("Users")
       .doc(firebaseUser.uid)
@@ -238,4 +262,40 @@ Future<DocumentSnapshot> getUserInfo() async {
   //get profile record of current user form firebase and return snapshot of document
 }
 
+void updateMarkers(List<DocumentSnapshot> documentList) {
+  print(documentList);
+  documentList.forEach((DocumentSnapshot document) {
 
+    data = document.data();
+    GeoPoint pos = data['position']['geopoint'];
+    print(pos);
+
+    _markers.add(Marker(
+        markerId: MarkerId("o"),
+        position: LatLng(pos.latitude, pos.longitude),
+        icon: BitmapDescriptor.defaultMarker,
+        infoWindow: InfoWindow(
+            title: data['name'], snippet: data['currentlyPlaying'])));
+  });
+}
+
+startQuery() async {
+  // Get users location
+  var pos = await Geolocator.getCurrentPosition();
+  double lat = pos.latitude;
+  double lng = pos.longitude;
+
+  // Make a reference to fire store
+  var ref = FirebaseFirestore.instance.collection('Users');
+  GeoFirePoint center = geo.point(latitude: lat, longitude: lng);
+
+  // subscribe to query
+  subscription = radius.switchMap((rad) {
+    return geo.collection(collectionRef: ref).within(
+        center: center, radius: rad, field: 'position', strictMode: true);
+  }).listen(updateMarkers);
+}
+
+updateQuery(value) {
+  radius.publishValueSeeded(value);
+}

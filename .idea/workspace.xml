@@ -4,13 +4,28 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5ef7feb4-568c-415a-a15a-f6d357170079" name="Default Changelist" comment="" />
+    <list default="true" id="5ef7feb4-568c-415a-a15a-f6d357170079" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.dart_tool/package_config.json" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/package_config.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.dart_tool/package_config_subset" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/package_config_subset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.dart_tool/version" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/version" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.flutter-plugins" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.packages" beforeDir="false" afterPath="$PROJECT_DIR$/.packages" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Screens/map_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Screens/map_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Screens/profile_view.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Screens/profile_view.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Screens/search_view.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Screens/search_view.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.lock" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[SerialNumber@18d96ab1]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[C:\Users\DELL\.android\avd\4.65_720p_Galaxy_Nexus_Edited_API_30.avd]" />
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
@@ -76,54 +91,15 @@
     </task>
     <servers />
   </component>
-  <component name="WindowStateProjectService">
-    <state x="414" y="179" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1628867977989">
-      <screen x="0" y="0" width="1920" height="1050" />
-    </state>
-    <state x="414" y="179" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1050@0.0.1920.1050" timestamp="1628867977989" />
-    <state x="689" y="314" key="#com.intellij.ide.util.TreeFileChooserDialog" timestamp="1627727248143">
-      <screen x="0" y="0" width="1920" height="1050" />
-    </state>
-    <state x="689" y="314" key="#com.intellij.ide.util.TreeFileChooserDialog/0.0.1920.1050@0.0.1920.1050" timestamp="1627727248143" />
-    <state x="92" y="92" width="1736" height="866" key="AVDManager" timestamp="1629133004023">
-      <screen x="0" y="0" width="1920" height="1050" />
-    </state>
-    <state x="92" y="92" width="1736" height="866" key="AVDManager/0.0.1920.1050@0.0.1920.1050" timestamp="1629133004023" />
-    <state x="761" y="349" key="FileChooserDialogImpl" timestamp="1629079006309">
-      <screen x="0" y="0" width="1920" height="1050" />
-    </state>
-    <state x="761" y="349" key="FileChooserDialogImpl/0.0.1920.1050@0.0.1920.1050" timestamp="1629079006309" />
-    <state width="1877" height="213" key="GridCell.Tab.0.bottom" timestamp="1631083857873">
-      <screen x="0" y="0" width="1920" height="1050" />
-    </state>
-    <state width="1877" height="213" key="GridCell.Tab.0.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1631083857873" />
-    <state width="1877" height="213" key="GridCell.Tab.0.center" timestamp="1631083857873">
-      <screen x="0" y="0" width="1920" height="1050" />
-    </state>
-    <state width="1877" height="213" key="GridCell.Tab.0.center/0.0.1920.1050@0.0.1920.1050" timestamp="1631083857873" />
-    <state width="1877" height="213" key="GridCell.Tab.0.left" timestamp="1631083857873">
-      <screen x="0" y="0" width="1920" height="1050" />
-    </state>
-    <state width="1877" height="213" key="GridCell.Tab.0.left/0.0.1920.1050@0.0.1920.1050" timestamp="1631083857873" />
-    <state width="1877" height="213" key="GridCell.Tab.0.right" timestamp="1631083857873">
-      <screen x="0" y="0" width="1920" height="1050" />
-    </state>
-    <state width="1877" height="213" key="GridCell.Tab.0.right/0.0.1920.1050@0.0.1920.1050" timestamp="1631083857873" />
-    <state x="461" y="169" key="SettingsEditor" timestamp="1629133003703">
-      <screen x="0" y="0" width="1920" height="1050" />
-    </state>
-    <state x="461" y="169" key="SettingsEditor/0.0.1920.1050@0.0.1920.1050" timestamp="1629133003703" />
-    <state x="777" y="438" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1630174783850">
-      <screen x="0" y="0" width="1920" height="1050" />
-    </state>
-    <state x="777" y="438" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1050@0.0.1920.1050" timestamp="1630174783850" />
-    <state x="616" y="243" width="672" height="677" key="run.anything.popup" timestamp="1628785284838">
-      <screen x="0" y="0" width="1920" height="1050" />
-    </state>
-    <state x="616" y="243" width="672" height="677" key="run.anything.popup/0.0.1920.1050@0.0.1920.1050" timestamp="1628785284838" />
-    <state x="623" y="227" width="672" height="678" key="search.everywhere.popup" timestamp="1631082376353">
-      <screen x="0" y="0" width="1920" height="1050" />
-    </state>
-    <state x="623" y="227" width="672" height="678" key="search.everywhere.popup/0.0.1920.1050@0.0.1920.1050" timestamp="1631082376353" />
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>
