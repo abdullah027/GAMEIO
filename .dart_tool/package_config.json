@@ -8,6 +8,12 @@
       "languageVersion": "2.1"
     },
     {
+      "name": "args",
+      "rootUri": "file:///E:/Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/args-2.2.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "async",
       "rootUri": "file:///E:/Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/async-2.5.0",
       "packageUri": "lib/",
@@ -146,6 +152,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "flutter_markdown",
+      "rootUri": "file:///E:/Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_markdown-0.6.6",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "flutter_plugin_android_lifecycle",
       "rootUri": "file:///E:/Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_plugin_android_lifecycle-2.0.1",
       "packageUri": "lib/",
@@ -256,6 +268,12 @@
     {
       "name": "js",
       "rootUri": "file:///E:/Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/js-0.6.3",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "markdown",
+      "rootUri": "file:///E:/Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/markdown-4.0.0",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -470,7 +488,7 @@
       "languageVersion": "2.7"
     }
   ],
-  "generated": "2021-08-16T01:54:39.540197Z",
+  "generated": "2021-09-08T06:26:56.049495Z",
   "generator": "pub",
   "generatorVersion": "2.12.3"
 }

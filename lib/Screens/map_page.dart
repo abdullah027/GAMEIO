@@ -233,3 +233,5 @@ Future<DocumentSnapshot> getUserInfo() async {
       .get();
   //get profile record of current user form firebase and return snapshot of document
 }
+
+

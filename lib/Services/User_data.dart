@@ -3,12 +3,16 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:geoflutterfire/geoflutterfire.dart';
+import 'package:geolocator/geolocator.dart';
 import 'firebase_auth.dart';
+import 'package:gameio/Screens/map_page.dart';
 
 class UserDatabaseService {
   var value;
   final String uid;
   FirebaseStorage storage = FirebaseStorage.instance;
+  Geoflutterfire geo = Geoflutterfire();
 
   UserDatabaseService({this.uid});
 
@@ -100,6 +104,12 @@ class UserDatabaseService {
 
   ;
   }
-
+  Future _addGeoPoint() async {
+    var pos = await Geolocator.getCurrentPosition();
+    GeoFirePoint point = geo.point(latitude: pos.latitude, longitude: pos.longitude);
+    return  await userCollection.doc(uid).set({
+      'position': point.data,
+    }, SetOptions(merge: true));
+  }
 }
 
