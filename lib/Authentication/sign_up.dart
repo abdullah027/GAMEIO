@@ -3,11 +3,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:gameio/Screens/map_page.dart';
 import 'package:gameio/Services/firebase_auth.dart';
 import 'package:gameio/Screens/welcome_page.dart';
 import 'package:provider/provider.dart';
 import 'package:gameio/Services/User_data.dart';
+
+final auth = FirebaseAuth.instance;
 
 class SignUp extends StatefulWidget {
   @override
@@ -273,4 +276,14 @@ class _SignUpState extends State<SignUp> {
       ),
     );
   }
+  signUp(String _email, String _password) async {
+    try{
+      await auth.signInWithEmailAndPassword(email: _email, password: _password);
+
+      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=> MapPage()));
+    } on FirebaseAuthException catch (error){
+      Fluttertoast.showToast(msg: error.message, gravity: ToastGravity.TOP);
+    }
+  }
+
 }

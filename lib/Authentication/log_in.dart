@@ -1,12 +1,17 @@
 //import 'dart:html';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:gameio/Screens/map_page.dart';
 
 import 'package:gameio/Services/firebase_auth.dart';
 import 'package:provider/provider.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+
+final auth = FirebaseAuth.instance;
 
 class LogIn extends StatefulWidget {
   @override
@@ -14,8 +19,8 @@ class LogIn extends StatefulWidget {
 }
 
 class _LogInState extends State<LogIn> {
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
+
+  String _email, _password;
 
   @override
   Widget build(BuildContext context) {
@@ -60,8 +65,12 @@ class _LogInState extends State<LogIn> {
                     height: 5,
                   ),
                   TextField(
-                    key: ValueKey('email'),
-                    controller: emailController,
+                    onChanged: (value){
+                      setState(() {
+                        _email = value.trim();
+                      });
+                      },
+                    keyboardType: TextInputType.emailAddress,
                     cursorColor: Colors.red,
                     decoration: InputDecoration(
                         prefixIcon: Icon(
@@ -90,8 +99,12 @@ class _LogInState extends State<LogIn> {
                     height: 5,
                   ),
                   TextField(
+                    onChanged: (value){
+                      setState(() {
+                        _password = value.trim();
+                      });
+                    },
                     obscureText: true,
-                    controller: passwordController,
                     cursorColor: Colors.red,
                     decoration: InputDecoration(
                         prefixIcon: Icon(
@@ -112,10 +125,7 @@ class _LogInState extends State<LogIn> {
                     child: TextButton(
                       onPressed: () {
                         setState(() {
-                          context.read<AuthenticationService>().signIn(
-                                email: emailController.text.trim(),
-                                password: passwordController.text.trim(),
-                              );
+                          signIn(_email, _password);
                         });
                       },
                       style: ButtonStyle(
@@ -193,4 +203,16 @@ class _LogInState extends State<LogIn> {
       ),
     );
   }
+signIn(String _email, String _password) async {
+    try{
+      await auth.signInWithEmailAndPassword(email: _email, password: _password);
+      
+      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=> MapPage()));
+    } on FirebaseAuthException catch (error){
+      final snackBar = SnackBar(content: Text(error.message));
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    }
 }
+
+}
+
