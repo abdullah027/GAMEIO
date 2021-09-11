@@ -14,7 +14,7 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[C:\Users\DELL\.android\avd\4.65_720p_Galaxy_Nexus_Edited_API_30.avd]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[SerialNumber@18d96ab1]" />
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
@@ -91,5 +91,23 @@
       </map>
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state width="916" height="209" key="GridCell.Tab.0.bottom" timestamp="1631350210744">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state width="916" height="209" key="GridCell.Tab.0.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1631350210744" />
+    <state width="916" height="209" key="GridCell.Tab.0.center" timestamp="1631350210744">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state width="916" height="209" key="GridCell.Tab.0.center/0.0.1920.1050@0.0.1920.1050" timestamp="1631350210744" />
+    <state width="916" height="209" key="GridCell.Tab.0.left" timestamp="1631350210744">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state width="916" height="209" key="GridCell.Tab.0.left/0.0.1920.1050@0.0.1920.1050" timestamp="1631350210744" />
+    <state width="916" height="209" key="GridCell.Tab.0.right" timestamp="1631350210744">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state width="916" height="209" key="GridCell.Tab.0.right/0.0.1920.1050@0.0.1920.1050" timestamp="1631350210744" />
   </component>
 </project>
