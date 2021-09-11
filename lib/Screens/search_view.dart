@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:gameio/Screens/profile_view.dart';
+import 'package:gameio/Screens/profile_view_other.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 
@@ -16,7 +16,7 @@ class DataSearch extends SearchDelegate<String> {
 
   Future<void> getData() async {
     // Get docs from collection reference
-    QuerySnapshot querySnapshot = await _collectionRef.get();
+    QuerySnapshot querySnapshot = await _collectionRef.where('isloggedin', isEqualTo: true).get();
 
     // Get data from docs and convert map to List
     final data = querySnapshot.docs.map((doc) => doc.data()).toList();

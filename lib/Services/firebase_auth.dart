@@ -29,6 +29,8 @@ class AuthenticationService {
   /// Sign out user
   Future<void> signOut() async {
     UserDatabaseService(uid:user.uid ).isLoggedOut();
+    UserDatabaseService(uid:user.uid ).delLocation();
+
     return  _firebaseAuth.signOut();
   }
 

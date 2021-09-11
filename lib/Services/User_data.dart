@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:geoflutterfire/geoflutterfire.dart';
 import 'package:geolocator/geolocator.dart';
@@ -109,6 +110,12 @@ class UserDatabaseService {
     return  await userCollection.doc(uid).set({
       'position': point.data,
     }, SetOptions(merge: true));
+  }
+
+  Future delLocation() async{
+    return await userCollection.doc(uid).update({
+      'position': FieldValue.delete()
+    });
   }
 }
 
