@@ -5,9 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5ef7feb4-568c-415a-a15a-f6d357170079" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/Screens/map_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Screens/map_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Services/User_data.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Services/User_data.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

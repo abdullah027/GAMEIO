@@ -102,7 +102,6 @@ class UserDatabaseService {
     print(onError);
   });
 
-  ;
   }
   Future addGeoPoint() async {
     var pos = await Geolocator.getCurrentPosition();

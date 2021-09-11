@@ -18,13 +18,13 @@ import 'settings.dart';
 User firebaseUser = FirebaseAuth.instance.currentUser;
 Geoflutterfire geo = Geoflutterfire();
 //var radius = BehaviorSubject<double>().publishValueSeeded(100.0);
-StreamSubscription subscription;
 Stream<dynamic> query;
 Completer<GoogleMapController> _controllerGoogleMap = Completer();
 GoogleMapController newGoogleMapController;
 Set<Marker> _markers = {};
 var geoLocator = Geolocator();
 Map data;
+BitmapDescriptor myIcon;
 
 class MapPage extends StatefulWidget {
   @override
@@ -34,7 +34,7 @@ class MapPage extends StatefulWidget {
 class _MapPageState extends State<MapPage> {
 
 
-  BitmapDescriptor myIcon;
+
 
   GlobalKey<ScaffoldState> scaffoldKey = new GlobalKey<ScaffoldState>();
 
@@ -178,71 +178,75 @@ class _MapPageState extends State<MapPage> {
               })
         ],
       ),
-      body: Stack(
-        children: [
-          Column(
+      body: FutureBuilder(
+        future: startQuery(),
+        builder: (context,snapshot) {
+          return Stack(
             children: [
-              //SizedBox(
-              //height: 0,
-              //),
-              Flexible(
-                child: Container(
-                  height: double.infinity,
-                  width: double.infinity,
-                  child: GoogleMap(
-                    initialCameraPosition: _kGooglePlex,
-                    markers: _markers,
-                    mapType: MapType.normal,
-                    myLocationButtonEnabled: true,
-                    zoomGesturesEnabled: true,
-                    zoomControlsEnabled: true,
-                    onMapCreated: (GoogleMapController controller) {
-                      startQuery();
+              Column(
+                children: [
+                  //SizedBox(
+                  //height: 0,
+                  //),
+                  Flexible(
+                    child: Container(
+                      height: double.infinity,
+                      width: double.infinity,
+                      child: GoogleMap(
+                        initialCameraPosition: _kGooglePlex,
+                        markers: _markers,
+                        mapType: MapType.normal,
+                        myLocationButtonEnabled: true,
+                        zoomGesturesEnabled: true,
+                        zoomControlsEnabled: true,
+                        onMapCreated: (GoogleMapController controller) {
 
-                      _controllerGoogleMap.complete(controller);
-                      newGoogleMapController = controller;
-                      newGoogleMapController.setMapStyle(_mapStyle);
-                      setState(() {
-                        locatePosition();
-                      });
-                    },
+
+                          _controllerGoogleMap.complete(controller);
+                          newGoogleMapController = controller;
+                          newGoogleMapController.setMapStyle(_mapStyle);
+                          setState(() {
+                            //locatePosition();
+                          });
+                        },
+                      ),
+                    ),
                   ),
-                ),
+                ],
               ),
+              Positioned(
+                  bottom: 100,
+                  right: 10,
+                  child: TextButton(
+                    style: ButtonStyle(
+                      backgroundColor:
+                          MaterialStateProperty.all<Color>(Colors.black54),
+                    ),
+                    child: Icon(Icons.pin_drop),
+                    onPressed: () => locatePosition(),
+                  )),
+              //Positioned(
+                  //bottom: 50,
+                  //left: 10,
+                  //child: Slider(
+                   // min: 100.0,
+                    //max: 500.0,
+                    //divisions: 4,
+                    //value: radius.value,
+                    //label: 'Radius ${radius.value}km',
+                    //activeColor: Colors.green,
+                    //inactiveColor: Colors.green.withOpacity(0.2),
+                    //onChanged: updateQuery,
+                  //))
             ],
-          ),
-          Positioned(
-              bottom: 100,
-              right: 10,
-              child: TextButton(
-                style: ButtonStyle(
-                  backgroundColor:
-                      MaterialStateProperty.all<Color>(Colors.black54),
-                ),
-                child: Icon(Icons.pin_drop),
-                onPressed: () => locatePosition(),
-              )),
-          Positioned(
-              bottom: 50,
-              left: 10,
-              child: Slider(
-                min: 100.0,
-                max: 500.0,
-                divisions: 4,
-                value: radius.value,
-                label: 'Radius ${radius.value}km',
-                activeColor: Colors.green,
-                inactiveColor: Colors.green.withOpacity(0.2),
-                onChanged: updateQuery,
-              ))
-        ],
+          );
+        }
       ),
     );
   }
 
   @override
   dispose() {
-    subscription.cancel();
     super.dispose();
   }
 }
@@ -262,40 +266,37 @@ Future<DocumentSnapshot> getUserInfo() async {
   //get profile record of current user form firebase and return snapshot of document
 }
 
-void updateMarkers(List<DocumentSnapshot> documentList) {
-  print(documentList);
-  documentList.forEach((DocumentSnapshot document) {
 
-    data = document.data();
-    GeoPoint pos = data['position']['geopoint'];
-    print(pos);
-
-    _markers.add(Marker(
-        markerId: MarkerId("o"),
-        position: LatLng(pos.latitude, pos.longitude),
-        icon: BitmapDescriptor.defaultMarker,
-        infoWindow: InfoWindow(
-            title: data['name'], snippet: data['currentlyPlaying'])));
-  });
-}
 
 startQuery() async {
   // Get users location
   var pos = await Geolocator.getCurrentPosition();
   double lat = pos.latitude;
   double lng = pos.longitude;
+  double radius = 100;
 
   // Make a reference to fire store
   var ref = FirebaseFirestore.instance.collection('Users');
   GeoFirePoint center = geo.point(latitude: lat, longitude: lng);
 
   // subscribe to query
-  subscription = pos.switchMap((rad) {
-    return geo.collection(collectionRef: ref).within(
-        center: center, field: 'position', strictMode: true, );
-  }).listen(updateMarkers);
+  Stream<List<DocumentSnapshot>> stream =
+     geo.collection(collectionRef: ref).within(
+        center: center, radius: radius, field: 'position', strictMode: true);
+
+  stream.listen((List<DocumentSnapshot> documentList) {
+    documentList.forEach((DocumentSnapshot document) {
+
+      data = document.data();
+      GeoPoint pos = data['position']['geopoint'];
+
+      _markers.add(Marker(
+          markerId: MarkerId("o"),
+          position: LatLng(pos.latitude, pos.longitude),
+          icon: myIcon,
+          infoWindow: InfoWindow(
+              title: data['name'], snippet: data['currentlyPlaying'])));
+    });
+  });
 }
 
-//updateQuery(value) {
-  //radius.publishValueSeeded(value);
-//}
