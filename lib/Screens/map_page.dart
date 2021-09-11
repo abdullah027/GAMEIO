@@ -296,6 +296,8 @@ startQuery() async {
           icon: myIcon,
           infoWindow: InfoWindow(
               title: data['name'], snippet: data['currentlyPlaying'])));
+
+      
     });
   });
 }

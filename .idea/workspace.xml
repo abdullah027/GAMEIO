@@ -92,21 +92,25 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state width="916" height="209" key="GridCell.Tab.0.bottom" timestamp="1631350210744">
+    <state width="916" height="207" key="GridCell.Tab.0.bottom" timestamp="1631353541797">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="916" height="209" key="GridCell.Tab.0.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1631350210744" />
-    <state width="916" height="209" key="GridCell.Tab.0.center" timestamp="1631350210744">
+    <state width="916" height="207" key="GridCell.Tab.0.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1631353541797" />
+    <state width="916" height="207" key="GridCell.Tab.0.center" timestamp="1631353541797">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="916" height="209" key="GridCell.Tab.0.center/0.0.1920.1050@0.0.1920.1050" timestamp="1631350210744" />
-    <state width="916" height="209" key="GridCell.Tab.0.left" timestamp="1631350210744">
+    <state width="916" height="207" key="GridCell.Tab.0.center/0.0.1920.1050@0.0.1920.1050" timestamp="1631353541797" />
+    <state width="916" height="207" key="GridCell.Tab.0.left" timestamp="1631353541797">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="916" height="209" key="GridCell.Tab.0.left/0.0.1920.1050@0.0.1920.1050" timestamp="1631350210744" />
-    <state width="916" height="209" key="GridCell.Tab.0.right" timestamp="1631350210744">
+    <state width="916" height="207" key="GridCell.Tab.0.left/0.0.1920.1050@0.0.1920.1050" timestamp="1631353541797" />
+    <state width="916" height="207" key="GridCell.Tab.0.right" timestamp="1631353541797">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="916" height="209" key="GridCell.Tab.0.right/0.0.1920.1050@0.0.1920.1050" timestamp="1631350210744" />
+    <state width="916" height="207" key="GridCell.Tab.0.right/0.0.1920.1050@0.0.1920.1050" timestamp="1631353541797" />
+    <state x="651" y="161" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1631354039951">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state x="651" y="161" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1920.1050@0.0.1920.1050" timestamp="1631354039951" />
   </component>
 </project>
