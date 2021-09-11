@@ -34,9 +34,6 @@ class MapPage extends StatefulWidget {
 
 class _MapPageState extends State<MapPage> {
 
-
-
-
   GlobalKey<ScaffoldState> scaffoldKey = new GlobalKey<ScaffoldState>();
 
   Position currentPosition;
