@@ -97,7 +97,7 @@ class DataSearch extends SearchDelegate<String> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => ProfileView()));
+                              builder: (context) => ProfileViewOther()));
                     },),
                     trailing: IconButton(
                       icon: Icon(Icons.message),

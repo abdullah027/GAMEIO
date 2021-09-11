@@ -1,0 +1,227 @@
+import 'package:flutter/material.dart';
+import 'package:gameio/Screens/profile_edit_view.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+class ProfileView extends StatefulWidget {
+  @override
+  _ProfileViewState createState() => _ProfileViewState();
+}
+
+class _ProfileViewState extends State<ProfileView> {
+  String image;
+  String name;
+  String receiverEmail;
+  String username;
+  int age;
+  String country;
+  String discord;
+  String bio;
+
+  @override
+  void initState() {
+    super.initState();
+    getProfileData();
+  }
+
+  getProfileData() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+
+    setState(() {
+      image = pref.getString('image');
+      name = pref.getString('name');
+      receiverEmail = pref.getString('email');
+      username = pref.getString('username');
+      age = pref.getInt('age');
+      country = pref.getString('country');
+      discord = pref.getString("discord_ID");
+      bio = pref.getString("bio");
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Center(
+          child: Container(
+            alignment: Alignment.topLeft,
+            child: Text(
+              'Profile',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+        ),
+      ),
+      body: SafeArea(
+          child: Stack(
+        children: <Widget>[
+          ListView(
+            children: [
+              Stack(
+                children: [
+                  Container(
+                    height: 200,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage("assets/images/gamepad.jpg"),
+                        fit: BoxFit.cover,
+                      ),
+                      border: Border.all(
+                        width: 1,
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 23),
+                    child: Center(
+                      child: CircleAvatar(
+                        maxRadius: 70,
+                        backgroundColor: Colors.black38,
+                        child: ClipOval(
+                          child: SizedBox(
+                            height: 120,
+                            width: 120,
+                            child: Image.network(
+                              image,
+                              fit: BoxFit.fill,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              Flexible(
+                child: Container(
+                  child: Column(
+                    children: [
+                      ListTile(
+                        dense: true,
+                        title: Text(
+                          'Name',
+                          style: TextStyle(
+                            color: Colors.white70,
+                            fontSize: 14,
+                          ),
+                        ),
+                        subtitle: Text(
+                          name,
+                          style: TextStyle(fontSize: 18, color: Colors.white),
+                        ),
+                      ),
+                      Divider(
+                        color: Colors.white,
+                      ),
+                      ListTile(
+                        dense: true,
+                        title: Text(
+                          'Username',
+                          style: TextStyle(
+                            color: Colors.white70,
+                            fontSize: 14,
+                          ),
+                        ),
+                        subtitle: Text(
+                          username,
+                          style: TextStyle(fontSize: 18, color: Colors.white),
+                        ),
+                      ),
+                      Divider(
+                        color: Colors.white,
+                      ),
+                      ListTile(
+                        dense: true,
+                        title: Text(
+                          'Age',
+                          style: TextStyle(
+                            color: Colors.white70,
+                            fontSize: 14,
+                          ),
+                        ),
+                        subtitle: Text(
+                          age.toString(),
+                          style: TextStyle(fontSize: 18, color: Colors.white),
+                        ),
+                      ),
+                      Divider(
+                        color: Colors.white,
+                      ),
+                      ListTile(
+                        dense: true,
+                        title: Text(
+                          'Country',
+                          style: TextStyle(
+                            color: Colors.white70,
+                            fontSize: 14,
+                          ),
+                        ),
+                        subtitle: Text(
+                          country.toString(),
+                          style: TextStyle(fontSize: 18, color: Colors.white),
+                        ),
+                      ),
+                      Divider(
+                        color: Colors.white,
+                      ),
+                      ListTile(
+                        dense: true,
+                        title: Text(
+                          'DiscordID',
+                          style: TextStyle(
+                            color: Colors.white70,
+                            fontSize: 14,
+                          ),
+                        ),
+                        subtitle: Text(
+                          discord.toString(),
+                          style: TextStyle(fontSize: 18, color: Colors.white),
+                        ),
+                      ),
+                      Divider(
+                        color: Colors.white,
+                      ),
+                      ListTile(
+                        dense: true,
+                        title: Text(
+                          'Bio',
+                          style: TextStyle(
+                            color: Colors.white70,
+                            fontSize: 14,
+                          ),
+                        ),
+                        subtitle: Text(
+                          bio.toString(),
+                          style: TextStyle(fontSize: 18, color: Colors.white),
+                        ),
+                      ),
+                      Divider(
+                        color: Colors.white,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+          Align(
+            alignment: Alignment.bottomRight,
+            child: FloatingActionButton(
+              onPressed: () {
+                setState(() {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => FillInfo()));
+                });
+              },
+              backgroundColor: Colors.amber,
+              child: Icon(Icons.edit),
+            ),
+          ),
+        ],
+      )),
+    );
+  }
+}

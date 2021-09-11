@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:gameio/Screens/profile_view.dart';
 import 'package:gameio/Screens/profile_view_other.dart';
 import 'package:gameio/Screens/search_view.dart';
 import 'package:gameio/Services/User_data.dart';
