@@ -17,7 +17,7 @@ import 'settings.dart';
 
 User firebaseUser = FirebaseAuth.instance.currentUser;
 Geoflutterfire geo = Geoflutterfire();
-var radius = BehaviorSubject<double>().publishValueSeeded(100.0);
+//var radius = BehaviorSubject<double>().publishValueSeeded(100.0);
 StreamSubscription subscription;
 Stream<dynamic> query;
 Completer<GoogleMapController> _controllerGoogleMap = Completer();
@@ -290,12 +290,12 @@ startQuery() async {
   GeoFirePoint center = geo.point(latitude: lat, longitude: lng);
 
   // subscribe to query
-  subscription = radius.switchMap((rad) {
+  subscription = pos.switchMap((rad) {
     return geo.collection(collectionRef: ref).within(
-        center: center, radius: rad, field: 'position', strictMode: true);
+        center: center, field: 'position', strictMode: true, );
   }).listen(updateMarkers);
 }
 
-updateQuery(value) {
-  radius.publishValueSeeded(value);
-}
+//updateQuery(value) {
+  //radius.publishValueSeeded(value);
+//}
