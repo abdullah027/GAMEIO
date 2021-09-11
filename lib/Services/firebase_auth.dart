@@ -46,7 +46,8 @@ class AuthenticationService {
     try {
       UserCredential result = await _firebaseAuth.signInWithEmailAndPassword(email: email, password: password);
       await result.user.reload();
-      UserDatabaseService(uid:user.uid ).isLoggedIn();
+      //redundant and disabled
+      //UserDatabaseService(uid:user.uid ).isLoggedIn();
       return "Signed in";
     } on FirebaseAuthException catch (e) {
       return e.message;
@@ -61,7 +62,8 @@ class AuthenticationService {
       final uid = result.user.uid;
       await result.user.reload();
       await UserDatabaseService(uid:uid).addUserData(name, 0, "Gender", "Tell us a little about yourself", email); // set default parameters to user profile
-      UserDatabaseService(uid:uid).isLoggedIn();
+      //redundant and disabled
+      //UserDatabaseService(uid:uid).isLoggedIn();
       return "Signed up";
     } on FirebaseAuthException catch (e) {
       return e.message;

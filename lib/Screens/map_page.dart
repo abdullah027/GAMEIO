@@ -253,8 +253,10 @@ class _MapPageState extends State<MapPage> {
 }
 
 void setOnline() {
-  UserDatabaseService(uid: firebaseUser.uid).isLoggedIn();
-  UserDatabaseService(uid: firebaseUser.uid).addGeoPoint();
+
+  User thisUser = FirebaseAuth.instance.currentUser;
+  UserDatabaseService(uid: thisUser.uid).isLoggedIn();
+  UserDatabaseService(uid: thisUser.uid).addGeoPoint();
 }
 
 Future<DocumentSnapshot> getUserInfo() async {
