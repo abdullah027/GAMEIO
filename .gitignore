@@ -74,3 +74,8 @@ Export_Gameio.zip
 .flutter-plugins-dependencies
 .idea/libraries/Flutter_Plugins.xml
 .packages
+*.json
+.flutter-plugins-dependencies
+.flutter-plugins
+.dart_tool/version
+.dart_tool/package_config_subset
