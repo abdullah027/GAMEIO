@@ -8,7 +8,6 @@ import 'package:flutter/widgets.dart';
 import 'package:gameio/Services/firebase_auth.dart';
 import 'package:provider/provider.dart';
 
-
 class LogIn extends StatefulWidget {
   @override
   _LogInState createState() => _LogInState();
@@ -61,6 +60,7 @@ class _LogInState extends State<LogIn> {
                     height: 5,
                   ),
                   TextField(
+                    key: ValueKey('email'),
                     controller: emailController,
                     cursorColor: Colors.red,
                     decoration: InputDecoration(
@@ -111,21 +111,18 @@ class _LogInState extends State<LogIn> {
                     width: double.infinity,
                     child: TextButton(
                       onPressed: () {
-
-                          setState(() {
-                            context.read<AuthenticationService>().signIn(
-                                  email: emailController.text.trim(),
-                                  password: passwordController.text.trim(),
-                                );
-                          });
-
+                        setState(() {
+                          context.read<AuthenticationService>().signIn(
+                                email: emailController.text.trim(),
+                                password: passwordController.text.trim(),
+                              );
+                        });
                       },
                       style: ButtonStyle(
-                        shape: MaterialStateProperty.all(
-                            RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20))),
-                        backgroundColor: MaterialStateProperty.all<Color>(
-                            Color(0xFFEB1555)),
+                        shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20))),
+                        backgroundColor:
+                            MaterialStateProperty.all<Color>(Color(0xFFEB1555)),
                       ),
                       child: Text(
                         'Log in',
@@ -141,7 +138,10 @@ class _LogInState extends State<LogIn> {
                   ),
                   Row(
                     children: [
-                      Expanded(child: Divider(color: Colors.white,)),
+                      Expanded(
+                          child: Divider(
+                        color: Colors.white,
+                      )),
                       SizedBox(
                         width: 20,
                       ),
@@ -149,7 +149,10 @@ class _LogInState extends State<LogIn> {
                       SizedBox(
                         width: 20,
                       ),
-                      Expanded(child: Divider(color: Colors.white,)),
+                      Expanded(
+                          child: Divider(
+                        color: Colors.white,
+                      )),
                     ],
                   ),
                   SizedBox(
@@ -158,9 +161,10 @@ class _LogInState extends State<LogIn> {
                   GestureDetector(
                     onTap: () {
                       setState(() {
-                        return context.read<AuthenticationService>().signInWithGoogle();
+                        return context
+                            .read<AuthenticationService>()
+                            .signInWithGoogle();
                       });
-
                     },
                     child: Container(
                       //margin: EdgeInsets.only(top: 200),
@@ -174,7 +178,9 @@ class _LogInState extends State<LogIn> {
                           color: Color(0xFFD9BEBE),
                         ),
                         image: DecorationImage(
-                          image: AssetImage('assets/images/icons8-google-30.png',),
+                          image: AssetImage(
+                            'assets/images/icons8-google-30.png',
+                          ),
                         ),
                       ),
                     ),
@@ -188,5 +194,3 @@ class _LogInState extends State<LogIn> {
     );
   }
 }
-
-
