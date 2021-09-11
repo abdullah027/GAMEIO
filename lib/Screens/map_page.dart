@@ -281,7 +281,7 @@ startQuery() async {
 
   // subscribe to query
   Stream<List<DocumentSnapshot>> stream =
-     geo.collection(collectionRef: ref).within(
+     geo.collection(collectionRef: ref.where('name', isNotEqualTo: firebaseUser.email).where('isloggedin', isEqualTo: true)).within(
         center: center, radius: radius, field: 'position', strictMode: true);
 
   stream.listen((List<DocumentSnapshot> documentList) {
