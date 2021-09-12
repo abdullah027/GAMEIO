@@ -82,3 +82,7 @@ Export_Gameio.zip
 .dart_tool/flutter_build/add6a21e923679900a96a7d149d797c5/.filecache
 .dart_tool/flutter_build/add6a21e923679900a96a7d149d797c5/app.dill
 *.stamp
+.dart_tool/flutter_build/add6a21e923679900a96a7d149d797c5/app.dill
+.dart_tool/flutter_build/add6a21e923679900a96a7d149d797c5/debug_android_application.stamp
+.dart_tool/flutter_build/add6a21e923679900a96a7d149d797c5/flutter_assets.d
+*.d
