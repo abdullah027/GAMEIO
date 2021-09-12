@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HelpCenter extends StatefulWidget {
   @override
@@ -7,6 +8,11 @@ class HelpCenter extends StatefulWidget {
 }
 
 class _HelpCenterState extends State<HelpCenter> {
+
+  void _launchURL(command) async => await canLaunch(command)
+      ? await launch(command)
+      : throw 'Could not launch $command';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -64,36 +70,51 @@ class _HelpCenterState extends State<HelpCenter> {
                         fontSize: 25,
                       ),
                     ),
-                    Card(
-                      margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 25.0),
-                      color: Color(0XFF1D1F33),
-                      child: ListTile(
-                        leading: Icon(
-                          Icons.call,
-                        ),
-                        title: Text(
-                          "+92 315 293 0197",
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
+                    GestureDetector(
+                      onTap: (){
+                        setState(() {
+                          _launchURL('tel:+92 315 293 0197');
+                        });
+                      },
+                      child: Card(
+                        margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 25.0),
+                        color: Color(0XFF1D1F33),
+                        child: ListTile(
+                          leading: Icon(
+                            Icons.call,
+                          ),
+                          title: Text(
+                            "+92 315 293 0197",
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
                           ),
                         ),
                       ),
                     ),
-                    Card(
-                      margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 25.0),
-                      color: Color(0XFF1D1F33),
-                      child: ListTile(
-                        leading: Icon(
-                          Icons.mail,
-                        ),
-                        title: Text(
-                          "fyp.gameio@gmail.com",
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
+                    GestureDetector(
+                      onTap: (){
+                        setState(() {
+                          _launchURL('mailto:fyp.gameio@gmail.com');
+
+                        });
+                      },
+                      child: Card(
+                        margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 25.0),
+                        color: Color(0XFF1D1F33),
+                        child: ListTile(
+                          leading: Icon(
+                            Icons.mail,
+                          ),
+                          title: Text(
+                            "fyp.gameio@gmail.com",
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
                           ),
                         ),
                       ),
