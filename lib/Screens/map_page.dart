@@ -272,7 +272,16 @@ class _MapPageState extends State<MapPage> {
               title: data['name'],
               snippet: data['currentlyPlaying'],
               onTap: () {
-                setState(() {
+                setState(() async{
+                  SharedPreferences pref = await SharedPreferences.getInstance();
+                  pref.setString('image', data['avatarUrl']);
+                  pref.setString('name', data['name']);
+                  pref.setString('email', data['email']);
+                  pref.setString('username', data['userName']);
+                  pref.setInt('age', data['age']);
+                  pref.setString('country', data['country']);
+                  pref.setString('discord_ID', data['discord_username']);
+                  pref.setString('bio', data['bio']);
                   Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
