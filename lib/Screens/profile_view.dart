@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gameio/Screens/profile_edit_view.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -8,34 +10,24 @@ class ProfileView extends StatefulWidget {
 }
 
 class _ProfileViewState extends State<ProfileView> {
-  String image;
-  String name;
-  String receiverEmail;
-  String username;
-  int age;
-  String country;
-  String discord;
-  String bio;
+
+  User firebaseUser = FirebaseAuth.instance.currentUser;
+  Map data;
+
+  fetchData() {
+    CollectionReference collectionReference =
+    FirebaseFirestore.instance.collection("Users");
+    collectionReference.doc(firebaseUser.uid).snapshots().listen((snapshot) {
+      setState(() {
+        data = snapshot.data();
+      });
+    });
+  }
 
   @override
   void initState() {
     super.initState();
-    getProfileData();
-  }
-
-  getProfileData() async {
-    SharedPreferences pref = await SharedPreferences.getInstance();
-
-    setState(() {
-      image = pref.getString('image');
-      name = pref.getString('name');
-      receiverEmail = pref.getString('email');
-      username = pref.getString('username');
-      age = pref.getInt('age');
-      country = pref.getString('country');
-      discord = pref.getString("discord_ID");
-      bio = pref.getString("bio");
-    });
+    fetchData();
   }
 
   @override
@@ -85,7 +77,7 @@ class _ProfileViewState extends State<ProfileView> {
                             height: 120,
                             width: 120,
                             child: Image.network(
-                              image,
+                              data['avatarUrl'],
                               fit: BoxFit.fill,
                             ),
                           ),
@@ -109,7 +101,7 @@ class _ProfileViewState extends State<ProfileView> {
                           ),
                         ),
                         subtitle: Text(
-                          name,
+                          data['name'],
                           style: TextStyle(fontSize: 18, color: Colors.white),
                         ),
                       ),
@@ -126,7 +118,7 @@ class _ProfileViewState extends State<ProfileView> {
                           ),
                         ),
                         subtitle: Text(
-                          username,
+                          data['userName'],
                           style: TextStyle(fontSize: 18, color: Colors.white),
                         ),
                       ),
@@ -143,7 +135,7 @@ class _ProfileViewState extends State<ProfileView> {
                           ),
                         ),
                         subtitle: Text(
-                          age.toString(),
+                          data['age'].toString(),
                           style: TextStyle(fontSize: 18, color: Colors.white),
                         ),
                       ),
@@ -160,7 +152,7 @@ class _ProfileViewState extends State<ProfileView> {
                           ),
                         ),
                         subtitle: Text(
-                          country.toString(),
+                          data['country'].toString(),
                           style: TextStyle(fontSize: 18, color: Colors.white),
                         ),
                       ),
@@ -177,7 +169,7 @@ class _ProfileViewState extends State<ProfileView> {
                           ),
                         ),
                         subtitle: Text(
-                          discord.toString(),
+                          data['discord_username'].toString(),
                           style: TextStyle(fontSize: 18, color: Colors.white),
                         ),
                       ),
@@ -194,7 +186,7 @@ class _ProfileViewState extends State<ProfileView> {
                           ),
                         ),
                         subtitle: Text(
-                          bio.toString(),
+                          data['bio'].toString(),
                           style: TextStyle(fontSize: 18, color: Colors.white),
                         ),
                       ),
