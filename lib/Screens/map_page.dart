@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gameio/Screens/profile_view.dart';
+import 'package:gameio/Screens/profile_view_other.dart';
 
 import 'package:gameio/Screens/search_view.dart';
 import 'package:gameio/Services/User_data.dart';
@@ -12,6 +13,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import 'package:flutter/services.dart' show rootBundle;
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'Auth.dart';
 import 'settings.dart';
@@ -33,6 +35,9 @@ class MapPage extends StatefulWidget {
   _MapPageState createState() => _MapPageState();
 }
 
+
+
+
 class _MapPageState extends State<MapPage> {
   GlobalKey<ScaffoldState> scaffoldKey = new GlobalKey<ScaffoldState>();
 
@@ -49,6 +54,7 @@ class _MapPageState extends State<MapPage> {
       });
     });
   }
+
 
   @override
   void initState() {
@@ -233,6 +239,51 @@ class _MapPageState extends State<MapPage> {
     );
   }
 
+  startQuery() async {
+    // Get users location
+    var pos = await Geolocator.getCurrentPosition();
+    double lat = pos.latitude;
+    double lng = pos.longitude;
+    double radius = 100;
+
+    // Make a reference to fire store
+    var ref = FirebaseFirestore.instance.collection('Users');
+    GeoFirePoint center = geo.point(latitude: lat, longitude: lng);
+
+    // subscribe to query
+    Stream<List<DocumentSnapshot>> stream = geo
+        .collection(collectionRef: ref)
+        .within(
+            center: center,
+            radius: radius,
+            field: 'position',
+            strictMode: true);
+
+    stream.listen((List<DocumentSnapshot> documentList) {
+      documentList.forEach((DocumentSnapshot document) {
+        data = document.data();
+        GeoPoint pos = data['position']['geopoint'];
+
+        _markers.add(Marker(
+            markerId: MarkerId("o"),
+            position: LatLng(pos.latitude, pos.longitude),
+            icon: myIcon,
+            infoWindow: InfoWindow(
+              title: data['name'],
+              snippet: data['currentlyPlaying'],
+              onTap: () {
+                setState(() {
+                  Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => ProfileViewOther()));
+                });
+              },
+            )));
+      });
+    });
+  }
+
   @override
   dispose() {
     super.dispose();
@@ -253,36 +304,4 @@ Future<DocumentSnapshot> getUserInfo() async {
       .doc(firebaseUser.uid)
       .get();
   //get profile record of current user form firebase and return snapshot of document
-}
-
-startQuery() async {
-  // Get users location
-  var pos = await Geolocator.getCurrentPosition();
-  double lat = pos.latitude;
-  double lng = pos.longitude;
-  double radius = 100;
-
-  // Make a reference to fire store
-  var ref = FirebaseFirestore.instance.collection('Users');
-  GeoFirePoint center = geo.point(latitude: lat, longitude: lng);
-
-  // subscribe to query
-  Stream<List<DocumentSnapshot>> stream = geo
-      .collection(collectionRef: ref)
-      .within(
-          center: center, radius: radius, field: 'position', strictMode: true);
-
-  stream.listen((List<DocumentSnapshot> documentList) {
-    documentList.forEach((DocumentSnapshot document) {
-      data = document.data();
-      GeoPoint pos = data['position']['geopoint'];
-
-      _markers.add(Marker(
-          markerId: MarkerId("o"),
-          position: LatLng(pos.latitude, pos.longitude),
-          icon: myIcon,
-          infoWindow: InfoWindow(
-              title: data['name'], snippet: data['currentlyPlaying'])));
-    });
-  });
 }
