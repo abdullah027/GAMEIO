@@ -14,7 +14,7 @@ class _ProfileViewOtherState extends State<ProfileViewOther> {
   String image;
   String name;
   String receiverEmail;
-  String username;
+  String displayName;
   int age;
   String country;
   String discord;
@@ -33,7 +33,7 @@ class _ProfileViewOtherState extends State<ProfileViewOther> {
       image = pref.getString('image');
       name = pref.getString('name');
       receiverEmail = pref.getString('email');
-      username = pref.getString('username');
+      displayName = pref.getString('displayName');
       age = pref.getInt('age');
       country = pref.getString('country');
       discord = pref.getString("discord_ID");
@@ -159,7 +159,7 @@ class _ProfileViewOtherState extends State<ProfileViewOther> {
                           ),
                         ),
                         subtitle: Text(
-                          username,
+                          displayName,
                           style: TextStyle(fontSize: 18, color: Colors.white),
                         ),
                       ),
