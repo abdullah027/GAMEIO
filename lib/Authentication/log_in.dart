@@ -209,8 +209,7 @@ signIn(String _email, String _password) async {
       
       Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=> MapPage()));
     } on FirebaseAuthException catch (error){
-      final snackBar = SnackBar(content: Text(error.message));
-      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      Fluttertoast.showToast(msg: error.message,gravity: ToastGravity.TOP, backgroundColor: Colors.white,textColor: Colors.black);
     }
 }
 

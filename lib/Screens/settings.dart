@@ -1,10 +1,14 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gameio/Services/firebase_auth.dart';
 import 'package:gameio/dialog/policy_dialog.dart';
 import 'package:provider/provider.dart';
 
+import 'Auth.dart';
 import 'help_center.dart';
+
+final auth = FirebaseAuth.instance;
 
 class Setting extends StatefulWidget {
   @override
@@ -114,7 +118,8 @@ class _SettingState extends State<Setting> {
             ),
             ListTile(
               onTap: () {
-                context.read<AuthenticationService>().signOut();
+                auth.signOut();
+                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomePage()));
               },
               leading: Icon(
                 Icons.login_outlined,

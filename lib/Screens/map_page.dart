@@ -3,19 +3,20 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gameio/Screens/profile_view.dart';
-import 'package:gameio/Screens/profile_view_other.dart';
+
 import 'package:gameio/Screens/search_view.dart';
 import 'package:gameio/Services/User_data.dart';
-import 'package:gameio/Services/firebase_auth.dart';
+
 import 'package:geoflutterfire/geoflutterfire.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:provider/provider.dart';
+
 import 'package:flutter/services.dart' show rootBundle;
-import 'package:rxdart/rxdart.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+
+import 'Auth.dart';
 import 'settings.dart';
 
+final auth = FirebaseAuth.instance;
 User firebaseUser = FirebaseAuth.instance.currentUser;
 Geoflutterfire geo = Geoflutterfire();
 //var radius = BehaviorSubject<double>().publishValueSeeded(100.0);
@@ -33,7 +34,6 @@ class MapPage extends StatefulWidget {
 }
 
 class _MapPageState extends State<MapPage> {
-
   GlobalKey<ScaffoldState> scaffoldKey = new GlobalKey<ScaffoldState>();
 
   Position currentPosition;
@@ -58,9 +58,9 @@ class _MapPageState extends State<MapPage> {
       myIcon = onValue;
     });
     super.initState();
-    setOnline();
     fetchData();
     locatePosition();
+    setOnline();
     rootBundle.loadString('assets/map_style.txt').then((string) {
       _mapStyle = string;
     });
@@ -95,7 +95,6 @@ class _MapPageState extends State<MapPage> {
     target: LatLng(24.903623, 67.198376),
     zoom: 18,
   );
-
 
   @override
   Widget build(BuildContext context) {
@@ -135,7 +134,9 @@ class _MapPageState extends State<MapPage> {
                 title: Text('LogOut'),
                 onTap: () {
                   setState(() {
-                    context.read<AuthenticationService>().signOut();
+                    auth.signOut();
+                    Navigator.of(context).pushReplacement(
+                        MaterialPageRoute(builder: (context) => HomePage()));
                     //Navigator.popUntil(context,ModalRoute.withName('HomePage'));
                   });
                 },
@@ -165,69 +166,70 @@ class _MapPageState extends State<MapPage> {
         ],
       ),
       body: FutureBuilder(
-        future: startQuery(),
-        builder: (context,snapshot) {
-          return Stack(
-            children: [
-              Column(
-                children: [
-                  //SizedBox(
-                  //height: 0,
-                  //),
-                  Flexible(
-                    child: Container(
-                      height: double.infinity,
-                      width: double.infinity,
-                      child: GoogleMap(
-                        initialCameraPosition: _kGooglePlex,
-                        markers: _markers,
-                        mapType: MapType.normal,
-                        myLocationButtonEnabled: true,
-                        zoomGesturesEnabled: true,
-                        zoomControlsEnabled: true,
-                        onMapCreated: (GoogleMapController controller) {
-
-
-                          _controllerGoogleMap.complete(controller);
-                          newGoogleMapController = controller;
-                          newGoogleMapController.setMapStyle(_mapStyle);
-                          setState(() {
-                            locatePosition();
-                          });
-                        },
+          future: startQuery(),
+          builder: (context, snapshot) {
+            return Stack(
+              children: [
+                Column(
+                  children: [
+                    //SizedBox(
+                    //height: 0,
+                    //),
+                    Flexible(
+                      child: Container(
+                        height: double.infinity,
+                        width: double.infinity,
+                        child: GoogleMap(
+                          initialCameraPosition: _kGooglePlex,
+                          markers: _markers,
+                          mapType: MapType.normal,
+                          myLocationButtonEnabled: true,
+                          zoomGesturesEnabled: true,
+                          zoomControlsEnabled: true,
+                          onMapCreated: (GoogleMapController controller) {
+                            _controllerGoogleMap.complete(controller);
+                            newGoogleMapController = controller;
+                            newGoogleMapController.setMapStyle(_mapStyle);
+                            setState(() {
+                              locatePosition();
+                            });
+                          },
+                        ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-              Positioned(
-                  bottom: 100,
-                  right: 10,
-                  child: TextButton(
-                    style: ButtonStyle(
-                      backgroundColor:
-                          MaterialStateProperty.all<Color>(Colors.black54),
-                    ),
-                    child: Icon(Icons.pin_drop),
-                    onPressed: () => locatePosition(),
-                  )),
-              //Positioned(
-                  //bottom: 50,
-                  //left: 10,
-                  //child: Slider(
-                   // min: 100.0,
-                    //max: 500.0,
-                    //divisions: 4,
-                    //value: radius.value,
-                    //label: 'Radius ${radius.value}km',
-                    //activeColor: Colors.green,
-                    //inactiveColor: Colors.green.withOpacity(0.2),
-                    //onChanged: updateQuery,
-                  //))
-            ],
-          );
-        }
-      ),
+                  ],
+                ),
+                Positioned(
+                    bottom: 100,
+                    right: 10,
+                    child: TextButton(
+                      style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.all<Color>(Colors.black54),
+                      ),
+                      child: Icon(Icons.pin_drop),
+                      onPressed: () {
+                        setState(() {
+                          locatePosition();
+                        });
+                      },
+                    )),
+                //Positioned(
+                //bottom: 50,
+                //left: 10,
+                //child: Slider(
+                // min: 100.0,
+                //max: 500.0,
+                //divisions: 4,
+                //value: radius.value,
+                //label: 'Radius ${radius.value}km',
+                //activeColor: Colors.green,
+                //inactiveColor: Colors.green.withOpacity(0.2),
+                //onChanged: updateQuery,
+                //))
+              ],
+            );
+          }),
     );
   }
 
@@ -238,7 +240,6 @@ class _MapPageState extends State<MapPage> {
 }
 
 void setOnline() {
-
   User thisUser = FirebaseAuth.instance.currentUser;
   UserDatabaseService(uid: thisUser.uid).isLoggedIn();
   UserDatabaseService(uid: thisUser.uid).addGeoPoint();
@@ -254,8 +255,6 @@ Future<DocumentSnapshot> getUserInfo() async {
   //get profile record of current user form firebase and return snapshot of document
 }
 
-
-
 startQuery() async {
   // Get users location
   var pos = await Geolocator.getCurrentPosition();
@@ -268,13 +267,13 @@ startQuery() async {
   GeoFirePoint center = geo.point(latitude: lat, longitude: lng);
 
   // subscribe to query
-  Stream<List<DocumentSnapshot>> stream =
-     geo.collection(collectionRef: ref).within(
-        center: center, radius: radius, field: 'position', strictMode: true);
+  Stream<List<DocumentSnapshot>> stream = geo
+      .collection(collectionRef: ref)
+      .within(
+          center: center, radius: radius, field: 'position', strictMode: true);
 
   stream.listen((List<DocumentSnapshot> documentList) {
     documentList.forEach((DocumentSnapshot document) {
-
       data = document.data();
       GeoPoint pos = data['position']['geopoint'];
 
@@ -284,9 +283,6 @@ startQuery() async {
           icon: myIcon,
           infoWindow: InfoWindow(
               title: data['name'], snippet: data['currentlyPlaying'])));
-
-      
     });
   });
 }
-
