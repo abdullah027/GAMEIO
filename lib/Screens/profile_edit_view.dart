@@ -62,18 +62,6 @@ class _FillInfoState extends State<FillInfo> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        actions: <Widget>[
-          TextButton.icon(
-            onPressed: () {
-              context.read<AuthenticationService>().signOut();
-            },
-            icon: Icon(
-              Icons.logout,
-              color: Colors.white,
-            ),
-            label: Text(''),
-          ),
-        ],
         title: Center(
           child: Container(
             alignment: Alignment.center,

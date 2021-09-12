@@ -209,7 +209,7 @@ signIn(String _email, String _password) async {
       
       Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=> MapPage()));
     } on FirebaseAuthException catch (error){
-      Fluttertoast.showToast(msg: error.message,gravity: ToastGravity.TOP, backgroundColor: Colors.white,textColor: Colors.black);
+      Fluttertoast.showToast(msg: error.message,gravity: ToastGravity.BOTTOM, backgroundColor: Colors.white,textColor: Colors.black, toastLength:Toast.LENGTH_LONG );
     }
 }
 

@@ -1,12 +1,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:gameio/Services/User_data.dart';
 import 'package:gameio/Services/firebase_auth.dart';
 import 'package:gameio/dialog/policy_dialog.dart';
 import 'package:provider/provider.dart';
 
 import 'Auth.dart';
 import 'help_center.dart';
+import 'map_page.dart';
 
 final auth = FirebaseAuth.instance;
 
@@ -118,7 +120,8 @@ class _SettingState extends State<Setting> {
             ),
             ListTile(
               onTap: () {
-                auth.signOut();
+                UserDatabaseService(uid: firebaseUser.uid).clearLocAndLogOut();
+                // auth.signOut();
                 Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomePage()));
               },
               leading: Icon(

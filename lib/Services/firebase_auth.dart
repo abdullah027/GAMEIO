@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:gameio/Services/User_data.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -28,12 +29,12 @@ class AuthenticationService {
   }
 
   /// Sign out user
-  Future<void> signOut() async {
+  Future<void> signOutUser() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     await pref.clear();
-    UserDatabaseService(uid: user.uid).isLoggedOut();
-    UserDatabaseService(uid: user.uid).delLocation();
-
+    User thisUser = FirebaseAuth.instance.currentUser;
+    UserDatabaseService(uid: thisUser.uid).isLoggedOut();
+    UserDatabaseService(uid: thisUser.uid).delLocation();
     return _firebaseAuth.signOut();
   }
 
@@ -47,8 +48,9 @@ class AuthenticationService {
       //redundant and disabled
       //UserDatabaseService(uid:user.uid ).isLoggedIn();
       return "Signed in";
-    } on FirebaseAuthException catch (error) {
-      return error.message;
+
+    } on FirebaseAuthException catch (error){
+    Fluttertoast.showToast(msg: error.message,gravity: ToastGravity.BOTTOM, backgroundColor: Colors.white,textColor: Colors.black, toastLength:Toast.LENGTH_LONG );
     }
   
   }
@@ -70,8 +72,8 @@ class AuthenticationService {
       //redundant and disabled
       //UserDatabaseService(uid:uid).isLoggedIn();
       return "Signed up";
-    } on FirebaseAuthException catch (e) {
-      return e.message;
+    } on FirebaseAuthException catch (error){
+      Fluttertoast.showToast(msg: error.message,gravity: ToastGravity.BOTTOM, backgroundColor: Colors.white,textColor: Colors.black, toastLength:Toast.LENGTH_LONG );
     }
   }
 

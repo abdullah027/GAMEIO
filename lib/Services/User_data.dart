@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:geoflutterfire/geoflutterfire.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'firebase_auth.dart';
 import 'package:gameio/Screens/map_page.dart';
 
@@ -116,6 +117,17 @@ class UserDatabaseService {
     return await userCollection.doc(uid).update({
       'position': FieldValue.delete()
     });
+  }
+
+  Future<void> clearLocAndLogOut() async{
+    final auth = FirebaseAuth.instance;
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    await pref.clear();
+    User thisUser = FirebaseAuth.instance.currentUser;
+    UserDatabaseService(uid: thisUser.uid).isLoggedOut();
+    UserDatabaseService(uid: thisUser.uid).delLocation();
+    auth.signOut();
+
   }
 }
 

@@ -3,6 +3,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:gameio/Screens/map_page.dart';
 import 'package:gameio/Services/firebase_auth.dart';
 import 'package:gameio/Screens/welcome_page.dart';
 import 'package:provider/provider.dart';
@@ -178,29 +180,16 @@ class _SignUpState extends State<SignUp> {
                           setState(() {
                             if (passwordController.text.trim() ==
                                 cPasswordController.text.trim()) {
-                              context.read<AuthenticationService>().signUp(
-                                name: nameController.text.trim(),
-                                email: emailController.text.trim(),
-                                password: passwordController.text.trim(),
-                              );
-                              //UserDatabaseService(uid: user.uid).setEmail(emailController.text.trim()); //add the users email to database so its accessible.
-                              UserDatabaseService(uid: user.uid).addUserData(
-                                  nameController.text.trim(),
-                                  0,
-                                  "Gender",
-                                  "Tell us a little about yourself",emailController.text.trim()); // set default parameters to user profile
+                              handleSignUp().then({
+                                  if(FirebaseAuth.instance.currentUser != null){
+                                  Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => MapPage()))
+                                  }
+                              });
+
                             } else {
-                              emailController
-                                ..text = "Passwords do not match"
-                                ..selection = TextSelection.fromPosition(
-                                    TextPosition(
-                                        offset: emailController.text.length,
-                                        affinity: TextAffinity.upstream));
+                              Fluttertoast.showToast(msg: "Passwords do not match",gravity: ToastGravity.BOTTOM, backgroundColor: Colors.white,textColor: Colors.black, toastLength:Toast.LENGTH_LONG);
                             }
                           });
-
-
-                          //_firebaseAuth.currentUser.updateProfile(displayName: nameController.text.trim());
                         },
                         style: ButtonStyle(
                           shape: MaterialStateProperty.all(
@@ -273,5 +262,24 @@ class _SignUpState extends State<SignUp> {
       ),
     );
   }
+ handleSignUp() async{
 
+    try{
+      context.read<AuthenticationService>().signUp(
+            name: nameController.text.trim(),
+            email: emailController.text.trim(),
+            password: passwordController.text.trim(),
+          );
+      //UserDatabaseService(uid: user.uid).setEmail(emailController.text.trim()); //add the users email to database so its accessible.
+      UserDatabaseService(uid: user.uid).addUserData(
+          nameController.text.trim(),
+          0,
+          "Gender",
+          "Tell us a little about yourself",
+          emailController.text
+              .trim()); // set default parameters to user profile
+
+    } on FirebaseAuthException catch (error){return error.message;
+    }
+  }
 }

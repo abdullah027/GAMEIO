@@ -140,7 +140,8 @@ class _MapPageState extends State<MapPage> {
                 title: Text('LogOut'),
                 onTap: () {
                   setState(() {
-                    auth.signOut();
+                    UserDatabaseService(uid: firebaseUser.uid).clearLocAndLogOut();
+                    //auth.signOut();
                     Navigator.of(context).pushReplacement(
                         MaterialPageRoute(builder: (context) => HomePage()));
                     //Navigator.popUntil(context,ModalRoute.withName('HomePage'));

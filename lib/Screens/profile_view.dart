@@ -1,7 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:gameio/Screens/Auth.dart';
 import 'package:gameio/Screens/profile_edit_view.dart';
+import 'package:gameio/Services/User_data.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfileView extends StatefulWidget {
@@ -34,6 +36,19 @@ class _ProfileViewState extends State<ProfileView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        actions: <Widget>[
+          TextButton.icon(
+            onPressed: () {
+              UserDatabaseService(uid: firebaseUser.uid).clearLocAndLogOut();
+              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomePage()));
+            },
+            icon: Icon(
+              Icons.logout,
+              color: Colors.white,
+            ),
+            label: Text(''),
+          ),
+        ],
         title: Center(
           child: Container(
             alignment: Alignment.topLeft,
@@ -118,7 +133,7 @@ class _ProfileViewState extends State<ProfileView> {
                           ),
                         ),
                         subtitle: Text(
-                          data['userName'],
+                          data['displayName'],
                           style: TextStyle(fontSize: 18, color: Colors.white),
                         ),
                       ),
