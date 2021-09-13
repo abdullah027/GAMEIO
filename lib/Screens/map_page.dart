@@ -279,7 +279,7 @@ class _MapPageState extends State<MapPage> {
                   Navigator.push(
                      context,
                       MaterialPageRoute(
-                          builder: (context) => ProfileViewOther(data)));
+                          builder: (context) => ProfileViewOther(data))).then((_) => refresh());
                 });
               },
             )));
@@ -290,6 +290,12 @@ class _MapPageState extends State<MapPage> {
   @override
   dispose() {
     super.dispose();
+  }
+
+  refresh(){
+    setState(() {
+      this.build(context);
+    });
   }
 }
 

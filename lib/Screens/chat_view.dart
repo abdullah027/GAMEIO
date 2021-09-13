@@ -93,13 +93,13 @@ class _ChatScreenState extends State<ChatScreen> {
                     icon: Icon(Icons.send),
                     onPressed: () {
                       messageTextController.clear();
-                      //print(secondEmail +" this is the receiver" );
+                      print(loggedInUser.email +" this is the sender" );
                       //messageBody + loggedInUser.email
                       _firestore.collection("messages").add({
                         'body': messageBody,
-                        'id':loggedInUser.email + secondEmail,
-                        'sender': loggedInUser.email,
-                        'receiver': secondEmail,
+                        'id':loggedInUser.email.toString() + secondEmail.toString(),
+                        'sender': loggedInUser.email.toString(),
+                        'receiver': secondEmail.toString(),
                         'timestamp':Timestamp.now(),
                         'createdAt':Timestamp.now().seconds,
                       });

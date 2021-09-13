@@ -84,8 +84,8 @@ class ProfileViewOther extends StatelessWidget {
                       onPressed: () async {
                         SharedPreferences pref =
                             await SharedPreferences.getInstance();
-                        pref.setString('email', data['email']);
-                        pref.setString('name', data['name']);
+                        pref.setString('email', data['email'].toString());
+                        pref.setString('name', data['name'].toString());
                         Navigator.push(
                             context,
                             MaterialPageRoute(

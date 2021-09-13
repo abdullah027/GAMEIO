@@ -93,6 +93,7 @@ class DataSearch extends SearchDelegate<String> {
                       onPressed: () async {
                         SharedPreferences pref = await SharedPreferences.getInstance();
                         pref.setString('email', snapshot.data[index]['email'].toString());
+                        //print(snapshot.data[index]['email']+"************************");
                         pref.setString('name', snapshot.data[index]['name'].toString());
                         Navigator.push(
                             context,
@@ -100,9 +101,9 @@ class DataSearch extends SearchDelegate<String> {
                                 builder: (context) => ChatScreen()));
                       },
                     ),
-                    title: Text(suggestionList[index]['name']),
+                    title: Text(suggestionList[index]['name'].toString()),
                     subtitle:
-                    Text(suggestionList[index]['country']),
+                    Text(suggestionList[index]['country'].toString()),
                   ),
                   Container(
                     color: Color(0xFF0A0D22),
