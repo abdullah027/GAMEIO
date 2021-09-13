@@ -17,6 +17,7 @@ class DataSearch extends SearchDelegate<String> {
   Future<void> getData() async {
     // Get docs from collection reference
     QuerySnapshot querySnapshot = await _collectionRef.where('isloggedin', isEqualTo: true).get();
+    print(FirebaseAuth.instance.currentUser.email);
 
     // Get data from docs and convert map to List
     final data = querySnapshot.docs.map((doc) => doc.data()).toList();
@@ -91,8 +92,8 @@ class DataSearch extends SearchDelegate<String> {
                       icon: Icon(Icons.message),
                       onPressed: () async {
                         SharedPreferences pref = await SharedPreferences.getInstance();
-                        pref.setString('email', snapshot.data[index]['email']);
-                        pref.setString('name', snapshot.data[index]['name']);
+                        pref.setString('email', snapshot.data[index]['email'].toString());
+                        pref.setString('name', snapshot.data[index]['name'].toString());
                         Navigator.push(
                             context,
                             MaterialPageRoute(

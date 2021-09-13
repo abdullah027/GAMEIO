@@ -250,7 +250,7 @@ class _MapPageState extends State<MapPage> {
 
     // subscribe to query
     Stream<List<DocumentSnapshot>> stream = geo
-        .collection(collectionRef: ref)
+        .collection(collectionRef: ref.where('isloggedin', isEqualTo: true))
         .within(
             center: center,
             radius: radius,
@@ -292,6 +292,8 @@ void setOnline() {
   User thisUser = FirebaseAuth.instance.currentUser;
   UserDatabaseService(uid: thisUser.uid).isLoggedIn();
   UserDatabaseService(uid: thisUser.uid).addGeoPoint();
+
+  //print(thisUser.email);
 }
 
 Future<DocumentSnapshot> getUserInfo() async {
