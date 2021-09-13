@@ -261,8 +261,7 @@ class _MapPageState extends State<MapPage> {
       documentList.forEach((DocumentSnapshot document) {
         data = document.data();
         GeoPoint pos = data['position']['geopoint'];
-
-        _markers.add(Marker(
+            _markers.add(Marker(
             markerId: MarkerId("o"),
             position: LatLng(pos.latitude, pos.longitude),
             icon: myIcon,

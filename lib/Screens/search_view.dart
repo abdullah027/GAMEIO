@@ -16,14 +16,25 @@ class DataSearch extends SearchDelegate<String> {
 
   Future<void> getData() async {
     // Get docs from collection reference
-    QuerySnapshot querySnapshot = await _collectionRef.where('isloggedin', isEqualTo: true).get();
-    print(FirebaseAuth.instance.currentUser.email);
+    if(query.isNotEmpty){
+      QuerySnapshot querySnapshot = await _collectionRef.where('currentlyPlaying', isGreaterThanOrEqualTo: query.toUpperCase(), isLessThan: query.toUpperCase().substring(0, query.length-1) + String.fromCharCode(query.toUpperCase().codeUnitAt(query.length - 1) + 1)).get();
+      final data = querySnapshot.docs.map((doc) => doc.data()).toList();
+
+      return data;
+    }else{
+      QuerySnapshot querySnapshot = await _collectionRef.where('isloggedin', isEqualTo: true).get();
+      final data = querySnapshot.docs.map((doc) => doc.data()).toList();
+
+      return data;
+    }
+
+    //print(FirebaseAuth.instance.currentUser.email);
 
     // Get data from docs and convert map to List
-    final data = querySnapshot.docs.map((doc) => doc.data()).toList();
 
-    return data;
   }
+
+  String SearchController;
 
 
 
@@ -33,7 +44,9 @@ class DataSearch extends SearchDelegate<String> {
   List<Widget> buildActions(BuildContext context) {
     // actions for AppBar
     return [IconButton(icon: Icon(Icons.clear), onPressed: () {
-      query = "";
+      query = "";     //content from searchbox comes here
+
+      //print("query");
     })];
   }
 
@@ -103,7 +116,7 @@ class DataSearch extends SearchDelegate<String> {
                     ),
                     title: Text(suggestionList[index]['name'].toString()),
                     subtitle:
-                    Text(suggestionList[index]['country'].toString()),
+                    Text(suggestionList[index]['currentlyPlaying'].toString()),
                   ),
                   Container(
                     color: Color(0xFF0A0D22),

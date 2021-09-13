@@ -26,15 +26,15 @@ class UserDatabaseService {
   Future addUserData(String name, int age, String gender, String bio, String email) async {
     // set default values and name
     return await userCollection.doc(uid).set({
-      'displayName': "set_displayname",
-      'country': "set_country",
+      'displayName': "please add the name you want others to see",
+      'country': "Please add country",
       'avatarUrl': "https://cdn.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png",
-      'name': name??"name",
+      'name': name??"Your name here",
       'age': age??0,
       'gender': gender??"other",
       'bio': bio??"Tell us something about yourself",
-      "currentlyPlaying": "None",
-      "discord_username": "Undefined",
+      "currentlyPlaying": "Idle",
+      "discord_username": "Please Add discord username",
       "email":email,
     }, SetOptions(merge: true));
   }
@@ -50,7 +50,7 @@ class UserDatabaseService {
       'gender': gender??"other",
       'bio': bio??"Tell us something about yourself",
       "country": country??"undefined",
-      "currentlyPlaying": currentlyPlaying??"None",
+      "currentlyPlaying": currentlyPlaying.toUpperCase()??"Idle",
       "discord_username": discordUsername??"Undefined",
 
       //"avatarUrl" : avatarUrl
