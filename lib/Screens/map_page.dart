@@ -253,7 +253,7 @@ class _MapPageState extends State<MapPage> {
 
     // subscribe to query
     Stream<List<DocumentSnapshot>> stream = geo
-        .collection(collectionRef: ref)
+        .collection(collectionRef: ref.where('isloggedin', isEqualTo: true))
         .within(
             center: center,
             radius: radius,

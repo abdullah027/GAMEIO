@@ -16,7 +16,7 @@ class DataSearch extends SearchDelegate<String> {
 
   Future<void> getData() async {
     // Get docs from collection reference
-    QuerySnapshot querySnapshot = await _collectionRef.where('isloggedin', isEqualTo: true).get();
+    QuerySnapshot querySnapshot = await _collectionRef.where('isloggedin', isEqualTo: true).where('email', isNotEqualTo: FirebaseAuth.instance.currentUser.email).get();
 
     // Get data from docs and convert map to List
     final data = querySnapshot.docs.map((doc) => doc.data()).toList();
