@@ -74,17 +74,6 @@ class DataSearch extends SearchDelegate<String> {
             return ListView.builder(
               itemCount: suggestionList.length,
               itemBuilder: (context, index) {
-                setProfileData()async{
-                  SharedPreferences pref = await SharedPreferences.getInstance();
-                  pref.setString('image', snapshot.data[index]['avatarUrl']);
-                  pref.setString('name', snapshot.data[index]['name']);
-                  pref.setString('email', snapshot.data[index]['email']);
-                  pref.setString('displayName', snapshot.data[index]['displayName']);
-                  pref.setInt('age', snapshot.data[index]['age']);
-                  pref.setString('country', snapshot.data[index]['country']);
-                  pref.setString('discord_ID', snapshot.data[index]['discord_username']);
-                  pref.setString('bio', snapshot.data[index]['bio']);
-                }
                 if(snapshot.data[index]['email'] == FirebaseAuth.instance.currentUser.email){
                   return Container(height: 0);
                 }
@@ -93,11 +82,10 @@ class DataSearch extends SearchDelegate<String> {
                     tileColor: Color(0XFF1D1F33),
                     leading: IconButton(icon: Icon(Icons.person),
                       onPressed: ()async{
-                      setProfileData();
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => ProfileViewOther()));
+                              builder: (context) => ProfileViewOther(snapshot.data[index])));
                     },),
                     trailing: IconButton(
                       icon: Icon(Icons.message),
