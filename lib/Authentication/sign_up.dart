@@ -181,9 +181,7 @@ class _SignUpState extends State<SignUp> {
                             if (passwordController.text.trim() ==
                                 cPasswordController.text.trim()) {
                               handleSignUp().then({
-                                  if(FirebaseAuth.instance.currentUser != null){
-                                  Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => MapPage()))
-                                  }
+
                               });
 
                             } else {
