@@ -152,7 +152,7 @@ class _FillInfoState extends State<FillInfo> {
                               borderRadius: BorderRadius.circular(10),
                               borderSide: BorderSide.none,
                             ),
-                            hintText: data['userName'],
+                            hintText: data['displayName'],
                             hintStyle: TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
@@ -260,7 +260,7 @@ class _FillInfoState extends State<FillInfo> {
                                 border: OutlineInputBorder(
                                   borderSide: BorderSide.none,
                                 ),
-                               hintText: data['discordUsername'],
+                               hintText: data['discord_username'],
                                 hintStyle: TextStyle(
                                   color: Colors.white,
                                   fontStyle: FontStyle.italic,

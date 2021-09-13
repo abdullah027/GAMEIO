@@ -44,7 +44,7 @@ class UserDatabaseService {
       String bio, String country, String currentlyPlaying, String discordUsername, String avatarUrl) async {
     //set particulars of user
     return await userCollection.doc(uid).update({
-      'userName': userName??"undefined",
+      'displayName': userName??"undefined",
       'name': name??"name",
       'age': age??0,
       'gender': gender??"other",
