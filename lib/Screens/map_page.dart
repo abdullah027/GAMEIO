@@ -297,6 +297,8 @@ void setOnline() {
   User thisUser = FirebaseAuth.instance.currentUser;
   UserDatabaseService(uid: thisUser.uid).isLoggedIn();
   UserDatabaseService(uid: thisUser.uid).addGeoPoint();
+
+  print(thisUser.email);
 }
 
 Future<DocumentSnapshot> getUserInfo() async {
