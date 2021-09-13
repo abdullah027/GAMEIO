@@ -40,11 +40,11 @@ class UserDatabaseService {
   }
 
 // update profile data of user
-  Future updateUserData(String userName, String name, int age, String gender,
+  Future updateUserData(String displayName, String name, int age, String gender,
       String bio, String country, String currentlyPlaying, String discordUsername, String avatarUrl) async {
     //set particulars of user
     return await userCollection.doc(uid).update({
-      'displayName': userName??"undefined",
+      'displayName': displayName??"undefined",
       'name': name??"name",
       'age': age??0,
       'gender': gender??"other",
@@ -66,9 +66,9 @@ class UserDatabaseService {
     }, SetOptions(merge: true));
   }
 
-  Future updateUsername(String username) async {
+  Future updateUsername(String displayName) async {
     return await userCollection.doc(uid).set({
-      'username': username,
+      'displayName': displayName,
     }, SetOptions(merge: true));
   }
   Future setavatarUrl(String Url) async {
