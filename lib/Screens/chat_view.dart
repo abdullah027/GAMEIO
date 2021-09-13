@@ -41,6 +41,7 @@ class _ChatScreenState extends State<ChatScreen> {
 
     setState(() {
       secondEmail = pref.getString("email");
+      print(secondEmail);
       receiverName = pref.getString("name");
     });
   }
@@ -93,13 +94,13 @@ class _ChatScreenState extends State<ChatScreen> {
                     icon: Icon(Icons.send),
                     onPressed: () {
                       messageTextController.clear();
-                      print(loggedInUser.email +" this is the sender" );
+                      print(secondEmail +" this is the sender" );
                       //messageBody + loggedInUser.email
                       _firestore.collection("messages").add({
                         'body': messageBody,
                         'id':loggedInUser.email.toString() + secondEmail.toString(),
                         'sender': loggedInUser.email.toString(),
-                        'receiver': secondEmail.toString(),
+                        'receiver': secondEmail,
                         'timestamp':Timestamp.now(),
                         'createdAt':Timestamp.now().seconds,
                       });
@@ -119,7 +120,7 @@ class MessagesStream extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-        stream: _firestore.collection('messages').where('id',whereIn: [loggedInUser.email.toString()+ secondEmail, secondEmail + loggedInUser.email]).orderBy("timestamp", descending: true).snapshots(),
+        stream: _firestore.collection('messages').where('id',whereIn: [loggedInUser.email.toString().toString()+ secondEmail.toString(), secondEmail.toString() + loggedInUser.email.toString()]).orderBy("timestamp", descending: true).snapshots(),
         builder: (context, snapshot){
           if(!snapshot.hasData){
             return Center(

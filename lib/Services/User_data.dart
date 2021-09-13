@@ -35,7 +35,7 @@ class UserDatabaseService {
       'bio': bio??"Tell us something about yourself",
       "currentlyPlaying": "None",
       "discord_username": "Undefined",
-      " email":email,
+      "email":email,
     }, SetOptions(merge: true));
   }
 
