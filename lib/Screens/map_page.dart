@@ -298,7 +298,7 @@ void setOnline() {
   UserDatabaseService(uid: thisUser.uid).isLoggedIn();
   UserDatabaseService(uid: thisUser.uid).addGeoPoint();
 
-  print(thisUser.email);
+  //print(thisUser.email);
 }
 
 Future<DocumentSnapshot> getUserInfo() async {
