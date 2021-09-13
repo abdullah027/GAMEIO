@@ -193,7 +193,7 @@ class _ProfileViewOtherState extends State<ProfileViewOther> {
                           ),
                         ),
                         subtitle: Text(
-                          country.toString(),
+                          country,
                           style: TextStyle(fontSize: 18, color: Colors.white),
                         ),
                       ),
@@ -210,7 +210,7 @@ class _ProfileViewOtherState extends State<ProfileViewOther> {
                           ),
                         ),
                         subtitle: Text(
-                          discord.toString(),
+                          discord,
                           style: TextStyle(fontSize: 18, color: Colors.white),
                         ),
                       ),
@@ -227,7 +227,7 @@ class _ProfileViewOtherState extends State<ProfileViewOther> {
                           ),
                         ),
                         subtitle: Text(
-                          bio.toString(),
+                          bio,
                           style: TextStyle(fontSize: 18, color: Colors.white),
                         ),
                       ),

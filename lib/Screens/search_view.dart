@@ -79,7 +79,7 @@ class DataSearch extends SearchDelegate<String> {
                   pref.setString('image', snapshot.data[index]['avatarUrl']);
                   pref.setString('name', snapshot.data[index]['name']);
                   pref.setString('email', snapshot.data[index]['email']);
-                  pref.setString('username', snapshot.data[index]['userName']);
+                  pref.setString('displayName', snapshot.data[index]['displayName']);
                   pref.setInt('age', snapshot.data[index]['age']);
                   pref.setString('country', snapshot.data[index]['country']);
                   pref.setString('discord_ID', snapshot.data[index]['discord_username']);

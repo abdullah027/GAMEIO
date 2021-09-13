@@ -167,7 +167,7 @@ class _ProfileViewState extends State<ProfileView> {
                           ),
                         ),
                         subtitle: Text(
-                          data['country'].toString(),
+                          data['country'],
                           style: TextStyle(fontSize: 18, color: Colors.white),
                         ),
                       ),
@@ -184,7 +184,7 @@ class _ProfileViewState extends State<ProfileView> {
                           ),
                         ),
                         subtitle: Text(
-                          data['discord_username'].toString(),
+                          data['discord_username'],
                           style: TextStyle(fontSize: 18, color: Colors.white),
                         ),
                       ),
@@ -201,7 +201,7 @@ class _ProfileViewState extends State<ProfileView> {
                           ),
                         ),
                         subtitle: Text(
-                          data['bio'].toString(),
+                          data['bio'],
                           style: TextStyle(fontSize: 18, color: Colors.white),
                         ),
                       ),
