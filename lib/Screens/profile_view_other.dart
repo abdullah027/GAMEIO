@@ -45,6 +45,18 @@ class _ProfileViewOtherState extends State<ProfileViewOther> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        actions: <Widget>[
+          TextButton.icon(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: Icon(
+              Icons.arrow_back,
+              color: Colors.white,
+            ),
+            label: Text(''),
+          ),
+        ],
         title: Center(
           child: Container(
             alignment: Alignment.topLeft,
