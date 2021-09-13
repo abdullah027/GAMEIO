@@ -35,9 +35,6 @@ class MapPage extends StatefulWidget {
   _MapPageState createState() => _MapPageState();
 }
 
-
-
-
 class _MapPageState extends State<MapPage> {
   GlobalKey<ScaffoldState> scaffoldKey = new GlobalKey<ScaffoldState>();
 
@@ -54,7 +51,6 @@ class _MapPageState extends State<MapPage> {
       });
     });
   }
-
 
   @override
   void initState() {
@@ -140,7 +136,8 @@ class _MapPageState extends State<MapPage> {
                 title: Text('LogOut'),
                 onTap: () {
                   setState(() {
-                    UserDatabaseService(uid: firebaseUser.uid).clearLocAndLogOut();
+                    UserDatabaseService(uid: firebaseUser.uid)
+                        .clearLocAndLogOut();
                     //auth.signOut();
                     Navigator.of(context).pushReplacement(
                         MaterialPageRoute(builder: (context) => HomePage()));
@@ -273,11 +270,9 @@ class _MapPageState extends State<MapPage> {
               title: data['name'],
               snippet: data['currentlyPlaying'],
               onTap: () {
-                print(data.toString());
-                setState(() async{
-
+                setState(() async {
                   Navigator.push(
-                     context,
+                      context,
                       MaterialPageRoute(
                           builder: (context) => ProfileViewOther(data)));
                 });
