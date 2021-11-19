@@ -33,7 +33,7 @@ class _ProfileViewState extends State<ProfileView> {
       image = pref.getString('image');
       name = pref.getString('name');
       receiverEmail = pref.getString('email');
-      username = pref.getString('username');
+      username = pref.getString('displayName');
       age = pref.getInt('age');
       country = pref.getString('country');
       discord = pref.getString("discord_ID");

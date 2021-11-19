@@ -29,7 +29,7 @@ class UserDatabaseService {
       'bio': bio??"Tell us something about yourself",
       "currentlyPlaying": "None",
       "discord_username": "Undefined",
-      " email":email,
+      "email":email,
     }, SetOptions(merge: true));
   }
 
@@ -38,7 +38,7 @@ class UserDatabaseService {
       String bio, String country, String currentlyPlaying, String discordUsername, String avatarUrl) async {
     //set particulars of user
     return await userCollection.doc(uid).update({
-      'userName': userName??"undefined",
+      'displayName': userName??"undefined",
       'name': name??"name",
       'age': age??0,
       'gender': gender??"other",

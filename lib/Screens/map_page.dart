@@ -94,10 +94,10 @@ class _MapPageState extends State<MapPage> {
 
   setProfileData()async{
     SharedPreferences pref = await SharedPreferences.getInstance();
-    pref.setString('image', data['avatarUrl']);
+    pref.setString('image', data['avatarUrl'].toString());
     pref.setString('name', data['name']);
     pref.setString('email', data['email']);
-    pref.setString('username', data['userName']);
+    pref.setString('displayName', data['displayName']);
     pref.setInt('age', data['age']);
     pref.setString('country', data['country']);
     pref.setString('discord_ID', data['discord_username']);
